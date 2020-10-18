@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-	
-<!-- Mirrored from themified.com/friend-finder/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 13 Oct 2020 12:46:30 GMT -->
 <head>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta name="description" content="This is social network html5 template available in themeforest......" />
 		<meta name="keywords" content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
 		<meta name="robots" content="index, follow" />
-		<title>Friend Finder | A Complete Social Network Template</title>
+		<title>WeShare | Communities Network</title>
 
     <!-- Stylesheets
     ================================================= -->
@@ -27,7 +25,7 @@
 
     <!-- Header
     ================================================= -->
-		<header id="header" class="lazy-load">
+		<header id="header-inverse">
       <nav class="navbar navbar-default navbar-fixed-top menu">
         <div class="container">
 
@@ -39,18 +37,14 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index-register.html"><img src="images/logo.png" alt="logo" /></a>
+            <a class="navbar-brand" href="index-register.html" style="margin-top: -30px;"><img src="images/logo.png" alt="WeShare logo" style="width: 70px; height: 70px;"></a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right main-menu">
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home <span><img src="images/down-arrow.png" alt="" /></span></a>
-                  <ul class="dropdown-menu newsfeed-home">
-                    <li><a href="index.html">Landing Page 1</a></li>
-                    <li><a href="index-register.html">Landing Page 2</a></li>
-                  </ul>
+                <a href="#" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
               </li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Newsfeed <span><img src="images/down-arrow.png" alt="" /></span></a>
@@ -103,7 +97,7 @@
             <form class="navbar-form navbar-right hidden-sm">
               <div class="form-group">
                 <i class="icon ion-android-search"></i>
-                <input type="text" class="form-control" placeholder="Search friends, photos, videos">
+                <input type="text" class="form-control" placeholder="Search communities">
               </div>
             </form>
           </div><!-- /.navbar-collapse -->
@@ -111,295 +105,127 @@
       </nav>
     </header>
     <!--Header End-->
-
-    <!-- Top Banner
+    
+    <!-- Landing Page Contents
     ================================================= -->
-		<section id="banner">
-			<div class="container">
-
-        <!-- Sign Up Form
-        ================================================= -->
-        <div class="sign-up-form">
-					<a href="index.html" class="logo"><img src="images/logo.png" alt="Friend Finder"/></a>
-					<h2 class="text-white">Find My Friends</h2>
-					<div class="line-divider"></div>
-					<div class="form-wrapper">
-						<p class="signup-text">Signup now and meet awesome people around the world</p>
-						<form action="#">
-							<fieldset class="form-group">
-								<input type="text" class="form-control" id="example-name" placeholder="Enter name">
-							</fieldset>
-							<fieldset class="form-group">
-								<input type="email" class="form-control" id="example-email" placeholder="Enter email">
-							</fieldset>
-							<fieldset class="form-group">
-								<input type="password" class="form-control" id="example-password" placeholder="Enter a password">
-							</fieldset>
-						</form>
-						<p>By signning up you agree to the terms</p>
-						<button class="btn-secondary">Signup</button>
-					</div>
-					<a href="#">Already have an account?</a>
-					<img class="form-shadow" src="images/bottom-shadow.png" alt="" />
-				</div><!-- Sign Up Form End -->
-
-        <svg class="arrows hidden-xs hidden-sm">
-          <path class="a1" d="M0 0 L30 32 L60 0"></path>
-          <path class="a2" d="M0 20 L30 52 L60 20"></path>
-          <path class="a3" d="M0 40 L30 72 L60 40"></path>
-        </svg>
-			</div>
-		</section>
-
-    <!-- Features Section
-    ================================================= -->
-		<section id="features">
-			<div class="container wrapper">
-				<h1 class="section-title slideDown">social herd</h1>
-				<div class="row slideUp">
-					<div class="feature-item col-md-2 col-sm-6 col-xs-6 col-md-offset-2">
-						<div class="feature-icon"><i class="icon ion-person-add"></i></div>
-						<h3>Make Friends</h3>
-					</div>
-					<div class="feature-item col-md-2 col-sm-6 col-xs-6">
-						<div class="feature-icon"><i class="icon ion-images"></i></div>
-						<h3>Publish Posts</h3>
-					</div>
-					<div class="feature-item col-md-2 col-sm-6 col-xs-6">
-						<div class="feature-icon"><i class="icon ion-chatbox-working"></i></div>
-						<h3>Private Chats</h3>
-					</div>
-					<div class="feature-item col-md-2 col-sm-6 col-xs-6">
-						<div class="feature-icon"><i class="icon ion-compose"></i></div>
-						<h3>Create Polls</h3>
-					</div>
-				</div>
-				<h2 class="sub-title">find awesome people like you</h2>
-				<div id="incremental-counter" data-value="101242"></div>
-				<p>People Already Signed Up</p>
-				<img src="images/face-map.png" alt="" class="img-responsive face-map slideUp hidden-sm hidden-xs" />
-			</div>
-
-		</section>
-
-    <!-- Download Section
-    ================================================= -->
-		<section id="app-download">
-			<div class="container wrapper">
-				<h1 class="section-title slideDown">download</h1>
-				<ul class="app-btn list-inline slideUp">
-					<li><button class="btn-secondary"><img src="images/app-store.png" alt="App Store" /></button></li>
-					<li><button class="btn-secondary"><img src="images/google-play.png" alt="Google Play" /></button></li>
-				</ul>
-				<h2 class="sub-title">stay connected anytime, anywhere</h2>
-				<img src="images/iPhone.png" alt="iPhone" class="img-responsive" />
-			</div>
-		</section>
-
-    <!-- Image Divider
-    ================================================= -->
-    <div class="img-divider hidden-sm hidden-xs"></div>
-
-    <!-- Facts Section
-    ================================================= -->
-		<section id="site-facts">
-			<div class="container wrapper">
-				<div class="circle">
-					<ul class="facts-list">
-						<li>
-							<div class="fact-icon"><i class="icon ion-ios-people-outline"></i></div>
-							<h3 class="text-white">1,01,242</h3>
-							<p>People registered</p>
-						</li>
-						<li>
-							<div class="fact-icon"><i class="icon ion-images"></i></div>
-							<h3 class="text-white">21,01,242</h3>
-							<p>Posts published</p>
-						</li>
-						<li>
-							<div class="fact-icon"><i class="icon ion-checkmark-round"></i></div>
-							<h3 class="text-white">41,242</h3>
-							<p>People online</p>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</section>
-
-    <!-- Live Feed Section
-    ================================================= -->
-		<section id="live-feed">
-			<div class="container wrapper">
-				<h1 class="section-title slideDown">live feed</h1>
-				<ul class="online-users list-inline slideUp">
-					<li><a href="#" title="Alexis Clark"><img src="images/users/user-5.jpg" alt="" class="img-responsive profile-photo" /><span class="online-dot"></span></a></li>
-          <li><a href="#" title="James Carter"><img src="images/users/user-6.jpg" alt="" class="img-responsive profile-photo" /><span class="online-dot"></span></a></li>
-          <li><a href="#" title="Robert Cook"><img src="images/users/user-7.jpg" alt="" class="img-responsive profile-photo" /><span class="online-dot"></span></a></li>
-          <li><a href="#" title="Richard Bell"><img src="images/users/user-8.jpg" alt="" class="img-responsive profile-photo" /><span class="online-dot"></span></a></li>
-          <li><a href="#" title="Anna Young"><img src="images/users/user-9.jpg" alt="" class="img-responsive profile-photo" /><span class="online-dot"></span></a></li>
-          <li><a href="#" title="Julia Cox"><img src="images/users/user-10.jpg" alt="" class="img-responsive profile-photo" /><span class="online-dot"></span></a></li>
-				</ul>
-				<h2 class="sub-title">see what’s happening now</h2>
-				<div class="row">
-					<div class="col-md-4 col-sm-6 col-md-offset-2">
-						<div class="feed-item">
-							<img src="images/users/user-1.jpg" alt="user" class="img-responsive profile-photo-sm" />
-							<div class="live-activity">
-								<p><a href="#" class="profile-link">Sarah</a> just posted a photo from Moscow</p>
-								<p class="text-muted">20 Secs ago</p>
-							</div>
-						</div>
-						<div class="feed-item">
-							<img src="images/users/user-4.jpg" alt="user" class="img-responsive profile-photo-sm" />
-							<div class="live-activity">
-								<p><a href="#" class="profile-link">John</a> Published a post from Sydney</p>
-								<p class="text-muted">1 min ago</p>
-							</div>
-						</div>
-						<div class="feed-item">
-							<img src="images/users/user-10.jpg" alt="user" class="img-responsive profile-photo-sm" />
-							<div class="live-activity">
-								<p><a href="#" class="profile-link">Julia</a> Updated her status from London</p>
-								<p class="text-muted">5 mins ago</p>
-							</div>
-						</div>
-						<div class="feed-item">
-							<img src="images/users/user-3.jpg" alt="user" class="img-responsive profile-photo-sm" />
-							<div class="live-activity">
-								<p><a href="#" class="profile-link">Sophia</a> Share a photo from Virginia</p>
-								<p class="text-muted">10 mins ago</p>
-							</div>
-						</div>
-						<div class="feed-item">
-							<img src="images/users/user-2.jpg" alt="user" class="img-responsive profile-photo-sm" />
-							<div class="live-activity">
-								<p><a href="#" class="profile-link">Linda</a> just posted a photo from Toronto</p>
-								<p class="text-muted">20 mins ago</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 col-sm-6">
-						<div class="feed-item">
-							<img src="images/users/user-17.jpg" alt="user" class="img-responsive profile-photo-sm" />
-							<div class="live-activity">
-								<p><a href="#" class="profile-link">Nora</a> Shared an article from Ohio</p>
-								<p class="text-muted">22 mins ago</p>
-							</div>
-						</div>
-						<div class="feed-item">
-							<img src="images/users/user-18.jpg" alt="user" class="img-responsive profile-photo-sm" />
-							<div class="live-activity">
-								<p><a href="#" class="profile-link">Addison</a> Created a poll from Barcelona</p>
-								<p class="text-muted">23 mins ago</p>
-							</div>
-						</div>
-						<div class="feed-item">
-							<img src="images/users/user-11.jpg" alt="user" class="img-responsive profile-photo-sm" />
-							<div class="live-activity">
-								<p><a href="#" class="profile-link">Diana</a> Posted a video from Captown</p>
-								<p class="text-muted">27 mins ago</p>
-							</div>
-						</div>
-						<div class="feed-item">
-							<img src="images/users/user-1.jpg" alt="user" class="img-responsive profile-photo-sm" />
-							<div class="live-activity">
-								<p><a href="#" class="profile-link">Sarah</a> Shared friend's post from Moscow</p>
-								<p class="text-muted">30 mins ago</p>
-							</div>
-						</div>
-						<div class="feed-item">
-							<img src="images/users/user-16.jpg" alt="user" class="img-responsive profile-photo-sm" />
-							<div class="live-activity">
-								<p><a href="#" class="profile-link">Emma</a> Started a new job at Torronto</p>
-								<p class="text-muted">33 mins ago</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
-    <!-- Footer
-    ================================================= -->
-		<footer id="footer">
-      <div class="container">
-      	<div class="row">
-          <div class="footer-wrapper">
-            <div class="col-md-3 col-sm-3">
-              <a href="#"><img src="images/logo-black.png" alt="" class="footer-logo" /></a>
-              <ul class="list-inline social-icons">
-              	<li><a href="#"><i class="icon ion-social-facebook"></i></a></li>
-              	<li><a href="#"><i class="icon ion-social-twitter"></i></a></li>
-              	<li><a href="#"><i class="icon ion-social-googleplus"></i></a></li>
-              	<li><a href="#"><i class="icon ion-social-pinterest"></i></a></li>
-              	<li><a href="#"><i class="icon ion-social-linkedin"></i></a></li>
-              </ul>
-            </div>
-            <div class="col-md-2 col-sm-2">
-              <h5>For individuals</h5>
-              <ul class="footer-links">
-                <li><a href="#">Signup</a></li>
-                <li><a href="#">login</a></li>
-                <li><a href="#">Explore</a></li>
-                <li><a href="#">Finder app</a></li>
-                <li><a href="#">Features</a></li>
-                <li><a href="#">Language settings</a></li>
-              </ul>
-            </div>
-            <div class="col-md-2 col-sm-2">
-              <h5>For businesses</h5>
-              <ul class="footer-links">
-                <li><a href="#">Business signup</a></li>
-                <li><a href="#">Business login</a></li>
-                <li><a href="#">Benefits</a></li>
-                <li><a href="#">Resources</a></li>
-                <li><a href="#">Advertise</a></li>
-                <li><a href="#">Setup</a></li>
-              </ul>
-            </div>
-            <div class="col-md-2 col-sm-2">
-              <h5>About</h5>
-              <ul class="footer-links">
-                <li><a href="#">About us</a></li>
-                <li><a href="#">Contact us</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms</a></li>
-                <li><a href="#">Help</a></li>
-              </ul>
-            </div>
-            <div class="col-md-3 col-sm-3">
-              <h5>Contact Us</h5>
-              <ul class="contact">
-                <li><i class="icon ion-ios-telephone-outline"></i>+1 (234) 222 0754</li>
-                <li><i class="icon ion-ios-email-outline"></i>info@thunder-team.com</li>
-                <li><i class="icon ion-ios-location-outline"></i>228 Park Ave S NY, USA</li>
-              </ul>
+    <div id="lp-register">
+    	<div class="container wrapper">
+        <div class="row">
+        	<div class="col-sm-5">
+            <div class="intro-texts text-justify">
+            	<h1 class="text-white"><span class="label label-primary" style="font-size: inherit;">Community Contribution !!!</span></h1>
+            	<p>WeShare is a social network platform which connects people through Communities. You can search &amp; join communities. You can even create your own communities.
             </div>
           </div>
-      	</div>
+        	<div class="col-sm-6 col-sm-offset-1">
+            <div class="reg-form-container"> 
+            
+              <!-- Register/Login Tabs-->
+              <div class="reg-options">
+                <ul class="nav nav-tabs">
+                  <li><a href="#register" data-toggle="tab">Register</a></li>
+                  <li class="active"><a href="#login" data-toggle="tab">Login</a></li>
+                </ul><!--Tabs End-->
+              </div>
+              
+              <!-- Login and Registration Forms -->
+              <div class="tab-content">
+                <div class="tab-pane" id="register">
+                  <h3>Register</h3>
+                  <p class="text-muted">Join hands for community contribution</p>
+                  
+                  <!--Register Form-->
+                  <form name="registration_form" id='registration_form' class="form-inline">
+                    <div class="row">
+                      <div class="form-group col-xs-12">
+                        <label for="username" class="sr-only">Username</label>
+                        <input id="username" class="form-control input-group-lg" type="text" name="Email" title="Enter Email" placeholder="Enter Username" data-validation="custom length" data-validation-regexp="^([a-zA-Z]+)$"  data-validation-length="min3"/>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-xs-6">
+                        <label for="firstname" class="sr-only">First Name</label>
+                        <input id="firstname" class="form-control input-group-lg" type="text" name="firstname" title="Enter first name" placeholder="Enter First Name" data-validation="custom" data-validation-regexp="^([a-zA-Z]+)$"  data-validation-length="min3"/>
+                      </div>
+                      <div class="form-group col-xs-6">
+                        <label for="lastname" class="sr-only">Last Name</label>
+                        <input id="lastname" class="form-control input-group-lg" type="text" name="lastname" title="Enter last name" placeholder="Enter Last Name" data-validation="custom" data-validation-regexp="^([a-zA-Z]+)$"  data-validation-length="min3"/>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-xs-12">
+                        <label for="email" class="sr-only">Email</label>
+                        <input id="regEmail" class="form-control input-group-lg" type="text" name="Email" title="Enter email" placeholder="Enter Email" data-validation="email"/>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-xs-12">
+                        <label for="password" class="sr-only">Password</label>
+                        <input id="regPassword" class="form-control input-group-lg" type="password" name="regPassword" title="Enter password" placeholder="Enter Password" data-validation-length="min8,max32" data-validation="length"/>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-xs-12">
+                        <label for="cnfPassword" class="sr-only">Confirm Password</label>
+                        <input id="cnfPassword" class="form-control input-group-lg" type="password" name="cnfPassword" title="Confirm password" placeholder="Confirm Password" data-validation="confirmation required" data-validation-confirm="regPassword"/>
+                      </div>
+                    </div>
+                    <input type="submit" style="margin-top: 10px;" class="btn btn-primary" value="Register" name="regBtn">
+                  </form>
+                  <!--Register Now Form Ends-->
+                </div>
+                
+                <!--Login-->
+                <div class="tab-pane active" id="login" style="margin-top: 18%;">
+                  <h3>Login</h3>
+                  <p class="text-muted">Log into your account</p>
+                  <!--Login Form-->
+                  <form name="Login_form" id='Login_form'>
+                     <div class="row">
+                      <div class="form-group col-xs-12">
+                        <label for="my-email" class="sr-only">Email</label>
+                        <input id="loginEmail" class="form-control input-group-lg" type="text" name="email" title="Enter Email" placeholder="Enter Email" data-validation="email"/>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-xs-12">
+                        <label for="loginPassword" class="sr-only">Password</label>
+                        <input id="loginPassword" class="form-control input-group-lg" type="password" name="password" title="Enter password" placeholder="Enter Password" data-validation-length="min8 max30" data-validation="length"/>
+                      </div>
+                    </div>
+                    <p><a href="#">Forgot Password?</a></p>
+                    <input type="submit" style="margin-top: 5px;" class="btn btn-primary" value="Login" name="loginBtn">
+                  </form>
+                  <!--Login Form Ends--> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="copyright">
-        <p>copyright @thunder-team 2016. All rights reserved</p>
-      </div>
-		</footer>
+    </div>
 
     <!--preloader-->
     <div id="spinner-wrapper">
       <div class="spinner"></div>
     </div>
     
-    <!--Buy button-->
-    <a href="https://themeforest.net/cart/add_items?item_ids=18711273&amp;ref=thunder-team" target="_blank" class="btn btn-buy"><span class="italy">Buy with:</span><img src="images/envato_logo.png" alt="" /><span class="price">Only $20!</span></a>
-
     <!-- Scripts
     ================================================= -->
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.appear.min.js"></script>
-		<script src="js/jquery.incremental-counter.js"></script>
+    <script src="js/jquery.incremental-counter.js"></script>
+    <!--<script src="js/form-validator.min.js"></script>-->
     <script src="js/script.js"></script>
     
-	</body>
+    <!-- CDN -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
 
-<!-- Mirrored from themified.com/friend-finder/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 13 Oct 2020 12:46:45 GMT -->
+    <script>
+      $.validate({
+          modules : 'date, security'
+      });
+    </script>
+	</body>
 </html>

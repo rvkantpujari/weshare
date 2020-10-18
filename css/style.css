@@ -466,9 +466,17 @@ textarea{
 
 /*Transparent Background Header for Landing Page-2*/
 
+.navbar-brand {
+  margin-top: -15px;
+}
+
+.navbar-brand img {
+  width: 50px; height: 50px;
+}
+
 #header-inverse nav.menu{
   background: transparent;
-  margin-top: 15px;
+  margin-top: 25px;
   z-index: 1030;
 }
 
@@ -864,7 +872,7 @@ textarea{
   padding: 40px 40px 40px 60px;
   border-radius: 6px;
   position: relative;
-  min-height: 560px;
+  min-height: 500px;
   z-index: 10;
 }
 
@@ -1008,6 +1016,10 @@ textarea{
 #lp-register ul.social-icons li a:hover{
   color: #27aae1;
   transition: all .5s;
+}
+
+span.help-block.form-error {
+  margin-bottom: -5px;
 }
   
   
