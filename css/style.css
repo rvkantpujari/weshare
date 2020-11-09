@@ -1073,7 +1073,12 @@ ul.nav-news-feed{
 ul.nav-news-feed li{
   list-style: none;
   display: block;
-  padding: 15px 0;
+  padding: 15px 5px;
+}
+
+ul.nav-news-feed li:hover {
+  background-color: #f6f5f1;
+  border-radius: 5px;
 }
 
 ul.nav-news-feed li div{
@@ -2395,6 +2400,8 @@ ul.contact li i{
 
   .menu ul.main-menu li.dropdown ul.dropdown-menu li{background: #282425;}
   
+  .menu ul.main-menu li.dropdown {text-align: center; padding: 0px 20px}
+
   #header-inverse nav.menu .navbar-collapse{background: rgba(0,0,0, 0.9);}
 
   .sign-up-form{left: 0; right: 0; margin: auto;}
