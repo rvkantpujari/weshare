@@ -24,6 +24,12 @@ public class HomeController {
 	     return "index";
 	 }
 	 
+	 @GetMapping("/user/manageProfile")
+	 public String manageProfile()
+	 {
+		 return "user/manage-profile";
+	 }
+	 
 	 @GetMapping("/admin/home")
 	 public String adminHome(Model model)
 	 {
