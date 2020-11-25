@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<body>
+		<nav class="navbar navbar-default menu" th:fragment="navbar">
+		  <div class="container">
+		
+		    <!-- Brand and toggle get grouped for better mobile display -->
+		    <div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+		        <span class="sr-only">Toggle navigation</span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		      </button>
+		      <a class="navbar-brand" href="index-register.html" style="margin-top: -15px;"><img src="/images/logo.png" alt="WeShare logo" style="width: 50px; height: 50px;"></a>
+		    </div>
+		
+		    <!-- Collect the nav links, forms, and other content for toggling -->
+		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		      <ul class="nav navbar-nav navbar-right main-menu">
+		        <li class="dropdown">
+		          <a href="home" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
+		        </li>
+		        <li class="dropdown">
+		          <a href="#" role="button" aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#exampleModal">Create Community</a>
+		        </li>
+		        <li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Newsfeed <span><img src="/images/down-arrow.png" alt="" /></span></a>
+		            <ul class="dropdown-menu newsfeed-home">
+		              <li><a href="newsfeed.html">Newsfeed</a></li>
+		              <li><a href="newsfeed-people-nearby.html">Poeple Nearly</a></li>
+		              <li><a href="newsfeed-friends.html">My friends</a></li>
+		              <li><a href="newsfeed-messages.html">Chatroom</a></li>
+		              <li><a href="newsfeed-images.html">Images</a></li>
+		              <li><a href="newsfeed-videos.html">Videos</a></li>
+		            </ul>
+		        </li>
+		        <li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Timeline <span><img src="/images/down-arrow.png" alt="" /></span></a>
+		          <ul class="dropdown-menu login">
+		            <li><a href="timeline.html">Timeline</a></li>
+		            <li><a href="timeline-about.html">Timeline About</a></li>
+		            <li><a href="timeline-album.html">Timeline Album</a></li>
+		            <li><a href="timeline-friends.html">Timeline Friends</a></li>
+		            <li><a href="edit-profile-basic.html">Edit: Basic Info</a></li>
+		            <li><a href="edit-profile-work-edu.html">Edit: Work</a></li>
+		            <li><a href="edit-profile-interests.html">Edit: Interests</a></li>
+		            <li><a href="edit-profile-settings.html">Account Settings</a></li>
+		            <li><a href="edit-profile-password.html">Change Password</a></li>
+		          </ul>
+		        </li>
+		        <li class="dropdown">
+		          <a href="#" class="dropdown-toggle pages" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">All Pages <span><img src="/images/down-arrow.png" alt="" /></span></a>
+		          <ul class="dropdown-menu page-list">
+		            <li><a href="index.html">Landing Page 1</a></li>
+		            <li><a href="index-register.html">Landing Page 2</a></li>
+		            <li><a href="newsfeed.html">Newsfeed</a></li>
+		            <li><a href="newsfeed-people-nearby.html">Poeple Nearly</a></li>
+		            <li><a href="newsfeed-friends.html">My friends</a></li>
+		            <li><a href="newsfeed-messages.html">Chatroom</a></li>
+		            <li><a href="newsfeed-images.html">Images</a></li>
+		            <li><a href="newsfeed-videos.html">Videos</a></li>
+		            <li><a href="timeline.html">Timeline</a></li>
+		            <li><a href="timeline-about.html">Timeline About</a></li>
+		            <li><a href="timeline-album.html">Timeline Album</a></li>
+		            <li><a href="timeline-friends.html">Timeline Friends</a></li>
+		            <li><a href="edit-profile-basic.html">Edit Profile</a></li>
+		            <li><a href="contact.html">Contact Us</a></li>
+		            <li><a href="faq.html">FAQ Page</a></li>
+		            <li><a href="404.html">404 Not Found</a></li>
+		          </ul>
+		        </li>
+		        <li class="dropdown"><a href="contact.html">Contact</a></li>
+		      </ul>
+		      <form class="navbar-form navbar-right hidden-sm">
+		        <div class="form-group">
+		          <i class="icon ion-android-search"></i>
+		          <input type="text" class="form-control" placeholder="Search communities">
+		        </div>
+		      </form>
+		    </div><!-- /.navbar-collapse -->
+		  </div><!-- /.container -->
+		</nav>
+		
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" th:fragment="createCommunity">
+		  <div class="modal-dialog" role="document">
+		  	<form method="POST">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel" style="font-size:24px;font-weight:700;">Create Community</h5>
+		      </div>
+		      <div class="modal-body form-inline">
+		        <div class="row">
+		          <div class="col-sm-2"></div>
+                  <div class="form-group col-sm-8">
+                    <label for="addCommunityName">Community Name</label>
+                    <input id="addCommunityName" class="form-control input-group-lg" type="text" name="communityName" title="Enter Community Name" placeholder="Enter Community Name" style="background-color: white;" required/>
+                  </div>
+                  <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+		          <div class="col-sm-2"></div>
+                  <div class="form-group col-sm-8">
+                    <label for="communityCategory">Community Category</label>
+                    <select id="communityCategory" class="form-control input-group-lg" name="communityCategory" title="Select Community Category" rows="3" style="resize:vertical;" required>
+                    	<option value="" disabled selected>Select Community Category</option>
+                    	<option>Education</option>
+                    	<option>Entertainment</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-2"></div>
+                </div>
+                <div class="row">
+		          <div class="col-sm-2"></div>
+                  <div class="form-group col-sm-8">
+                    <label for="addCommunityDescription">Community Description</label>
+                    <textarea id="addCommunityDescription" class="form-control input-group-lg" name="addCommunityDescription" title="Enter Community Description" placeholder="Enter Community Description" rows="3" style="resize:vertical;" required></textarea>
+                  </div>
+                  <div class="col-sm-2"></div>
+                </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		        <button type="submit" class="btn btn-primary">Save changes</button>
+		      </div>
+		    </div>
+		    </form>
+		  </div>
+		</div>
+	</body>
+</html>

@@ -10,104 +10,26 @@
 
     <!-- Stylesheets
     ================================================= -->
-		<link rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
-		<link rel="stylesheet" th:href="@{css/style.css}" />
-		<link rel="stylesheet" th:href="@{css/ionicons.min.css}" />
-    	<link rel="stylesheet" th:href="@{css/font-awesome.min.css}" />
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+		<link rel="stylesheet" th:href="@{/css/style.css}" />
+		<link rel="stylesheet" th:href="@{/css/ionicons.min.css}" />
+    	<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
     
     <!--Google Font-->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i" rel="stylesheet">
     
     <!--Favicon-->
-    <link rel="shortcut icon" type="image/png" href="images/fav.png"/>
+    <link rel="shortcut icon" type="image/png" href="/images/logo.png"/>
 	</head>
   <body>
 
     <!-- Header
     ================================================= navbar-fixed-top -->
-		<header id="header">
-      <nav class="navbar navbar-default menu">
-        <div class="container">
-
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="index-register.html"><img src="images/logo.png" alt="logo" /></a>
-          </div>
-
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right main-menu">
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Home <span><img src="images/down-arrow.png" alt="" /></span></a>
-                  <ul class="dropdown-menu newsfeed-home">
-                    <li><a href="index.html">Landing Page 1</a></li>
-                    <li><a href="index-register.html">Landing Page 2</a></li>
-                  </ul>
-              </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Newsfeed <span><img src="images/down-arrow.png" alt="" /></span></a>
-                  <ul class="dropdown-menu newsfeed-home">
-                    <li><a href="newsfeed.html">Newsfeed</a></li>
-                    <li><a href="newsfeed-people-nearby.html">Poeple Nearly</a></li>
-                    <li><a href="newsfeed-friends.html">My friends</a></li>
-                    <li><a href="newsfeed-messages.html">Chatroom</a></li>
-                    <li><a href="newsfeed-images.html">Images</a></li>
-                    <li><a href="newsfeed-videos.html">Videos</a></li>
-                  </ul>
-              </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Timeline <span><img src="images/down-arrow.png" alt="" /></span></a>
-                <ul class="dropdown-menu login">
-                  <li><a href="timeline.html">Timeline</a></li>
-                  <li><a href="timeline-about.html">Timeline About</a></li>
-                  <li><a href="timeline-album.html">Timeline Album</a></li>
-                  <li><a href="timeline-friends.html">Timeline Friends</a></li>
-                  <li><a href="edit-profile-basic.html">Edit: Basic Info</a></li>
-                  <li><a href="edit-profile-work-edu.html">Edit: Work</a></li>
-                  <li><a href="edit-profile-interests.html">Edit: Interests</a></li>
-                  <li><a href="edit-profile-settings.html">Account Settings</a></li>
-                  <li><a href="edit-profile-password.html">Change Password</a></li>
-                </ul>
-              </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle pages" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">All Pages <span><img src="images/down-arrow.png" alt="" /></span></a>
-                <ul class="dropdown-menu page-list">
-                  <li><a href="index.html">Landing Page 1</a></li>
-                  <li><a href="index-register.html">Landing Page 2</a></li>
-                  <li><a href="newsfeed.html">Newsfeed</a></li>
-                  <li><a href="newsfeed-people-nearby.html">Poeple Nearly</a></li>
-                  <li><a href="newsfeed-friends.html">My friends</a></li>
-                  <li><a href="newsfeed-messages.html">Chatroom</a></li>
-                  <li><a href="newsfeed-images.html">Images</a></li>
-                  <li><a href="newsfeed-videos.html">Videos</a></li>
-                  <li><a href="timeline.html">Timeline</a></li>
-                  <li><a href="timeline-about.html">Timeline About</a></li>
-                  <li><a href="timeline-album.html">Timeline Album</a></li>
-                  <li><a href="timeline-friends.html">Timeline Friends</a></li>
-                  <li><a href="edit-profile-basic.html">Edit Profile</a></li>
-                  <li><a href="contact.html">Contact Us</a></li>
-                  <li><a href="faq.html">FAQ Page</a></li>
-                  <li><a href="404.html">404 Not Found</a></li>
-                </ul>
-              </li>
-              <li class="dropdown"><a href="contact.html">Contact</a></li>
-            </ul>
-            <form class="navbar-form navbar-right hidden-sm">
-              <div class="form-group">
-                <i class="icon ion-android-search"></i>
-                <input type="text" class="form-control" placeholder="Search friends, photos, videos">
-              </div>
-            </form>
-          </div><!-- /.navbar-collapse -->
-        </div><!-- /.container -->
-      </nav>
+	<header id="header">
+      <nav th:replace="navbar::navbar"></nav>
+      <div th:replace="navbar::createCommunity"></div>
     </header>
+    
     <!--Header End-->
 
     <div class="container">
@@ -122,7 +44,7 @@
             <div class="row">
               <div class="col-md-3">
                 <div class="profile-info">
-                  <img src="images/users/user-1.jpg" alt="" class="img-responsive profile-photo" />
+                  <img src="/images/users/user-1.jpg" alt="" class="img-responsive profile-photo" />
                   <h3>User Full Name</h3>
                   <p class="text-muted">u/username</p>
                 </div>
@@ -139,11 +61,11 @@
           <!--Timeline Menu for Small Screens-->
           <div class="navbar-mobile hidden-lg hidden-md">
             <div class="profile-info">
-              <img src="images/users/user-1.jpg" alt="" class="img-responsive profile-photo" />
+              <img src="/images/users/user-1.jpg" alt="" class="img-responsive profile-photo" />
               <h4>User Full Name</h4>
               <p class="text-muted">u/username</p>
             </div>
-            <div class="mobile-menu">
+            <!--<div class="mobile-menu">
               <ul class="list-inline">
                 <li><a href="timline.html">Timeline</a></li>
                 <li><a href="timeline-about.html" class="active">About</a></li>
@@ -151,7 +73,7 @@
                 <li><a href="timeline-friends.html">Friends</a></li>
               </ul>
               <button class="btn-primary">Add Friend</button>
-            </div>
+            </div>-->
           </div><!--Timeline Menu for Small Screens End-->
 
         </div>
@@ -168,7 +90,7 @@
               	<li><i class="icon ion-ios-locked-outline"></i><a href="edit-profile-password.html">Change Password</a></li>
               </ul>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-9">
 
               <!-- Basic Information
               ================================================= -->
@@ -180,25 +102,25 @@
                 <div class="edit-block">
                   <div name="basic-info" id="basic-info" class="form-inline">
                     <div class="row">
-                      <div class="form-group col-xs-8">
+                      <div class="form-group col-sm-8">
                         <label for="username">Username</label>
                         <input id="username" class="form-control input-group-lg" type="text" name="Username" title="Your Username" placeholder="My Username" value="jondoe" readonly style="background-color: white; cursor:pointer;"/>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="form-group col-xs-8">
+                      <div class="form-group col-sm-8">
                         <label for="email">Email</label>
                         <input id="email" class="form-control input-group-lg" type="text" name="Email" title="Your Email" placeholder="My Email" value="jondoe@gmail.com" readonly style="background-color: white; cursor:pointer;"/>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="form-group col-xs-8">
+                      <div class="form-group col-sm-8">
                         <label for="firstname">First Name</label>
                         <input id="firstname" class="form-control input-group-lg" type="text" name="firstname" title="Your first name" placeholder="First name" value="John" />
                       </div>
                     </div>
                     <div class="row">
-                      <div class="form-group col-xs-8">
+                      <div class="form-group col-sm-8">
                         <label for="lastname" class="">Last Name</label>
                         <input id="lastname" class="form-control input-group-lg" type="text" name="lastname" title="Your last name" placeholder="Last name" value="Doe" />
                       </div>
@@ -208,7 +130,7 @@
                         <button class="btn btn-primary">Save Changes</button>
                       </div>
                     </div>
-                  </form>
+                  </div>
                 </div>
               </div>
             </div>
@@ -225,7 +147,7 @@
       	<div class="row">
           <div class="footer-wrapper">
             <div class="col-md-3 col-sm-3">
-              <a href="#"><img src="images/logo-black.png" alt="" class="footer-logo" /></a>
+              <a href="#"><img src="/images/logo.png" alt="" class="footer-logo" /></a>
               <ul class="list-inline social-icons">
               	<li><a href="#"><i class="icon ion-social-facebook"></i></a></li>
               	<li><a href="#"><i class="icon ion-social-twitter"></i></a></li>
@@ -289,11 +211,11 @@
 
     <!-- Scripts
     ================================================= -->
-    <script src="js/jquery-3.1.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.sticky-kit.min.js"></script>
-    <script src="js/jquery.scrollbar.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="/js/jquery-3.1.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.sticky-kit.min.js"></script>
+    <script src="/js/jquery.scrollbar.min.js"></script>
+    <script src="/js/script.js"></script>
     
   </body>
 </html>
