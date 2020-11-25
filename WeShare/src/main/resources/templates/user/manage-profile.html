@@ -10,16 +10,16 @@
 
     <!-- Stylesheets
     ================================================= -->
-		<link rel="stylesheet" th:href="@{css/bootstrap.min.css}" />
-		<link rel="stylesheet" th:href="@{css/style.css}" />
-		<link rel="stylesheet" th:href="@{css/ionicons.min.css}" />
-    	<link rel="stylesheet" th:href="@{css/font-awesome.min.css}" />
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+		<link rel="stylesheet" th:href="@{/css/style.css}" />
+		<link rel="stylesheet" th:href="@{/css/ionicons.min.css}" />
+    	<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
     
     <!--Google Font-->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i" rel="stylesheet">
     
     <!--Favicon-->
-    <link rel="shortcut icon" type="image/png" href="images/fav.png"/>
+    <link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}"/>
 	</head>
   <body>
 
@@ -122,7 +122,7 @@
             <div class="row">
               <div class="col-md-3">
                 <div class="profile-info">
-                  <img src="images/users/user-1.jpg" alt="" class="img-responsive profile-photo" />
+                  <img th:src="@{/images/users/user-1.jpg}" alt="" class="img-responsive profile-photo" />
                   <h3>User Full Name</h3>
                   <p class="text-muted">u/username</p>
                 </div>
@@ -139,7 +139,7 @@
           <!--Timeline Menu for Small Screens-->
           <div class="navbar-mobile hidden-lg hidden-md">
             <div class="profile-info">
-              <img src="images/users/user-1.jpg" alt="" class="img-responsive profile-photo" />
+              <img th:src="@{/images/users/user-1.jpg}" alt="" class="img-responsive profile-photo" />
               <h4>User Full Name</h4>
               <p class="text-muted">u/username</p>
             </div>
@@ -289,11 +289,11 @@
 
     <!-- Scripts
     ================================================= -->
-    <script src="js/jquery-3.1.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.sticky-kit.min.js"></script>
-    <script src="js/jquery.scrollbar.min.js"></script>
-    <script src="js/script.js"></script>
+    <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
+    <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
     
   </body>
 </html>

@@ -1,6 +1,7 @@
 package com.weshare.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,12 +13,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -72,5 +76,22 @@ public class User {
     			joinColumns = @JoinColumn(name = "user_id"), 
     			inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy="user")
+    private List<Community> communities;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy="user")
+    private List<Comment> comments;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy="user")
+    private List<Vote> votes;
+    
 
 }
