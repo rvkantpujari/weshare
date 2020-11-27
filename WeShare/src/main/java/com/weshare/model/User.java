@@ -1,6 +1,7 @@
 package com.weshare.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -19,11 +21,15 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Getter
-@Setter
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User {
@@ -70,5 +76,22 @@ public class User {
     			joinColumns = @JoinColumn(name = "user_id"), 
     			inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy="user")
+    private List<Community> communities;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy="user")
+    private List<Comment> comments;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy="user")
+    private List<Vote> votes;
+    
 
 }

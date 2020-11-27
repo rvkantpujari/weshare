@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="This is social network platform." />
+	<meta name="keywords" content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
+	<meta name="robots" content="index, follow" />
+	<title>Edit Profile | WeShare</title>
+
+    <!-- Stylesheets
+    ================================================= -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<link rel="stylesheet" th:href="@{/css/ionicons.min.css}" />
+   	<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
+    
+    <!--Google Font-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i" rel="stylesheet">
+    
+    <!--Favicon-->
+    <link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}"/>
+  </head>
+  <body>
+
+    <!-- Header
+    ================================================= navbar-fixed-top -->
+	<header id="header">
+      <nav th:replace="header::navbar"></nav>
+    </header>
+    
+    <!--Header End-->
+
+    <div class="container">
+
+      <!-- Timeline
+      ================================================= -->
+      <div class="timeline">
+        <div class="timeline-cover">
+
+          <!--Timeline Menu for Large Screens-->
+          <div class="timeline-nav-bar hidden-sm hidden-xs">
+            <div class="row">
+              <div class="col-md-3">
+                <div class="profile-info">
+                  <img th:src="@{/images/users/user-1.jpg}" alt="" class="img-responsive profile-photo" />
+                  <h3>User Full Name</h3>
+                  <p class="text-muted">u/username</p>
+                </div>
+              </div>
+              <div class="col-md-9">
+                <div class="list-inline profile-menu row" style="padding: 10px;">
+                  <div class="col-sm-9"></div>
+                  <div class="col-sm-3">Joined On: Date</div>
+                </div>
+              </div>
+            </div>
+          </div><!--Timeline Menu for Large Screens End-->
+
+          <!--Timeline Menu for Small Screens-->
+          <div class="navbar-mobile hidden-lg hidden-md">
+            <div class="profile-info">
+              <img th:src="@{/images/users/user-1.jpg}" alt="" class="img-responsive profile-photo" />
+              <h4>User Full Name</h4>
+              <p class="text-muted">u/username</p>
+            </div>
+            <!--<div class="mobile-menu">
+              <ul class="list-inline">
+                <li><a href="timline.html">Timeline</a></li>
+                <li><a href="timeline-about.html" class="active">About</a></li>
+                <li><a href="timeline-album.html">Album</a></li>
+                <li><a href="timeline-friends.html">Friends</a></li>
+              </ul>
+              <button class="btn-primary">Add Friend</button>
+            </div>-->
+          </div><!--Timeline Menu for Small Screens End-->
+
+        </div>
+        <div id="page-contents">
+          <div class="row">
+            <div class="col-md-3">
+              
+              <!--Edit Profile Menu-->
+              <ul class="edit-menu">
+              	<li class="active"><i class="icon ion-ios-information-outline"></i><a href="edit-profile-basic.html">Basic Information</a></li>
+              	<li><i class="icon ion-ios-briefcase-outline"></i><a href="edit-profile-work-edu.html">Posts</a></li>
+              	<li><i class="icon ion-ios-heart-outline"></i><a href="edit-profile-interests.html">Comments</a></li>
+                <li><i class="icon ion-ios-settings"></i><a href="edit-profile-settings.html">Communities</a></li>
+              	<li><i class="icon ion-ios-locked-outline"></i><a href="edit-profile-password.html">Change Password</a></li>
+              </ul>
+            </div>
+            <div class="col-md-9">
+
+              <!-- Basic Information
+              ================================================= -->
+              <div class="edit-profile-container">
+                <div class="block-title">
+                  <h4 class="grey"><i class="icon ion-android-checkmark-circle"></i>Edit basic information</h4>
+                  <div class="line"></div>
+                </div>
+                <div class="edit-block">
+                  <div name="basic-info" id="basic-info" class="form-inline">
+                    <div class="row">
+                      <div class="form-group col-sm-8">
+                        <label for="username">Username</label>
+                        <input id="username" class="form-control input-group-lg" type="text" name="Username" title="Your Username" placeholder="My Username" value="jondoe" readonly style="background-color: white; cursor:pointer;"/>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-sm-8">
+                        <label for="email">Email</label>
+                        <input id="email" class="form-control input-group-lg" type="text" name="Email" title="Your Email" placeholder="My Email" value="jondoe@gmail.com" readonly style="background-color: white; cursor:pointer;"/>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-sm-8">
+                        <label for="firstname">First Name</label>
+                        <input id="firstname" class="form-control input-group-lg" type="text" name="firstname" title="Your first name" placeholder="First name" value="John" />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-sm-8">
+                        <label for="lastname" class="">Last Name</label>
+                        <input id="lastname" class="form-control input-group-lg" type="text" name="lastname" title="Your last name" placeholder="Last name" value="Doe" />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <button class="btn btn-primary">Save Changes</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Footer
+    ================================================= -->
+    <footer id="footer" th:replace="footer::footer"></footer>
+    
+    <!--preloader-->
+    <div id="spinner-wrapper">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Scripts
+    ================================================= -->
+    <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
+    <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+    
+  </body>
+</html>
