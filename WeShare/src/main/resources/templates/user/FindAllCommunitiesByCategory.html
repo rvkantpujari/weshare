@@ -13,7 +13,7 @@
 
 <body>
 
-<div align="center">
+<div>
 
 	<hr/><h2>All Categories</h2><hr/>
 	<div class="container">
@@ -27,6 +27,16 @@
 		</thead>
 		
 		<tbody>
+		
+				<tr>
+				<td>
+					<a th:href="@{'/user/CommunitiesByCategory/all'}">
+						<span>ALL Communities</span>
+					</a>
+				</td>
+				</tr>
+		
+		
 			<tr th:each="c : ${catList}">
 				
 <!-- 				<td th:text="${c.categoryId}" />	 -->
@@ -36,19 +46,54 @@
 						<span th:text="${c.categoryName}"></span>
 					</a>
 				</td>
-				
+								
 			</tr>
+						
 		</tbody>	
 		
 			
 	</table>
 </div>
 
+<div class="col-md-6">
+		<table class="table table-bordered table-responsive-md">
+		<thead class="thead-dark">
+			<tr>
+<!-- 				<th>Category ID</th> -->
 
+				<th th:unless="${allCom}">Communities from 
+						<span th:text="${categoryName}"></span> 
+					Category
+				</th>
+				
+				<th th:if="${allCom}">ALL Communities</th>
+				
+			</tr>
+		</thead>
+		
+		<tbody>
+		
+		
+			<tr th:each="com : ${comList}">
+				<td th:text="${com.communityName}" />		
+			</tr>
+		</tbody>	
+		
+			
+	</table>
+	
+		<div th:if="${emptyList}">
+			<h5 style="font-style: italic;">Oops, no result found. Try something else or try again later!</h5>
+		</div>
+	
+</div>
 	
 
 </div>
 </div>
+
+
+
 	
 </body>
 </html>

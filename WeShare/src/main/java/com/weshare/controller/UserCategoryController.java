@@ -25,15 +25,18 @@ public class UserCategoryController {
 	@Autowired
 	private CommunityService communityService;
 	
-	@Autowired
-	private UserService userService;
 	
 	@GetMapping("/CommunitiesByCategory/all")
 	public String categoryList(Model m)
 	{
 		List<Category> categoryList = categoryService.getAllCategories();
 		m.addAttribute("catList", categoryList);
-		return "user/getCommunitiesByCategory";
+		
+		List<Community> communityList=communityService.getAllCommunities();
+		m.addAttribute("comList", communityList);
+		
+		m.addAttribute("allCom",true);
+		return "user/FindAllCommunitiesByCategory";
 	}
 	
 	@GetMapping("/category/{categoryName}/communities")
@@ -42,36 +45,17 @@ public class UserCategoryController {
 		Category c=categoryService.getCategoryByName(cname);
 		List<Community> communityList = communityService.findCommunitiesByCategory(c);
 		
+		if (communityList.isEmpty()) {
+			m.addAttribute("emptyList", true);
+		}
+		
 		m.addAttribute("comList", communityList);
-		return "user/getCommunitiesByCategory2";
+		
+		List<Category> categoryList = categoryService.getAllCategories();
+		m.addAttribute("catList", categoryList);
+		m.addAttribute("categoryName",cname);
+		
+		return "user/FindAllCommunitiesByCategory";
 	}
-	
-//	@RequestMapping("/searchByCategory")
-//	public String searchByCategory(@RequestParam("category") String category,
-//									Model model, Principal principal)
-//	{		
-//		if(principal!=null) {
-//			String username = principal.getName();
-//			User user = userService.findUserByUserName(username);
-//			model.addAttribute("user", user);
-//		}
-//		
-//		String classActiveCategory = "active"+category;
-//		classActiveCategory = classActiveCategory.replaceAll("\\s+", "");
-//		classActiveCategory = classActiveCategory.replaceAll("&", "");
-//		model.addAttribute(classActiveCategory, true);
-//		
-//		List<Community> comList = cate.findByCategory(category);
-//		
-//		if (bookList.isEmpty()) {
-//			model.addAttribute("emptyList", true);
-//			return "bookshelf";
-//		}
-//		
-//		model.addAttribute("bookList", bookList);
-//		
-//		return "bookshelf";
-//	}
-	
 	
 }
