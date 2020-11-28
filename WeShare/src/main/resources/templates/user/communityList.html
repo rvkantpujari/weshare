@@ -1,0 +1,55 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+     <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>User-Community List</title>
+</head>
+
+<body>
+
+<div align="center">
+
+	<hr/><h2>All Communities</h2><hr/>
+	<div class="container">
+	<!-- Add Category Button -->
+	<a th:href="@{/user/community/insert}" class="btn btn-primary float-left btn-md mb-3">
+		Add New Community
+	</a>
+
+			
+		<table class="table table-bordered table-responsive-md">
+		<thead class="thead-dark">
+			<tr>
+				<th>Community ID</th>
+				<th>Community Name</th>
+				<th>Description</th>
+				<th>Created by</th>
+				<th>Created on</th>
+				<th>Category</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="com : ${comList}">			
+				<td th:text="${com.communityId}" />	
+				<td th:text="${com.communityName}" />
+				<td th:text="${com.communityDescription}" />	
+				<td th:text="${com.user.userName}" />
+		 		<td th:text="${com.creationDate}" />
+				<td th:text="${com.category.categoryName}" /> 
+			</tr>
+		</tbody>	
+		
+			
+	</table>
+</div>
+</div>
+	
+</body>
+</html>

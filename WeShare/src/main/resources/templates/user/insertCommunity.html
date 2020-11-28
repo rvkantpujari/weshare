@@ -1,0 +1,54 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+     <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>User-Insert Community</title>
+</head>
+
+<body>
+
+<div class="container">
+		<hr/><h1>New Community</h1><hr/>
+		
+		<form th:action="@{/user/community/save}" th:object="${community}" method="POST">
+			
+			
+			<div class="form-group">
+				<label>Community Name:</label>
+				<input type="text" th:field="*{communityName}" class="form-control mb-4 col-4"
+						placeholder="Enter Community Name" required/>
+			</div>
+			
+			<div class="form-group">
+				<label>Community Description:</label>
+				<input type="text" th:field="*{communityDescription}" class="form-control mb-4 col-4"
+						placeholder="Enter Community description" required/>
+			</div>
+			
+			<div class="form-group">
+				<label>Select category</label> 
+					<select class="form-control" th:field="*{category}" required="required">
+						<option value=".." disabled="disabled">Please select a category</option>
+						<option th:each="cat : ${categoryList}" th:value="${cat.categoryId}" 
+											th:text="${cat.categoryName}"></option>
+					</select>
+			</div>
+														
+					
+			<button type="submit" class="btn btn-success col-2">Insert Community</button>
+						
+		</form>
+	
+		<hr>
+		
+		<hr>
+	</div>
+	
+</body>
+</html>

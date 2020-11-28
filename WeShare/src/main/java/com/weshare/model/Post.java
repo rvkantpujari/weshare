@@ -3,6 +3,7 @@ package com.weshare.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -55,10 +56,10 @@ public class Post {
 	private User user;
     
     @JsonIgnore
-	@OneToMany(mappedBy="post")
+	@OneToMany(mappedBy="post",cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     @JsonIgnore
- 	@OneToMany(mappedBy="post")
+ 	@OneToMany(mappedBy="post",cascade = CascadeType.ALL)
     private List<Vote> votes;
 }
