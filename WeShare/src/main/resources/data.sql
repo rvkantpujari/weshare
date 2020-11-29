@@ -39,3 +39,18 @@ INSERT IGNORE INTO `user_role` (user_id, role_id)
 VALUES(6,2);
 INSERT IGNORE INTO `user_role` (user_id, role_id)
 VALUES(7,2);
+
+
+
+INSERT IGNORE INTO `category` (category_id, category_name)
+VALUES(1,"Technology");
+INSERT IGNORE INTO `category` (category_id, category_name)
+VALUES(2,"Travel");
+INSERT IGNORE INTO `category` (category_id, category_name)
+VALUES(3,"Gaming");
+INSERT IGNORE INTO `category` (category_id, category_name)
+VALUES(4,"News");
+INSERT IGNORE INTO `category` (category_id, category_name)
+VALUES(5,"Business");
+
+

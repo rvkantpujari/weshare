@@ -1,0 +1,59 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+     <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Admin-Category List</title>
+</head>
+
+<body>
+
+<div align="center">
+
+	<hr/><h2>All Categories</h2><hr/>
+	<div class="container">
+	<!-- Add Category Button -->
+	<a th:href="@{/admin/category/insert}" class="btn btn-primary float-left btn-md mb-3">
+		Add New Category
+	</a>
+
+			
+		<table class="table table-bordered table-responsive-md">
+		<thead class="thead-dark">
+			<tr>
+				<th>Category ID</th>
+				<th>Category Name</th>
+				<th>Edit</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="c : ${catList}">
+				
+				<td th:text="${c.categoryId}" />	
+				<td th:text="${c.categoryName}" />
+					
+				<!-- Update button/link -->
+				
+				<td>
+					<a th:href="@{'/admin/category/update/'+${c.categoryId}}"
+					class="btn btn-success btn-sm">
+						<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+					</a>
+				</td>
+
+			</tr>
+		</tbody>	
+		
+			
+	</table>
+</div>
+</div>
+	
+</body>
+</html>

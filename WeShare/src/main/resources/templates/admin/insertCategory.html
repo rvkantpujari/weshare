@@ -1,0 +1,42 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+     <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>Admin-Insert Category</title>
+</head>
+
+<body>
+
+<div class="container">
+		<hr/><h1>New Category</h1><hr/>
+		
+		<form th:action="@{/admin/category/save}" th:object="${category}" method="POST">
+			
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{categoryId}"/>
+			
+			<div class="form-group">
+				<label>Category Name:</label>
+				<input type="text" th:field="*{categoryName}" class="form-control mb-4 col-4"
+						placeholder="Enter Category Name" required/>
+			</div>
+			
+					
+			<button type="submit" class="btn btn-success col-2">Insert Category</button>
+						
+		</form>
+	
+		<hr>
+		<a th:href="@{/admin/category/all}">Back to Category List</a>
+		
+		<hr>
+	</div>
+	
+</body>
+</html>

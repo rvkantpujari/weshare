@@ -24,6 +24,27 @@ public class HomeController {
 	     return "index";
 	 }
 	 
+	 @GetMapping("/user/manageProfile")
+	 public String manageProfile(Model model)
+	 {
+		 model.addAttribute("loggedIn", true);
+		 return "user/manageProfile";
+	 }
+	 
+	 @GetMapping("/user/getAllCommunities")
+	 public String getAllCommunities(Model model)
+	 {
+		 model.addAttribute("loggedIn", true);
+		 return "user/getAllCommunities";
+	 }
+	 
+	 @GetMapping("/user/createCommunity")
+	 public String createCommunity(Model model)
+	 {
+		 model.addAttribute("loggedIn", true);
+		 return "user/createCommunity";
+	 }
+	 
 	 @GetMapping("/admin/home")
 	 public String adminHome(Model model)
 	 {
