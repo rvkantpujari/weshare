@@ -54,3 +54,22 @@ INSERT IGNORE INTO `category` (category_id, category_name)
 VALUES(5,"Business");
 
 
+
+INSERT IGNORE INTO `community` (community_id, community_description, community_name, creation_date, members_count, category_id, user_id)
+VALUES(1, 'The Java community', 'Java', '2020-09-27 09:09:09.0', 1, 1, 2);
+
+INSERT IGNORE INTO `community` (community_id, community_description, community_name, creation_date, members_count, category_id, user_id)
+VALUES(2, 'The Spring community', 'Spring', '2020-11-28 10:10:10.0', 0, 1, 4);
+
+INSERT IGNORE INTO `community` (community_id, community_description, community_name, creation_date, members_count, category_id, user_id)
+VALUES(3, 'The Stock Market community', 'StockMarket', '2020-11-11 11:11:11.0', 0, 5, 2);
+
+INSERT IGNORE INTO `community` (community_id, community_description, community_name, creation_date, members_count, category_id, user_id)
+VALUES(4, 'The Bangalore community', 'Bangalore', '2020-11-28 05:05:05.0', 0, 2, 3);
+
+INSERT IGNORE INTO `community` (community_id, community_description, community_name, creation_date, members_count, category_id, user_id)
+VALUES(5, 'The PUBG community', 'PUBG', '2020-11-10 07:07:07.0', 0, 3, 7);
+
+
+INSERT IGNORE INTO `community_members` (user_id, community_id)
+VALUES(2, 1);

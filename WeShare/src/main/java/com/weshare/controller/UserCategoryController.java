@@ -39,6 +39,7 @@ public class UserCategoryController {
 		return "user/FindAllCommunitiesByCategory";
 	}
 	
+	
 	@GetMapping("/category/{categoryName}/communities")
 	public String searchByCategory(@PathVariable("categoryName")String cname, Model m)
 	{

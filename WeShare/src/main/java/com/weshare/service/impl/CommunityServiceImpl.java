@@ -28,7 +28,7 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
-	public Community getCommunity(int id) {
+	public Community getCommunityById(int id) {
 		return communityRepository.findById(id).get();
 	}
 
@@ -37,5 +37,8 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityRepository.findByCategory(c);
 	}
 
-	
+	public Community getCommunityByName(String communityName) {
+		return communityRepository.findByCommunityName(communityName);
+	}
+
 }

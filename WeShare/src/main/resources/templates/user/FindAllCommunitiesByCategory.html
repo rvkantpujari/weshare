@@ -73,9 +73,10 @@
 		
 		<tbody>
 		
-		
 			<tr th:each="com : ${comList}">
-				<td th:text="${com.communityName}" />		
+				<td>
+					<a th:href="@{/user/community/{communityName}(communityName=${com.communityName})}" th:text="${com.communityName}">Community Name</a>
+				</td>		
 			</tr>
 		</tbody>	
 		

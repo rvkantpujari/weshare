@@ -62,6 +62,4 @@ public class CommunityController {
 		return "redirect:/user/community/all";
 	}
 	
-
-
 }

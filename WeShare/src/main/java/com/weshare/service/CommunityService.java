@@ -14,9 +14,11 @@ public interface CommunityService {
 	
 	public void saveCommunity(Community com);
 
-	public Community getCommunity(int id);
+	public Community getCommunityById(int id);
 
 	public List<Community> findCommunitiesByCategory(Category c);
+	
+	public Community getCommunityByName(String communityName);
 	
 //	public List<Community> getCommunityByCategory(String category);
 }
