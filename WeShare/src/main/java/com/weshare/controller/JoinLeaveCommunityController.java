@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.weshare.model.Community;
 import com.weshare.model.User;
-import com.weshare.service.CategoryService;
 import com.weshare.service.CommunityService;
 import com.weshare.service.UserService;
 
@@ -21,9 +20,6 @@ public class JoinLeaveCommunityController {
 
 	@Autowired
 	private CommunityService communityService;
-	
-	@Autowired
-	private CategoryService categoryService;
 	
 	@Autowired
 	private UserService userService;
@@ -52,8 +48,8 @@ public class JoinLeaveCommunityController {
     								Principal principal, Model m){
 
         User user = userService.findUserByUserName(principal.getName());
-        
         Community c = communityService.getCommunityByName(comName);
+        
         if(user.getJoinedCommunityList().contains(c))
         {
         	m.addAttribute("exist", true);
@@ -77,7 +73,7 @@ public class JoinLeaveCommunityController {
 
         Community c = communityService.getCommunityByName(comName);
         c.setMembersCount(c.getMembersCount()-1 > 0 ? c.getMembersCount() - 1 : 0); 
-//        c.saveSubredditPosts(subreddit);
+//        c.updateCommunity(c);
 
         user.getJoinedCommunityList().remove(c);
         userService.updateUser(user);
