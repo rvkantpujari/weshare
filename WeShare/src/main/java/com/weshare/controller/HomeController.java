@@ -45,6 +45,22 @@ public class HomeController {
 		 return "user/createCommunity";
 	 }
 	 
+	 @GetMapping("/user/viewCommunity")
+	 public String viewCommunity(Model model)
+	 {
+		 model.addAttribute("loggedIn", true);
+		 model.addAttribute("joined", false);
+		 return "user/viewCommunity";
+	 }
+	 
+	 @GetMapping("/user/createPost")
+	 public String createPost(Model model)
+	 {
+		 model.addAttribute("loggedIn", true);
+		 model.addAttribute("joined", false);
+		 return "user/createPost";
+	 }
+	 
 	 @GetMapping("/admin/home")
 	 public String adminHome(Model model)
 	 {
