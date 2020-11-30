@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="This is social network platform." />
+	<meta name="keywords" content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
+	<meta name="robots" content="index, follow" />
+	<title>Create Community | WeShare</title>
+
+    <!-- Stylesheets
+    ================================================= -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<link rel="stylesheet" th:href="@{/css/ionicons.min.css}" />
+   	<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
+    
+    <!--Google Font-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i" rel="stylesheet">
+    
+    <!--Favicon-->
+    <link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}"/>
+  </head>
+  <body>
+
+    <!-- Header
+    ================================================= navbar-fixed-top -->
+	<header id="header">
+      <nav th:replace="header::navbar"></nav>
+    </header>
+    
+    <!--Header End-->
+
+    <div class="container" style="margin-top:5vh;">
+
+      <!-- Timeline
+      ================================================= -->
+      <div class="timeline">
+        <div id="page-contents">
+          <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+
+              <!-- Basic Information
+              ================================================= -->
+              <div class="edit-profile-container">
+                <div class="block-title">
+                  <h4 style="font-size:3rem; text-align:center;" class="grey"><i class="icon ion-android-people"></i>Create New Community</h4>
+                  <div class="line"></div>
+                </div>
+                <div class="edit-block" style="margin-top:50px;">
+                  <div name="basic-info" id="basic-info" class="form-inline">
+                    <div class="row">
+                      <div class="col-sm-2"></div>
+                      <div class="form-group col-sm-8">
+                        <label for="communityName">Community Name</label>
+                        <input id="communityName" class="form-control input-group-lg" type="text" name="communityName" title="Community Name" placeholder="Enter Community Name" style="background-color: white;" required/>
+                      </div>
+                      <div class="col-sm-2"></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-2"></div>
+                      <div class="form-group col-sm-8">
+                        <label for="communityCategory" class="">Community Category</label>
+                        <select id="communityCategory" class="form-control input-group-lg" type="text" name="communityCategory" title="Select a category" required>
+                        	<option value="" selected disabled>Select Community Category</option>
+                        	<option>Education</option>
+                        	<option>Sports</option>
+                        	<option>Entertainment</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-2"></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-2"></div>
+                      <div class="form-group col-sm-8">
+                        <label for="communityDescription">Community Description</label>
+                        <textarea rows="4" id="communityDescription" class="form-control input-group-lg" type="text" name="communityDescription" title="Community Description" placeholder="Enter Community Description" style="background-color: white; resize:vertical; min-height:120px;"></textarea>
+                      </div>
+                      <div class="col-sm-2"></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-2"></div>
+                      <div class="col-sm-3">
+                        <button class="btn btn-primary">Create</button>
+                      </div>
+                      <div class="col-sm-2"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          	<div class="col-md-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Footer
+    ================================================= -->
+    <footer class="navbar navbar-fixed-bottom" th:include="footer::footer"></footer>
+    
+    <!--preloader-->
+    <div id="spinner-wrapper">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Scripts
+    ================================================= -->
+    <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
+    <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+    
+  </body>
+</html>
