@@ -33,11 +33,13 @@ public class JoinLeaveCommunityController {
 		Community c = communityService.getCommunityByName(comName);
 		 if(user.getJoinedCommunityList().contains(c))
 	     {
-				m.addAttribute("communityName", comName);
+//				m.addAttribute("communityName", comName);
+			 	m.addAttribute("com", c);
 	        	m.addAttribute("exist", true);
 	        	return "user/ViewCommunity";
 	     }
-		m.addAttribute("communityName", comName);
+		
+		m.addAttribute("com", c);
 		
 		return "user/ViewCommunity";
 	}
@@ -53,14 +55,15 @@ public class JoinLeaveCommunityController {
         if(user.getJoinedCommunityList().contains(c))
         {
         	m.addAttribute("exist", true);
-        	return "user/ViewCommunity";
+        	return "redirect:/user/community/{communityName}";
         }
         c.setMembersCount(c.getMembersCount() + 1);
 
         user.getJoinedCommunityList().add(c);
         userService.updateUser(user);
         m.addAttribute("exist", true);
-        return "user/ViewCommunity";
+        return "redirect:/user/community/{communityName}";
+//      return "user/ViewCommunity";
     }
     
     
@@ -78,7 +81,8 @@ public class JoinLeaveCommunityController {
         user.getJoinedCommunityList().remove(c);
         userService.updateUser(user);
         m.addAttribute("exist", false);
-        return "user/ViewCommunity";
+        return "redirect:/user/community/{communityName}";
+//      return "user/ViewCommunity";
     }
 
 

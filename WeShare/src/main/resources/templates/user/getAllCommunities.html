@@ -51,6 +51,7 @@
           ================================================= -->
     	  <div class="col-md-3 static" style="margin-top:20px;">
             <!-- Create New Community -->
+          <div id="sticky-sidebar">
             <div class="suggestions">
               <div>
                 <a th:href="@{'/user/community/insert'}" class="btn btn-primary">Create Community</a>
@@ -58,7 +59,7 @@
             </div>
             
             
-            <div class="suggestions listCategories" id="sticky-sidebar" style="margin-top:40px;border:1px solid grey; padding: 20px;">
+            <div class="suggestions listCategories" style="margin-top:40px;border:1px solid grey; padding: 20px;">
               <h3 style="text-align:center;" class="grey">Categories</h3>
               <hr style="border: 1px solid black;">
                 <ul>
@@ -76,7 +77,7 @@
                 </ul>
             </div>
           </div>
-          
+          </div>
           <!-- Newsfeed Common Side Bar Left
           ================================================= -->
     	  <div class="col-md-9" style="margin-top:20px;">
@@ -86,9 +87,10 @@
 			<hr/>
             <!-- Post Content
             ================================================= -->
-            <div th:each="com : ${comList}" class="post-content" title="Category">
+            <div th:each="com : ${comList}" class="post-content" th:title="${com.category.categoryName}">
               <div class="post-container">
-                <img src="https://ui-avatars.com/api/?name=Alexis+Clark&rounded=true&background=random" alt="user" class="profile-photo-md pull-left" />
+              
+                <img th:src="@{'https://ui-avatars.com/api/?name='+${com.communityName}+'&rounded=true&background=random'}" alt="user" class="profile-photo-md pull-left" />
                 <div class="post-detail">
                   <div class="user-info">
                     <h4><a class="profile-link" th:href="@{/user/community/{communityName}(communityName=${com.communityName})}" th:text="${com.communityName}">Community Name</a></h4>

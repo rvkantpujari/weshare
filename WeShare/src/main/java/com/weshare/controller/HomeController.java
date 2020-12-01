@@ -27,30 +27,13 @@ public class HomeController {
 	 @GetMapping("/user/manageProfile")
 	 public String manageProfile(Model model)
 	 {
-		 model.addAttribute("loggedIn", true);
 		 return "user/manageProfile";
 	 }
 	 
-	 @GetMapping("/user/getAllCommunities")
-	 public String getAllCommunities(Model model)
+	 @GetMapping("/user/contact")
+	 public String contact(Model model)
 	 {
-		 model.addAttribute("loggedIn", true);
-		 return "user/getAllCommunities";
-	 }
-	 
-	 @GetMapping("/user/createCommunity")
-	 public String createCommunity(Model model)
-	 {
-		 model.addAttribute("loggedIn", true);
-		 return "user/createCommunity";
-	 }
-	 
-	 @GetMapping("/user/viewCommunity")
-	 public String viewCommunity(Model model)
-	 {
-		 model.addAttribute("loggedIn", true);
-		 model.addAttribute("joined", false);
-		 return "user/viewCommunity";
+		 return "user/contact";
 	 }
 	 
 	 @GetMapping("/user/createPost")
