@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create a new Post #</title>
+    <link href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="../../static/css/style_temp.css" rel="stylesheet" th:href="@{/css/style_temp.css}"/>
+</head>
+<body class="createpost-body">
+<div class="createpost-container">
+    <div class="createpost-container-inner">
+        <main class="createpost fillin">
+            <div class="container-fluid">
+                <h1>Create New Post</h1>
+            </div>
+            <ul class="nav nav-tabs">
+                <li class="tab-cover">
+                    <div class="active tab-title">
+                        <div class="image-in-tab">
+                            <img class="img-itself" th:src="@{/images/text-icon.svg}"/>
+                        </div>
+                        <a data-toggle="tab" href="#home">Post</a>
+                    </div>
+                </li>
+                <li class="tab-cover">
+                    <div class="active tab-title">
+                        <div class="image-in-tab">
+                            <img class="img-itself" th:src="@{/images/link-icon.png}"/>
+                        </div>
+                        <a data-toggle="tab" href="#menu1">Link</a>
+                    </div>
+                </li>
+                <li class="tab-cover">
+                    <div class="active tab-title">
+                        <div class="image-in-tab">
+                            <img class="img-itself" th:src="@{/images/image-icon.png}"/>
+                        </div>
+                        <a data-toggle="tab" href="#menu2">Image</a>
+                    </div>
+                </li>
+                <li class="tab-cover">
+                    <div class="active tab-title">
+                        <div class="image-in-tab">
+                            <img class="img-itself" th:src="@{/images/video-icon.png}"/>
+                        </div>
+                        <a data-toggle="tab" href="#menu3">Video</a>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="home" class="tab-pane fade in active">
+                    <form action="#" th:action="@{'/createpost}" method="post" id="create_post">
+                        <div><input class="form-control createpost-field" placeholder="title" type="text" id="addtitle" name="addtitle"/></div>
+                        <div><input class="form-control createpost-field" placeholder="content" type="text" id="addcontent" name="addcontent"/></div>
+                        <div><input class="form-control createpost-field" placeholder="SubReddit" type="text" id="addSubReddit" name="addSubReddit"/></div>
+                        <div class="submitandcancel"><button class="btn btn-info" id="create_post_submit" type="submit">Create</button>
+                            </div>
+                    </form>
+                </div>
+                
+                <div id="menu1" class="tab-pane fade">
+                    <form action="#" method="post">
+                        <div><input class="form-control createpost-field" placeholder="Title..." type="text" name="addtitle"/></div>
+                        <div><input class="form-control createpost-field" placeholder="Link to external source..." type="text" name="addLink"/></div>
+                        <div><input class="form-control createpost-field" placeholder="SubReddit..." type="text" name="addSubReddit"/></div>
+                        <div class="submitandcancel"><button class="btn btn-info" type="submit">Create</button></div>
+                    </form>
+                </div>
+                <div id="menu2" class="tab-pane fade">
+                    <form action="#" method="post">
+                        <div><input class="form-control createpost-field" placeholder="Title..." type="text" name="addtitle"/></div>
+                        <div><input class="form-control createpost-field" placeholder="Link to image..." type="text" name="addImageUrl"/></div>
+                        <div><input class="form-control createpost-field" placeholder="SubReddit..." type="text" name="addSubReddit"/></div>
+                        <div class="submitandcancel"><button class="btn btn-info" type="submit">Create</button></div>
+                    </form>
+                </div>
+                <div id="menu3" class="tab-pane fade">
+                    <form action="#" method="post">
+                        <div><input class="form-control createpost-field" placeholder="Title..." type="text" name="addtitle"/></div>
+                        <div><input class="form-control createpost-field" placeholder="Link to video..." type="text" name="addVideoUrl"/></div>
+                        <div><input class="form-control createpost-field" placeholder="SubReddit..." type="text" name="addSubReddit"/></div>
+                        <div class="submitandcancel"><button class="btn btn-info" type="submit">Create</button></div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+</div>
+</body>
+<script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+<script src="/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+</html>
