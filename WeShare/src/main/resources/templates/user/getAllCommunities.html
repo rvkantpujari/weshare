@@ -53,15 +53,26 @@
             <!-- Create New Community -->
             <div class="suggestions">
               <div>
-                <a href="createCommunity" class="btn btn-primary">Create Community</a>
+                <a th:href="@{'/user/community/insert'}" class="btn btn-primary">Create Community</a>
               </div>
             </div>
+            
+            
             <div class="suggestions listCategories" id="sticky-sidebar" style="margin-top:40px;border:1px solid grey; padding: 20px;">
-              <h4 class="grey">Categories</h4>
+              <h3 style="text-align:center;" class="grey">Categories</h3>
+              <hr style="border: 1px solid black;">
                 <ul>
-                	<li>Sports</li>
-                	<li>Education</li>
-                	<li>Entertainment</li>
+                	<li style="font-size:16px;margin:7px;">
+                		<a th:href="@{'/user/category/all/communities'}">
+							<span>ALL Communities</span>
+						</a>
+					</li>
+					
+					<li style="font-size:16px;margin:7px;" th:each="c : ${catList}">
+						<a th:href="@{'/user/category/'+${c.categoryName}+'/communities'}">
+							<span th:text="${c.categoryName}"></span>
+						</a>
+					</li>
                 </ul>
             </div>
           </div>
@@ -69,34 +80,32 @@
           <!-- Newsfeed Common Side Bar Left
           ================================================= -->
     	  <div class="col-md-9" style="margin-top:20px;">
-
+    	  
+			<h2 th:if="${allCom}">ALL Communities</h2>    	  
+    	  	<h2 th:unless="${allCom}">Communities from <span th:text="${categoryName}"></span> Category </h2>
+			<hr/>
             <!-- Post Content
             ================================================= -->
-            <div class="post-content" title="Category">
+            <div th:each="com : ${comList}" class="post-content" title="Category">
               <div class="post-container">
                 <img src="https://ui-avatars.com/api/?name=Alexis+Clark&rounded=true&background=random" alt="user" class="profile-photo-md pull-left" />
                 <div class="post-detail">
                   <div class="user-info">
-                    <h4><a href="#" class="profile-link">Alexis Clark</a></h4>
-                    <p class="text-muted">Description</p>
+                    <h4><a class="profile-link" th:href="@{/user/community/{communityName}(communityName=${com.communityName})}" th:text="${com.communityName}">Community Name</a></h4>
+                    <span th:text="'Created By: '+${com.user.userName}"> Created By</span>
+                    <!-- <p class="text-muted" th:text="'Created on: '+${com.creationDate}"> Creation Date</p> -->
+                    <p class="text-muted" th:text="'Description: '+${com.communityDescription}">Community Description</p>
                   </div>
                 </div>
               </div>
             </div>
-
-            <!-- Post Content
-            ================================================= -->
-            <div class="post-content">
-              <div class="post-container">
-                <img src="https://ui-avatars.com/api/?name=Sophia&length=1&rounded=true&background=random" alt="user" class="profile-photo-md pull-left" />
-                <div class="post-detail">
-                  <div class="user-info">
-                    <h4><a href="timeline.html" class="profile-link">Sophia Lee</a> </h4>
-                    <p class="text-muted">Description</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            
+            
+           	<div th:if="${emptyList}" title="Category">
+				<h3 style="font-style: italic; color:black;">Oops, no result found. Try something else or try again later!</h3>
+			</div>
+			
+		
           </div>
     		</div>
     	</div>

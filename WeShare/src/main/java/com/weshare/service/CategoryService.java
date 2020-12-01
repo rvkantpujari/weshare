@@ -14,5 +14,4 @@ public interface CategoryService {
 	
 	public Category getCategoryByName(String categoryName);
 	
-//	public List<Community> findByCategory(String categoryName);
 }

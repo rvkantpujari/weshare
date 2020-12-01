@@ -31,14 +31,14 @@ public class CommunityController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("/all")
-	public String communityList(Model m)
-	{
-		List<Community> communityList = communityService.getAllCommunities();
-		m.addAttribute("comList", communityList);
-		
-		return "user/communityList";	
-	}
+//	@GetMapping("/all")
+//	public String communityList(Model m)
+//	{
+//		List<Community> communityList = communityService.getAllCommunities();
+//		m.addAttribute("comList", communityList);
+//		
+//		return "user/communityList";	
+//	}
 	
 	@GetMapping("/insert")
 	public String insertCommunity(Model m)
@@ -49,7 +49,7 @@ public class CommunityController {
 		List<Category> categoryList = categoryService.getAllCategories();
 		m.addAttribute("categoryList", categoryList);
 		
-		return "user/insertCommunity";
+		return "user/createCommunity";
 	}
 	
 	@PostMapping("/save")
@@ -59,7 +59,7 @@ public class CommunityController {
 		User user=this.userService.findUserByUserName(principal.getName());
 		com.setUser(user);		
 		communityService.saveCommunity(com);
-		return "redirect:/user/community/all";
+		return "redirect:/user/category/all/communities";
 	}
 	
 }

@@ -13,7 +13,6 @@ import com.weshare.model.Category;
 import com.weshare.model.Community;
 import com.weshare.service.CategoryService;
 import com.weshare.service.CommunityService;
-import com.weshare.service.UserService;
 
 @Controller
 @RequestMapping("/user")
@@ -26,7 +25,7 @@ public class UserCategoryController {
 	private CommunityService communityService;
 	
 	
-	@GetMapping("/CommunitiesByCategory/all")
+	@GetMapping("/category/all/communities")
 	public String categoryList(Model m)
 	{
 		List<Category> categoryList = categoryService.getAllCategories();
@@ -36,7 +35,8 @@ public class UserCategoryController {
 		m.addAttribute("comList", communityList);
 		
 		m.addAttribute("allCom",true);
-		return "user/FindAllCommunitiesByCategory";
+//		return "user/FindAllCommunitiesByCategory";
+		return "user/getAllCommunities";
 	}
 	
 	
@@ -56,7 +56,7 @@ public class UserCategoryController {
 		m.addAttribute("catList", categoryList);
 		m.addAttribute("categoryName",cname);
 		
-		return "user/FindAllCommunitiesByCategory";
+		return "user/getAllCommunities";
 	}
 	
 }

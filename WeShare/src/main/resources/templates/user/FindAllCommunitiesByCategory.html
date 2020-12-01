@@ -39,8 +39,6 @@
 		
 			<tr th:each="c : ${catList}">
 				
-<!-- 				<td th:text="${c.categoryId}" />	 -->
-				
 				<td>
 					<a th:href="@{'/user/category/'+${c.categoryName}+'/communities'}">
 						<span th:text="${c.categoryName}"></span>
