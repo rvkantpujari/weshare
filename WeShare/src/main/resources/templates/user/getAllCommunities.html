@@ -69,6 +69,7 @@
 						</a>
 					</li>
 					
+					
 					<li style="font-size:16px;margin:7px;" th:each="c : ${catList}">
 						<a th:href="@{'/user/category/'+${c.categoryName}+'/communities'}">
 							<span th:text="${c.categoryName}"></span>
