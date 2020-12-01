@@ -49,44 +49,63 @@
                   <h4 style="font-size:3rem; text-align:center;" class="grey"><i class="icon ion-android-people"></i>Create New Community</h4>
                   <div class="line"></div>
                 </div>
-                <div class="edit-block" style="margin-top:50px;">
+                <div class="edit-block">
                   <div name="basic-info" id="basic-info" class="form-inline">
+                  	
+                <form th:action="@{/user/community/save}" th:object="${community}" method="POST">  	
+                  	
                     <div class="row">
                       <div class="col-sm-2"></div>
                       <div class="form-group col-sm-8">
                         <label for="communityName">Community Name</label>
-                        <input id="communityName" class="form-control input-group-lg" type="text" name="communityName" title="Community Name" placeholder="Enter Community Name" style="background-color: white;" required/>
+                        <input id="communityName" class="form-control input-group-lg" type="text" th:field="*{communityName}"
+                         title="Community Name" placeholder="Enter Community Name" style="background-color: white;" required/>
                       </div>
                       <div class="col-sm-2"></div>
                     </div>
+                    
+                    
                     <div class="row">
                       <div class="col-sm-2"></div>
                       <div class="form-group col-sm-8">
                         <label for="communityCategory" class="">Community Category</label>
-                        <select id="communityCategory" class="form-control input-group-lg" type="text" name="communityCategory" title="Select a category" required>
+                        <select id="communityCategory" class="form-control input-group-lg" type="text"  
+                        title="Select a category" th:field="*{category}" required>
                         	<option value="" selected disabled>Select Community Category</option>
-                        	<option>Education</option>
-                        	<option>Sports</option>
-                        	<option>Entertainment</option>
+                        	<option th:each="cat : ${categoryList}" th:value="${cat.categoryId}" 
+											th:text="${cat.categoryName}"></option>
                         </select>
                       </div>
                       <div class="col-sm-2"></div>
                     </div>
+                    
+                    
                     <div class="row">
                       <div class="col-sm-2"></div>
                       <div class="form-group col-sm-8">
                         <label for="communityDescription">Community Description</label>
-                        <textarea rows="4" id="communityDescription" class="form-control input-group-lg" type="text" name="communityDescription" title="Community Description" placeholder="Enter Community Description" style="background-color: white; resize:vertical; min-height:120px;"></textarea>
+                        <textarea rows="4" id="communityDescription" class="form-control input-group-lg" type="text" 
+                        th:field="*{communityDescription}" title="Community Description" placeholder="Enter Community Description"
+                         style="background-color: white; resize:vertical; min-height:120px;"></textarea>
                       </div>
                       <div class="col-sm-2"></div>
                     </div>
+                    
+                    
                     <div class="row">
                       <div class="col-sm-2"></div>
                       <div class="col-sm-3">
-                        <button class="btn btn-primary">Create</button>
+                        <button class="btn btn-primary" type="submit">Create</button>
+                      </div>
+                      <div class="col-sm-3"></div>
+                      <div class="col-sm-2">
+                        <a class="btn btn-danger" th:href="@{/user/category/all/communities}">Cancel</a>
                       </div>
                       <div class="col-sm-2"></div>
                     </div>
+                    
+                  </form>
+                    
                   </div>
                 </div>
               </div>

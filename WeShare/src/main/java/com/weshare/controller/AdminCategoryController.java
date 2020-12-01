@@ -16,7 +16,7 @@ import com.weshare.service.CategoryService;
 
 @Controller
 @RequestMapping("/admin/category")
-public class CategoryController {
+public class AdminCategoryController {
 
 	@Autowired
 	private CategoryService categoryService;
@@ -48,7 +48,7 @@ public class CategoryController {
 	@GetMapping("/update/{id}")
 	public String updateCategory(@PathVariable("id")int cid, Model m)
 	{
-		Category c=categoryService.getCategory(cid);
+		Category c=categoryService.getCategoryById(cid);
 		m.addAttribute("category", c);
 		return "admin/updateCategory";
 	}

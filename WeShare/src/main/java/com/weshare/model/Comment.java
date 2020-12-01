@@ -9,8 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -27,7 +25,6 @@ public class Comment {
 	@Lob
 	private String content;
 	
-    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     private Date creationDate;
     

@@ -9,4 +9,6 @@ public interface UserService {
 	  public User findUserByUserName(String userName);
 	  
 	  public User saveUser(User user);
+	  
+	  public User updateUser(User user);
 }
