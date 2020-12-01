@@ -34,14 +34,29 @@
       <div class="container">
     	<div class="row">
     	  <div class="col-md-12">
-   			<div class="post-content" title="Category">
+   			<div class="post-content" th:title="${com.category.categoryName}">
               <div class="post-container">
-                <img src="https://ui-avatars.com/api/?name=Alexis+Clark&rounded=true&background=random" alt="user" class="profile-photo-md pull-left" />
+                <img th:src="@{'https://ui-avatars.com/api/?name='+${com.communityName}+'&rounded=true&background=random'}" alt="user" class="profile-photo-md pull-left" />
                 <div class="post-detail">
                   <div class="user-info">
-                    <h4><a href="#" class="profile-link">Alexis Clark</a></h4>
-           	        <button th:if="${joined}==true" class="btn btn-success" style="padding: 5px 20px; margin: 5px 0px; border-radius:20px;">Join</button>
-                    <button th:unless="${joined}==true" class="btn btn-danger" style="padding: 5px 20px; margin: 5px 0px; border-radius:20px;">Leave</button>
+                    <h4 th:text=${com.communityName}><a href="#" class="profile-link"></a></h4>
+                    
+           	        <!-- <button th:if="${joined}==true" class="btn btn-success" style="padding: 5px 20px; margin: 5px 0px; border-radius:20px;">Join</button>
+                    <button th:unless="${joined}==true" class="btn btn-danger" style="padding: 5px 20px; margin: 5px 0px; border-radius:20px;">Leave</button> -->
+                    
+						<div th:unless="${exist}">
+							<a th:href="@{'/user/community/'+${communityName}+'/join'}">
+								<button type="submit" class="btn btn-success col-3">Join</button>
+							</a>
+						</div>
+	
+						<div th:if="${exist}">
+							<a th:href="@{'/user/community/'+${communityName}+'/leave'}">
+								<button type="submit" class="btn btn-danger col-3">Leave</button>
+							</a>
+						</div>
+                    
+                    
                   </div>
                 </div>
               </div>
@@ -56,7 +71,7 @@
     	  <div class="col-md-3 static">
             <div class="suggestions" id="sticky-sidebar" style="margin-top:2px;border:1px solid lightgrey; border-radius: 5px; padding: 20px; min-height:200px;">
               <h4 class="grey" style="font-size:2.2rem;">About Community</h4>  
-              <p class="text-muted">Description</p>
+              <p class="text-muted" th:text=${com.communityDescription}>Description</p>
             </div>
           </div>
           
