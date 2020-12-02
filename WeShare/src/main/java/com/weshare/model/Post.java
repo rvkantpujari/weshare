@@ -3,6 +3,7 @@ package com.weshare.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -35,7 +34,6 @@ public class Post {
     @Lob
     private String content;
     
-    @Temporal(TemporalType.TIMESTAMP)
     @CreationTimestamp
     private Date creationDate;
     
@@ -55,10 +53,10 @@ public class Post {
 	private User user;
     
     @JsonIgnore
-	@OneToMany(mappedBy="post")
+	@OneToMany(mappedBy="post",cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     @JsonIgnore
- 	@OneToMany(mappedBy="post")
+ 	@OneToMany(mappedBy="post",cascade = CascadeType.ALL)
     private List<Vote> votes;
 }

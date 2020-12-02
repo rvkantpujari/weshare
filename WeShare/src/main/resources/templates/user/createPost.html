@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="This is social network platform." />
+	<meta name="keywords" content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
+	<meta name="robots" content="index, follow" />
+	<title>Create Post | WeShare</title>
+
+    <!-- Stylesheets
+    ================================================= -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<link rel="stylesheet" th:href="@{/css/ionicons.min.css}" />
+   	<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
+    
+    <!--Google Font-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i" rel="stylesheet">
+    
+    <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+    
+    <!--Favicon-->
+    <link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}"/>
+    <style>
+    	.ion {
+    		margin: 0px 2px;
+    	}
+    	.image-upload>input {
+		  display: none;
+		}
+    </style>
+  </head>
+  <body>
+
+    <!-- Header
+    ================================================= navbar-fixed-top -->
+	<header id="header">
+      <nav th:replace="header::navbar"></nav>
+    </header>
+    
+    <!--Header End-->	
+    <div id="page-contents">
+      <div class="container">
+    	<div class="row">
+    	  <div class="col-md-12">
+              <h2>Create Post</h2>
+              <div class="line"></div>
+    	  </div>
+    	</div>
+    	
+    	<div class="row" style="margin-top:10px;">
+
+          <!-- About Community Side Bar Left
+          ================================================= -->
+    	  <div class="col-md-3 static">
+            <div class="suggestions" id="sticky-sidebar" style="margin-top:2px;border:1px solid lightgrey; border-radius: 5px; padding: 20px; min-height:200px;">
+              <h3 style="font-size: 2.2rem; margin:0;">r/community</h3>
+              <h4 class="grey" style="font-size:1.8rem; margin:10px 0px;">About Community</h4>
+              <p class="text-muted">Description</p>
+            </div>
+          </div>
+          
+          <!-- About Community Side Bar Right
+          ================================================= -->
+    	  <div class="col-md-9 row">
+			<ul class="nav nav-tabs h4">
+			  <li class="col-xs-4 active"><a data-toggle="tab" href="#post"><span class="ion ion-compose"></span> Post</a></li>
+			  <li class="col-xs-4"><a data-toggle="tab" href="#image"><span class="ion ion-image"></span> Image</a></li>
+			  <li class="col-xs-4"><a data-toggle="tab" href="#link"><span class="ion ion-link"></span> Link</a></li>
+			</ul>
+			
+			<div class="tab-content" style="padding:10px;">
+			  <div id="post" class="tab-pane fade in active">
+	              
+	              <div class="post-container">
+	                <div class="post-detail" style="margin:10px 0px;">
+	                  <form>
+						<div class="form-group">
+						  <input type="text" class="form-control" id="postTitle" placeholder="Post Title" required>
+						</div>
+						
+					    <!-- Create the editor container -->
+					    <div class="form-group" id="editor" style="min-height:120px; border: 1px solid lightgrey; border-radius: 5px;"><div><br></div></div>
+					    
+						<div style="margin-top:10px;">
+						  <button id="btnTextPost" type="submit" class="btn btn-primary">Post</button>
+						</div>
+					  </form> 
+	                </div>
+	              </div>
+	            
+			  </div>
+			  
+			  <div id="image" class="tab-pane fade">
+			    <div>
+			      <form>
+					<div class="form-group">
+					  <input type="text" class="form-control" id="postTitle" placeholder="Post Title" required>
+					</div>
+					
+				    <!-- Create the editor container -->
+				    <div class="form-group post-content" id="editor" style="min-height:120px; border: 1px solid lightgrey; border-radius: 5px;">
+					    <div class="image-upload" style="display:grid; place-items:center;">
+						  <label for="imgInp" style="display:grid; place-items:center;" id="uploadImageIcon">
+						    <img src="https://icon-library.net/images/upload-photo-icon/upload-photo-icon-21.jpg" class="img-responsive" />
+						  </label>
+						  <input id="imgInp" type="file" required/>
+						  <img id="imgPreview" src="#" alt="Uploaded Image Corrupted" style="min-height: 20vh; min-width: 20vw; max-height:50vh; max-width:100%;"/>
+						  <label for="imgPreviewFooter" id="imgPreviewFooter" style="min-height:30px;">
+						    <span style="position:absolute; left:15px;bottom:5px;" id="imgSize">Left</span>
+						    <span style="position:absolute; right:15px;bottom:5px;" class="btn btn-danger" onClick="removeImgPreview()">Delete</span>
+						  </label>
+						</div>
+				    </div>
+				    
+					<div style="margin-top:10px;">
+					  <button id="btnImagePost" type="submit" class="btn btn-primary">Post</button>
+					</div>
+				  </form>
+			    </div>
+	            
+			  </div>
+			  <div id="link" class="tab-pane fade">
+			    
+				  <div class="post-container">
+	                <div class="post-detail" style="margin:10px 0px;">
+	                  <form>
+						<div class="form-group">
+						  <input type="text" class="form-control" id="postLinkTitle" placeholder="Link Title" required>
+						</div>
+						
+					    <div class="form-group">
+						  <input type="text" class="form-control" id="postLink" placeholder="http://website.com" required>
+						</div>
+					    
+						<div style="margin-top:10px;">
+						  <button id="btnLinkPost" type="submit" class="btn btn-primary">Post</button>
+						</div>
+					  </form> 
+	                </div>
+	              </div>
+				
+			  </div>
+			</div>
+           	
+          </div>
+    	</div>
+      </div>
+    </div>
+
+
+    <!-- Footer
+    ================================================= -->
+    <footer class="navbar navbar-fixed-bottom" th:include="footer::footer"></footer>
+    
+    <!--preloader-->
+    <div id="spinner-wrapper">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Scripts
+    ================================================= -->
+    <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
+    <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+    
+    <!-- Include the Quill library -->
+	<script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
+	
+	<script>
+		
+		//Initialize Quill editor
+		let toolbarOptions = [
+		 ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+		 ['blockquote', 'code-block'],
+		
+		 [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+		 [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+		 [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+		 [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+		
+		 [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+		 [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+		
+		 [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+		 [{ 'font': [] }],
+		 [{ 'align': [] }]
+		];
+		 
+		var editor = new Quill('#editor', {
+		  modules: { 
+		  	toolbar: toolbarOptions,
+		  },
+		  placeholder: 'Enter Post Description Here!!!',
+		  theme: 'snow'
+		});
+			
+	
+		// Post and File Attachment Script
+		
+		$('#imgInp').hide();
+		$("#imgPreview").hide();
+		$('#imgPreviewFooter').hide();
+		
+		function formatFileSize(bytes, decimalPoint) {
+		    if(bytes == 0) 
+		        return '0 Bytes';
+		    dm = decimalPoint || 2;
+		    sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+		    i = Math.floor(Math.log(bytes) / Math.log(1000));
+		    return parseFloat((bytes / Math.pow(1000, i)).toFixed(dm)) + ' ' + sizes[i];
+		}
+		
+		function readURL(input) {
+		  var fname = input.files[0].name;
+		  var re = /(\.jpg|\.jpeg|\.JPG|\.JPEG|\.bmp|\.gif|\.png|\.PNG)$/i;
+		  if (!re.exec(fname)) 
+		  {
+			  alert('Invalid Image'); 
+              fileInput.value = ''; 
+              return false; 
+		  }
+		  else {
+			if (input.files && input.files[0]) 
+			{
+			  var reader = new FileReader();
+			  reader.onload = function(e) {
+			    $('#imgPreview').attr('src', e.target.result);
+			  }  
+			  reader.readAsDataURL(input.files[0]); // convert to base64 string
+			  $("#imgSize").text(formatFileSize(input.files[0].size));
+			  $("#imgPreview").show();
+			  $('#imgPreviewFooter').show();
+			  $("#uploadImageIcon").hide();
+			}
+		  }
+		}
+	    
+		function removeImgPreview() {
+			$('#imgPreviewFooter').hide();
+			$("#imgPreview").hide();
+			$("#imgInp").val("");
+			$('#uploadImageIcon').show();
+		}
+		
+		$("#imgInp").click(function() {
+		  $("#imgPreview").hide();
+		});
+		
+		$("#imgInp").change(function() {
+		  readURL(this);
+		});
+		
+		
+	</script>    
+  </body>
+</html>

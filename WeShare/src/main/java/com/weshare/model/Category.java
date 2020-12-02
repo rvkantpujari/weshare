@@ -2,6 +2,7 @@ package com.weshare.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +24,7 @@ public class Category {
 	private String categoryName;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="category")
+	@OneToMany(mappedBy="category",cascade = CascadeType.ALL)
 	private List<Community> communities;
 	
 }

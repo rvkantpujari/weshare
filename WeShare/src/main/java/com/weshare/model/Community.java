@@ -3,6 +3,7 @@ package com.weshare.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +26,7 @@ public class Community {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int communityId;
 	
+	@Column(unique=true)
 	private String communityName;
 	
 	private String communityDescription;
@@ -43,4 +45,7 @@ public class Community {
 	@JsonIgnore
 	@OneToMany(mappedBy="community")
     private List<Post> posts;
+	
+	private int membersCount;
+	
 }
