@@ -24,6 +24,7 @@ public class HomeController {
 	     return "index";
 	 }
 	 
+	 
 	 @GetMapping("/user/manageProfile")
 	 public String manageProfile(Model model)
 	 {
@@ -65,4 +66,17 @@ public class HomeController {
 	     model.addAttribute("userMessage","Content Available Only for User Role");
 	     return "user/home";
 	 }
+	 @GetMapping(value= {"/admin/getFeedback"})
+	 public String getFeedback(Model model)
+	 {
+		 model.addAttribute("loggedIn", true);
+		 return "admin/getFeedback";	 
+	 }
+	 @GetMapping(value= {"/user/feedback"})
+	 public String feedback(Model model)
+	 {
+		 model.addAttribute("loggedIn", true);
+		 return "user/feedback";	 
+	 }
 }
+
