@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="This is social network platform." />
+	<meta name="keywords" content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
+	<meta name="robots" content="index, follow" />
+	<title>View Community | WeShare</title>
+
+    <!-- Stylesheets
+    ================================================= -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<link rel="stylesheet" th:href="@{/css/ionicons.min.css}" />
+   	<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
+    
+    <!--Google Font-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i" rel="stylesheet">
+    
+    <!--Favicon-->
+    <link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}"/>
+  </head>
+  <body>
+
+    <!-- Header
+    ================================================= navbar-fixed-top -->
+	<header id="header">
+      <nav th:replace="header::navbar"></nav>
+    </header>
+    
+    <!--Header End-->	
+    <div id="page-contents">
+      <div class="container">
+    	<div class="row">
+    	  <div class="col-md-12">
+   			<div class="post-content" th:title="${com.category.categoryName}">
+              <div class="post-container">
+                <img th:src="@{'https://ui-avatars.com/api/?name='+${com.communityName}+'&rounded=true&background=random'}" alt="user" class="profile-photo-md pull-left" />
+                <div class="post-detail">
+                  <div class="user-info">
+                    <h4 th:text=${com.communityName}><a href="#" class="profile-link"></a></h4>
+                    
+           	        <!-- <button th:if="${joined}==true" class="btn btn-success" style="padding: 5px 20px; margin: 5px 0px; border-radius:20px;">Join</button>
+                    <button th:unless="${joined}==true" class="btn btn-danger" style="padding: 5px 20px; margin: 5px 0px; border-radius:20px;">Leave</button> -->
+                    
+						<div th:unless="${exist}">
+							<a th:href="@{'/user/community/'+${communityName}+'/join'}">
+								<button type="submit" class="btn btn-success col-3">Join</button>
+							</a>
+						</div>
+	
+						<div th:if="${exist}">
+							<a th:href="@{'/user/community/'+${communityName}+'/leave'}">
+								<button type="submit" class="btn btn-danger col-3">Leave</button>
+							</a>
+						</div>
+                    
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+    	  </div>
+    	</div>
+    	
+    	<div class="row" style="margin-top:10px;">
+
+          <!-- About Community Side Bar Left
+          ================================================= -->
+    	  <div class="col-md-3 static">
+            <div class="suggestions" id="sticky-sidebar" style="margin-top:2px;border:1px solid lightgrey; border-radius: 5px; padding: 20px; min-height:200px;">
+              <h4 class="grey" style="font-size:2.2rem;">About Community</h4>  
+              <p class="text-muted" th:text=${com.communityDescription}>Description</p>
+            </div>
+          </div>
+          
+          <!-- About Community Side Bar Right
+          ================================================= -->
+    	  <div class="col-md-9">
+			<div class="create-post" style="cursor: pointer;">
+              <div class="col-md-10 col-sm-10">
+                <div class="form-group" style="margin-left: 0px;">
+                  <textarea onclick="redirectToCreatePost()" name="postContent" id="postContent" cols="80" rows="1" class="form-control" placeholder="Write what you wish" style="resize:none; cursor:pointer; background-color:white;"></textarea>
+                </div>
+              </div>
+           	  <div class="col-md-2 col-sm-2">
+                <div class="tools">
+                  <ul class="publishing-tools list-inline">
+                    <li><a onclick="redirectToCreatePost()" href="#"><i class="ion-compose"></i></a></li>
+                    <li><a onclick="redirectToCreatePost()" href="#"><i class="ion-images"></i></a></li>
+                    <li><a onclick="redirectToCreatePost()" href="#"><i class="ion-ios-videocam"></i></a></li>
+                  </ul>
+                </div>
+               </div>
+           	</div>
+           	
+           	<div class="post-content">
+              <div class="post-container">
+                <div class="post-detail" style="margin-left:0px;">
+                  <div class="user-info">
+                    <h5><a href="timeline.html" class="profile-link">Alexis Clark</a></h5>
+                    <p class="text-muted">Published a photo about 3 mins ago</p>
+                    <span class="following ion-compose" style="font-size:1.3rem; margin:0px; padding:0px;"> 10 Comments</span>
+                    <a class="following ion-ios-plus" style="font-size:1.3rem; cursor:pointer; text-decoration:none;"> Save</a>
+                  </div>
+                  <div class="reaction">
+                    <a class="btn text-green"><i class="icon ion-thumbsup"></i></a> 13
+                    <a class="btn text-red"><i class="fa fa-thumbs-down"></i></a>
+                  </div>
+                  <div class="line-divider"></div>
+                  <div class="post-text text-justify">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <i class="em em-anguished"></i> <i class="em em-anguished"></i> <i class="em em-anguished"></i></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+           	
+            <!-- Post Content
+            ================================================= -->
+            <div class="post-content">
+              <div class="post-container">
+                <div class="post-detail" style="margin:0px;">
+                  <div class="user-info">
+                    <h5><a href="timeline.html" class="profile-link">Steve James</a></h5>
+                    <p class="text-muted">Published a photo about 4 hours ago</p>
+                    <span class="following ion-compose" style="font-size:1.3rem; margin:0px; padding:0px;"> 10 Comments</span>
+                    <a class="following ion-ios-plus" style="font-size:1.3rem; cursor:pointer; text-decoration:none;"> Save</a>
+                  </div>
+                  <div class="reaction">
+                    <a class="btn text-green"><i class="icon ion-thumbsup"></i></a> 13
+                    <a class="btn text-red"><i class="fa fa-thumbs-down"></i></a>
+                  </div>
+                  <div class="line-divider"></div>
+              	  <img src="/images/post-images/1.jpg" alt="post-image" class="img-responsive post-image" />
+              	  <div class="line-divider"></div>
+                  <div class="post-text">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <i class="em em-anguished"></i> <i class="em em-anguished"></i> <i class="em em-anguished"></i></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    	</div>
+      </div>
+    </div>
+
+
+    <!-- Footer
+    ================================================= -->
+    <footer class="navbar navbar-fixed-bottom" th:include="footer::footer"></footer>
+    
+    <!--preloader-->
+    <div id="spinner-wrapper">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Scripts
+    ================================================= -->
+    <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
+    <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+	
+    <script>
+    	function redirectToCreatePost()
+    	{
+    		let URL = window.location.href;
+    		URL = URL.replace("viewCommunity", "createPost");
+    		window.location = URL; 
+    	}
+    </script>    
+  </body>
+</html>

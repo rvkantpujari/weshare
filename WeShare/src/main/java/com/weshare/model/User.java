@@ -1,6 +1,7 @@
 package com.weshare.model;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -24,10 +25,14 @@ import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -79,7 +84,7 @@ public class User {
     
     @JsonIgnore
     @OneToMany(mappedBy="user")
-    private List<Community> communities;
+    private Set<Community> communities;
     
     @JsonIgnore
     @OneToMany(mappedBy = "user")
@@ -93,5 +98,11 @@ public class User {
     @OneToMany(mappedBy="user")
     private List<Vote> votes;
     
-
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="CommunityMembers",
+    		joinColumns = @JoinColumn(name="user_id"),
+    		inverseJoinColumns = @JoinColumn(name="community_id"))
+    private Set<Community> joinedCommunityList= new HashSet<>();;
+    
+    
 }
