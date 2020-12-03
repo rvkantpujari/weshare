@@ -55,7 +55,7 @@
           ================================================= -->
     	  <div class="col-md-3 static">
             <div class="suggestions" id="sticky-sidebar" style="margin-top:2px;border:1px solid lightgrey; border-radius: 5px; padding: 20px; min-height:200px;">
-              <h3 style="font-size: 2.2rem; margin:0;">r/community</h3>
+              <h3 style="font-size: 2.2rem; margin:0;">r/java</h3>
               <h4 class="grey" style="font-size:1.8rem; margin:10px 0px;">About Community</h4>
               <p class="text-muted">Description</p>
             </div>
@@ -71,13 +71,15 @@
 			</ul>
 			
 			<div class="tab-content" style="padding:10px;">
-			  <div id="post" class="tab-pane fade in active">
+			  <div id="POST" class="tab-pane fade in active">
 	              
 	              <div class="post-container">
 	                <div class="post-detail" style="margin:10px 0px;">
-	                  <form>
+	                  <form method="POST">
 						<div class="form-group">
-						  <input type="text" class="form-control" id="postTitle" placeholder="Post Title" required>
+						  <input type="text" name="postTitle" class="form-control" id="postTitle" placeholder="Post Title" required>
+						  <input type="hidden" name="communityId" value="1">
+						  <input type="hidden" name="postType" value="normal">
 						</div>
 						
 					    <!-- Create the editor container -->
@@ -94,9 +96,11 @@
 			  
 			  <div id="image" class="tab-pane fade">
 			    <div>
-			      <form>
+			      <form action="/createpostwithmedia" method="POST" enctype="multipart/form-data">
 					<div class="form-group">
-					  <input type="text" class="form-control" id="postTitle" placeholder="Post Title" required>
+					  <input type="text" class="form-control" name="postTitle" id="postTitle" placeholder="Post Title" required>
+					  <input type="hidden" name="communityId" value="1" class="form-control" id="communityId">
+					  <input type="hidden" name="postType" value="media" class="form-control" id="postType">
 					</div>
 					
 				    <!-- Create the editor container -->
@@ -105,7 +109,7 @@
 						  <label for="imgInp" style="display:grid; place-items:center;" id="uploadImageIcon">
 						    <img src="https://icon-library.net/images/upload-photo-icon/upload-photo-icon-21.jpg" class="img-responsive" />
 						  </label>
-						  <input id="imgInp" type="file" required/>
+						  <input id="imgInp" name="postImage" type="file" required/>
 						  <img id="imgPreview" src="#" alt="Uploaded Image Corrupted" style="min-height: 20vh; min-width: 20vw; max-height:50vh; max-width:100%;"/>
 						  <label for="imgPreviewFooter" id="imgPreviewFooter" style="min-height:30px;">
 						    <span style="position:absolute; left:15px;bottom:5px;" id="imgSize">Left</span>
@@ -125,13 +129,15 @@
 			    
 				  <div class="post-container">
 	                <div class="post-detail" style="margin:10px 0px;">
-	                  <form>
+	                  <form action="" method="POST">
 						<div class="form-group">
-						  <input type="text" class="form-control" id="postLinkTitle" placeholder="Link Title" required>
+						  <input type="text" name="postTitle" class="form-control" id="postTitle" placeholder="Post Title" required>
+							<input type="hidden" name="communityId" value="1" class="form-control" id="communityId">
+					  		<input type="hidden" name="postType" value="link" class="form-control" id="postType">
 						</div>
 						
 					    <div class="form-group">
-						  <input type="text" class="form-control" id="postLink" placeholder="http://website.com" required>
+						  <input type="text" name="postLink" class="form-control" id="postLink" placeholder="http://website.com" required>
 						</div>
 					    
 						<div style="margin-top:10px;">
@@ -195,6 +201,7 @@
 		  	toolbar: toolbarOptions,
 		  },
 		  placeholder: 'Enter Post Description Here!!!',
+		  name: "postDesciption",
 		  theme: 'snow'
 		});
 			

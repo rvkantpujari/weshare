@@ -104,5 +104,9 @@ public class User {
     		inverseJoinColumns = @JoinColumn(name="community_id"))
     private Set<Community> joinedCommunityList= new HashSet<>();;
     
+    public void addPost(Post post)
+    {
+    	posts.add(post);
+    }
     
 }
