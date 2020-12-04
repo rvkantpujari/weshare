@@ -102,11 +102,5 @@ public class User {
     @JoinTable(name="CommunityMembers",
     		joinColumns = @JoinColumn(name="user_id"),
     		inverseJoinColumns = @JoinColumn(name="community_id"))
-    private Set<Community> joinedCommunityList= new HashSet<>();;
-    
-    public void addPost(Post post)
-    {
-    	posts.add(post);
-    }
-    
+    private Set<Community> joinedCommunityList= new HashSet<>();
 }

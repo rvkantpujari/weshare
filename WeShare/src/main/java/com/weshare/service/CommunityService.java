@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import com.weshare.model.Category;
 import com.weshare.model.Community;
 
-@Controller
+
 public interface CommunityService {
 
 	public List<Community> getAllCommunities();

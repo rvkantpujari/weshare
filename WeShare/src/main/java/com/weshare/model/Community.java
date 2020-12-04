@@ -47,10 +47,4 @@ public class Community {
     private List<Post> posts;
 	
 	private int membersCount;
-	
-	 public void addPost(Post post)
-	 {
-		 posts.add(post);
-	 }
-	
 }

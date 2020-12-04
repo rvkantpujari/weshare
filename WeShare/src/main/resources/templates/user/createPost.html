@@ -22,6 +22,10 @@
     
     <!--Favicon-->
     <link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}"/>
+    
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+	<script>tinymce.init({ selector:'textarea' });</script>
+    
     <style>
     	.ion {
     		margin: 0px 2px;
@@ -55,9 +59,9 @@
           ================================================= -->
     	  <div class="col-md-3 static">
             <div class="suggestions" id="sticky-sidebar" style="margin-top:2px;border:1px solid lightgrey; border-radius: 5px; padding: 20px; min-height:200px;">
-              <h3 style="font-size: 2.2rem; margin:0;">r/java</h3>
+              <h3 style="font-size: 2.2rem; margin:0;" th:text=${community.communityName}></h3>
               <h4 class="grey" style="font-size:1.8rem; margin:10px 0px;">About Community</h4>
-              <p class="text-muted">Description</p>
+              <p class="text-muted" th:text=${community.communityDescription}></p>
             </div>
           </div>
           
@@ -78,13 +82,13 @@
 	                  <form method="POST">
 						<div class="form-group">
 						  <input type="text" name="postTitle" class="form-control" id="postTitle" placeholder="Post Title" required>
-						  <input type="hidden" name="communityId" value="1">
 						  <input type="hidden" name="postType" value="normal">
 						</div>
 						
 					    <!-- Create the editor container -->
-					    <div class="form-group" id="editor" style="min-height:120px; border: 1px solid lightgrey; border-radius: 5px;"><div><br></div></div>
-					    
+					    <textarea name="postDescription" rows="5" class="form-control" required="required"
+								id="description" placeholder="Description">
+							</textarea>
 						<div style="margin-top:10px;">
 						  <button id="btnTextPost" type="submit" class="btn btn-primary">Post</button>
 						</div>
@@ -96,11 +100,11 @@
 			  
 			  <div id="image" class="tab-pane fade">
 			    <div>
-			      <form action="/createpostwithmedia" method="POST" enctype="multipart/form-data">
+			      <form th:action="@{'/user/community/'+${community.communityName}+'/createPostWithMedia'}" method="POST" enctype="multipart/form-data">
 					<div class="form-group">
 					  <input type="text" class="form-control" name="postTitle" id="postTitle" placeholder="Post Title" required>
-					  <input type="hidden" name="communityId" value="1" class="form-control" id="communityId">
-					  <input type="hidden" name="postType" value="media" class="form-control" id="postType">
+					  
+					  <input type="hidden" name="postType" value="media">
 					</div>
 					
 				    <!-- Create the editor container -->
@@ -132,8 +136,8 @@
 	                  <form action="" method="POST">
 						<div class="form-group">
 						  <input type="text" name="postTitle" class="form-control" id="postTitle" placeholder="Post Title" required>
-							<input type="hidden" name="communityId" value="1" class="form-control" id="communityId">
-					  		<input type="hidden" name="postType" value="link" class="form-control" id="postType">
+						
+					  		<input type="hidden" name="postType" value="link">
 						</div>
 						
 					    <div class="form-group">
@@ -174,37 +178,11 @@
     <script th:src="@{/js/script.js}"></script>
     
     <!-- Include the Quill library -->
-	<script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
+	
 	
 	<script>
 		
-		//Initialize Quill editor
-		let toolbarOptions = [
-		 ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-		 ['blockquote', 'code-block'],
 		
-		 [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-		 [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-		 [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-		 [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-		
-		 [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-		 [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-		
-		 [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-		 [{ 'font': [] }],
-		 [{ 'align': [] }]
-		];
-		 
-		var editor = new Quill('#editor', {
-		  modules: { 
-		  	toolbar: toolbarOptions,
-		  },
-		  placeholder: 'Enter Post Description Here!!!',
-		  name: "postDesciption",
-		  theme: 'snow'
-		});
-			
 	
 		// Post and File Attachment Script
 		

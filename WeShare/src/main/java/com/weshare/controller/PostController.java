@@ -3,88 +3,82 @@ package com.weshare.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.security.Principal;
+import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.weshare.model.Community;
 import com.weshare.model.Post;
 import com.weshare.model.User;
-import com.weshare.service.impl.CommunityServiceImpl;
-import com.weshare.service.impl.PostServiceImpl;
-//import com.weshare.service.impl.CommunityServiceImpl;
-import com.weshare.service.impl.UserServiceImpl;
-
-//for azure
-package blobQuickstart.blobAzureApp;
-
-
-import com.microsoft.azure.storage.*;
-import com.microsoft.azure.storage.blob.*;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.Writer;
-import java.util.Scanner;
-
+import com.weshare.service.CommunityService;
+import com.weshare.service.PostService;
+import com.weshare.service.UserService;
 
 @Controller
+@RequestMapping("/user/community")
 public class PostController
 {
-	private final UserServiceImpl userServiceImpl;
-	private final PostServiceImpl postServiceImpl;
-	private final CommunityServiceImpl communityServiceImp;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private PostService postService;
+	@Autowired
+	private CommunityService communityService;
 //	@Autowired
 //    private CommunityServiceImpl communityService;
-	@Autowired
-    public PostController(UserServiceImpl userServiceImpl,
-    			PostServiceImpl postServiceImpl,
-    			CommunityServiceImpl communityServiceImp) 
+	
+	@GetMapping("{communityName}/createPost")
+    public String getCreatePost(Model model, Principal principal,
+    		@PathVariable String communityName )
 	{
-        this.userServiceImpl = userServiceImpl;
-        this.postServiceImpl = postServiceImpl;
-        this.communityServiceImp = communityServiceImp;
+		User user=this.userService.findUserByUserName(principal.getName());
+		model.addAttribute("use", user);
+//		System.out.println("\n\n\n"+communityName+"\n\n\n");
+		Community community = communityService.getCommunityByName(communityName);
+		if(community==null)
+	    {
+			return "404";
+		}
+//		System.out.println("\n\n\n"+community+"\n\n\n");
+		model.addAttribute("community", community);
+		
+		return "user/createPost";
     }
 	
-	@GetMapping("/createpost")
-    public String getCreatePost(Model model)
-	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userServiceImpl.findUserByUserName(auth.getName());
-		model.addAttribute("use", user); 
-        return "user/createPost";
-    }
-	
-	@PostMapping("/createpost")
-    public RedirectView addPost(Model model, HttpServletRequest request)
+	@PostMapping("{communityName}/createPost")
+    public String addPost(Model model, HttpServletRequest request,
+    		Principal principal, @PathVariable String communityName)
 	{
 //        System.out.println("\n\n\n create post\n\n\n");
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userServiceImpl.findUserByUserName(auth.getName());
+		User user=this.userService.findUserByUserName(principal.getName());
 		model.addAttribute("use", user);
         String title = request.getParameter("postTitle");
-        int communityId = Integer.parseInt(request.getParameter("communityId"));
         String postType = request.getParameter("postType");
         System.out.println("\n\n\npost tpye: "+postType);
         Post newPost = new Post();
-        Community community = communityServiceImp.getCommunityById(communityId);
         
+        Community community = communityService.getCommunityByName(communityName);
+		if(community==null)
+	    {
+			return "404";
+		}
         newPost.setTitle(title);
         
         if(postType.equals("normal"))
         {
-            String content = request.getParameter("postDesciption");
+            String content = request.getParameter("postDescription");
+            System.out.println("\n\n\nin if content is: "+content+"\n\n\n");
         	newPost.setContent(content);
         }
         else if(postType.equals("link"))
@@ -95,36 +89,39 @@ public class PostController
         newPost.setTitle(title);
 		newPost.setUser(user);
     	newPost.setCommunity(community);
-    	userServiceImpl.saveUser(user);
-    	postServiceImpl.savePost(newPost);
-    	communityServiceImp.saveCommunity(community);
-    	user.addPost(newPost);
-    	community.addPost(newPost);
-        return new RedirectView("createpost");
+//    	userService.saveUser(user);
+    	postService.savePost(newPost);
+//    	communityService.saveCommunity(community);
+//    	user.addPost(newPost);
+//    	community.addPost(newPost);
+        return "redirect:/user/community/"+communityName;
     }
 	
-	@PostMapping("/createpostwithmedia")
-    public RedirectView addMediaPost(Model model, HttpServletRequest request,
-    		@RequestParam("postImage") MultipartFile postImage)
+	@PostMapping("{communityName}/createPostWithMedia")
+    public String addMediaPost(Model model, HttpServletRequest request,
+    		@RequestParam("postImage") MultipartFile postImage, Principal principal
+    		, @PathVariable String communityName)
 	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userServiceImpl.findUserByUserName(auth.getName());
+		System.out.println("\n\n\n createPostWithMedia "+communityName+"\n\n\n");
+		User user=this.userService.findUserByUserName(principal.getName());
 		model.addAttribute("use", user);
         String title = request.getParameter("postTitle");
-        int communityId = Integer.parseInt(request.getParameter("communityId"));
         String postType = request.getParameter("postType");
         System.out.println("\n\n\npost tpye: "+postType);
         Post newPost = new Post();
-        Community community = communityServiceImp.getCommunityById(communityId);
-        
+        Community community = communityService.getCommunityByName(communityName);
+		if(community==null)
+	    {
+			return "404";
+		}
         newPost.setTitle(title);
 		newPost.setUser(user);
     	newPost.setCommunity(community);
-    	userServiceImpl.saveUser(user);
-    	postServiceImpl.savePost(newPost);
-    	communityServiceImp.saveCommunity(community);
-    	user.addPost(newPost);
-    	community.addPost(newPost);
+//    	userService.saveUser(user);
+    	postService.savePost(newPost);
+//    	communityService.saveCommunity(community);
+//    	user.addPost(newPost);
+//    	community.addPost(newPost);
     	
     	String imageName = newPost.getPostId() + ".png";
     	
@@ -142,7 +139,7 @@ public class PostController
     	{
     		System.out.println("\n\n\n\n\nerror while saving:file "+e+" \n\n\n\n");
     	}
-    	return new RedirectView("createpost");
+    	return "redirect:/user/community/"+communityName;
 	}
 	
 }

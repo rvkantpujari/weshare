@@ -55,8 +55,6 @@
 								<button type="submit" class="btn btn-danger col-3">Leave</button>
 							</a>
 						</div>
-                    
-                    
                   </div>
                 </div>
               </div>
@@ -84,6 +82,7 @@
                   <textarea onclick="redirectToCreatePost()" name="postContent" id="postContent" cols="80" rows="1" class="form-control" placeholder="Write what you wish" style="resize:none; cursor:pointer; background-color:white;"></textarea>
                 </div>
               </div>
+              <!-- 
            	  <div class="col-md-2 col-sm-2">
                 <div class="tools">
                   <ul class="publishing-tools list-inline">
@@ -93,6 +92,7 @@
                   </ul>
                 </div>
                </div>
+                -->
            	</div>
            	
            	<div class="post-content">
@@ -163,12 +163,13 @@
     <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
     <script th:src="@{/js/script.js}"></script>
 	
-    <script>
+    <script th:inline="javascript">
+	    /*<![CDATA[*/	
+		    var communityName = /*[[${com.communityName}]]*/ 'Sebastian';
+		/*]]>*/
     	function redirectToCreatePost()
     	{
-    		let URL = window.location.href;
-    		URL = URL.replace("viewCommunity", "createPost");
-    		window.location = URL; 
+    		window.location = "/user/community/"+communityName+"/createPost";
     	}
     </script>    
   </body>
