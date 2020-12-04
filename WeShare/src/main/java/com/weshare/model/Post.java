@@ -13,8 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -43,6 +45,9 @@ public class Post {
     private String videoThumbnail;
     private int score;
     private int commentsNum;
+    
+    @Transient
+	private MultipartFile postImage;
     
     @ManyToOne
     @JoinColumn(name="community_id")

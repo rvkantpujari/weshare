@@ -22,6 +22,7 @@
     
     <!--Favicon-->
     <link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}"/>
+    
     <style>
     	.ion {
     		margin: 0px 2px;
@@ -55,9 +56,9 @@
           ================================================= -->
     	  <div class="col-md-3 static">
             <div class="suggestions" id="sticky-sidebar" style="margin-top:2px;border:1px solid lightgrey; border-radius: 5px; padding: 20px; min-height:200px;">
-              <h3 style="font-size: 2.2rem; margin:0;">r/community</h3>
+              <h3 style="font-size: 2.2rem; margin:0;" th:text=${community.communityName}></h3>
               <h4 class="grey" style="font-size:1.8rem; margin:10px 0px;">About Community</h4>
-              <p class="text-muted">Description</p>
+              <p class="text-muted" th:text=${community.communityDescription}></p>
             </div>
           </div>
           
@@ -71,18 +72,20 @@
 			</ul>
 			
 			<div class="tab-content" style="padding:10px;">
-			  <div id="post" class="tab-pane fade in active">
+			  <div id="POST" class="tab-pane fade in active">
 	              
 	              <div class="post-container">
 	                <div class="post-detail" style="margin:10px 0px;">
-	                  <form>
+	                  <form method="POST">
 						<div class="form-group">
-						  <input type="text" class="form-control" id="postTitle" placeholder="Post Title" required>
+						  <input type="text" name="postTitle" class="form-control" id="postTitle" placeholder="Post Title" required>
+						  <input type="hidden" name="postType" value="normal">
 						</div>
 						
 					    <!-- Create the editor container -->
-					    <div class="form-group" id="editor" style="min-height:120px; border: 1px solid lightgrey; border-radius: 5px;"><div><br></div></div>
-					    
+					    <textarea name="postDescription" rows="5" class="form-control" required="required"
+								id="postDescription" placeholder="Description">
+							</textarea>
 						<div style="margin-top:10px;">
 						  <button id="btnTextPost" type="submit" class="btn btn-primary">Post</button>
 						</div>
@@ -94,9 +97,11 @@
 			  
 			  <div id="image" class="tab-pane fade">
 			    <div>
-			      <form>
+			      <form th:action="@{'/user/community/'+${community.communityName}+'/createPostWithMedia'}" method="POST" enctype="multipart/form-data">
 					<div class="form-group">
-					  <input type="text" class="form-control" id="postTitle" placeholder="Post Title" required>
+					  <input type="text" class="form-control" name="postTitle" id="postTitle" placeholder="Post Title" required>
+					  
+					  <input type="hidden" name="postType" value="media">
 					</div>
 					
 				    <!-- Create the editor container -->
@@ -105,7 +110,7 @@
 						  <label for="imgInp" style="display:grid; place-items:center;" id="uploadImageIcon">
 						    <img src="https://icon-library.net/images/upload-photo-icon/upload-photo-icon-21.jpg" class="img-responsive" />
 						  </label>
-						  <input id="imgInp" type="file" required/>
+						  <input id="imgInp" name="postImage" type="file" required/>
 						  <img id="imgPreview" src="#" alt="Uploaded Image Corrupted" style="min-height: 20vh; min-width: 20vw; max-height:50vh; max-width:100%;"/>
 						  <label for="imgPreviewFooter" id="imgPreviewFooter" style="min-height:30px;">
 						    <span style="position:absolute; left:15px;bottom:5px;" id="imgSize">Left</span>
@@ -125,13 +130,15 @@
 			    
 				  <div class="post-container">
 	                <div class="post-detail" style="margin:10px 0px;">
-	                  <form>
+	                  <form action="" method="POST">
 						<div class="form-group">
-						  <input type="text" class="form-control" id="postLinkTitle" placeholder="Link Title" required>
+						  <input type="text" name="postTitle" class="form-control" id="postTitle" placeholder="Post Title" required>
+						
+					  		<input type="hidden" name="postType" value="link">
 						</div>
 						
 					    <div class="form-group">
-						  <input type="text" class="form-control" id="postLink" placeholder="http://website.com" required>
+						  <input type="text" name="postLink" class="form-control" id="postLink" placeholder="http://website.com" required>
 						</div>
 					    
 						<div style="margin-top:10px;">
@@ -166,38 +173,15 @@
     <script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
     <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
     <script th:src="@{/js/script.js}"></script>
-    
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
     <!-- Include the Quill library -->
-	<script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
+	
 	
 	<script>
-		
-		//Initialize Quill editor
-		let toolbarOptions = [
-		 ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-		 ['blockquote', 'code-block'],
-		
-		 [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-		 [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-		 [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-		 [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-		
-		 [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-		 [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-		
-		 [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-		 [{ 'font': [] }],
-		 [{ 'align': [] }]
-		];
-		 
-		var editor = new Quill('#editor', {
-		  modules: { 
-		  	toolbar: toolbarOptions,
-		  },
-		  placeholder: 'Enter Post Description Here!!!',
-		  theme: 'snow'
-		});
-			
+	    tinymce.init({
+	      selector: '#postDescription'
+	    });
 	
 		// Post and File Attachment Script
 		

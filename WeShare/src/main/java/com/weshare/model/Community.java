@@ -47,5 +47,4 @@ public class Community {
     private List<Post> posts;
 	
 	private int membersCount;
-	
 }
