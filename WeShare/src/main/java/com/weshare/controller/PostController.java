@@ -117,15 +117,13 @@ public class PostController
         newPost.setTitle(title);
 		newPost.setUser(user);
     	newPost.setCommunity(community);
-//    	userService.saveUser(user);
     	postService.savePost(newPost);
-//    	communityService.saveCommunity(community);
-//    	user.addPost(newPost);
-//    	community.addPost(newPost);
+    	
+    	newPost.setImageUrl(newPost.getPostId()+"");
+    	postService.savePost(newPost);
     	
     	String imageName = newPost.getPostId() + ".png";
     	
-//    	MultipartFile postImage = request.getParameter("postImage");
     	try
     	{
     		byte[] bytes = postImage.getBytes();

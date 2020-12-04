@@ -1,6 +1,7 @@
 package com.weshare.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.weshare.model.Community;
+import com.weshare.model.Post;
 import com.weshare.model.User;
 import com.weshare.service.CommunityService;
 import com.weshare.service.UserService;
@@ -38,9 +40,13 @@ public class JoinLeaveCommunityController {
 	        	m.addAttribute("exist", true);
 	        	return "user/ViewCommunity";
 	     }
-		
+		List<Post> comunityPosts = c.getPosts();
+//		for (Post post : comunityPosts)
+//		{
+//			System.out.println("\n\npost title: "+post.getTitle());
+//		}
 		m.addAttribute("com", c);
-		
+		m.addAttribute("comunityPosts", comunityPosts);
 		return "user/ViewCommunity";
 	}
 

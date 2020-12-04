@@ -95,52 +95,42 @@
                 -->
            	</div>
            	
-           	<div class="post-content">
+           	<div class="post-content" th:each="post: ${comunityPosts}">
               <div class="post-container">
                 <div class="post-detail" style="margin-left:0px;">
                   <div class="user-info">
-                    <h5><a href="timeline.html" class="profile-link">Alexis Clark</a></h5>
-                    <p class="text-muted">Published a photo about 3 mins ago</p>
-                    <span class="following ion-compose" style="font-size:1.3rem; margin:0px; padding:0px;"> 10 Comments</span>
-                    <a class="following ion-ios-plus" style="font-size:1.3rem; cursor:pointer; text-decoration:none;"> Save</a>
+                    <h5><a href="timeline.html" class="profile-link"><h2 th:text="${post.title}"></h2></a></h5>
+                    <p class="text-muted" th:utext="'posted by ' + ${post.user.userName} + ' on ' + ${post.creationDate}"></p>
+                    <span th:text=" ${post.commentsNum} + ' comments '" class="following ion-compose" style="font-size:1.5rem; margin:0px; padding:0px;"></span>
+                    <a class="following ion-ios-plus" style="font-size:1.5rem; cursor:pointer; text-decoration:none;"> Save</a>
                   </div>
                   <div class="reaction">
-                    <a class="btn text-green"><i class="icon ion-thumbsup"></i></a> 13
+                    <a class="btn text-green"><i class="icon ion-thumbsup"></i></a>
+                    	<span th:text=" ${post.score}"></span>
                     <a class="btn text-red"><i class="fa fa-thumbs-down"></i></a>
                   </div>
+                  
+                  <div class="post_with_content" th:if="${post.content}">
                   <div class="line-divider"></div>
                   <div class="post-text text-justify">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <i class="em em-anguished"></i> <i class="em em-anguished"></i> <i class="em em-anguished"></i></p>
+                    <span th:utext="${post.content}"  style="font-size:1.8rem"></span>
                   </div>
-                </div>
-              </div>
-            </div>
-           	
-            <!-- Post Content
-            ================================================= -->
-            <div class="post-content">
-              <div class="post-container">
-                <div class="post-detail" style="margin:0px;">
-                  <div class="user-info">
-                    <h5><a href="timeline.html" class="profile-link">Steve James</a></h5>
-                    <p class="text-muted">Published a photo about 4 hours ago</p>
-                    <span class="following ion-compose" style="font-size:1.3rem; margin:0px; padding:0px;"> 10 Comments</span>
-                    <a class="following ion-ios-plus" style="font-size:1.3rem; cursor:pointer; text-decoration:none;"> Save</a>
                   </div>
-                  <div class="reaction">
-                    <a class="btn text-green"><i class="icon ion-thumbsup"></i></a> 13
-                    <a class="btn text-red"><i class="fa fa-thumbs-down"></i></a>
+                  
+                  <div class="post_with_link" th:if="${post.link}">
+                  <div class="line-divider" ></div>
+                  <div class="post-text text-justify">
+                    <a th:href="${post.link}" th:text="${post.link}" style="font-size:1.8rem" target="_blank"></a>
                   </div>
+                  </div>
+                  
+                  <div class="post_with_media" th:if="${post.imageUrl}">
                   <div class="line-divider"></div>
-              	  <img src="/images/post-images/1.jpg" alt="post-image" class="img-responsive post-image" />
-              	  <div class="line-divider"></div>
-                  <div class="post-text">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. <i class="em em-anguished"></i> <i class="em em-anguished"></i> <i class="em em-anguished"></i></p>
+                  <img th:src="'/postImages/' + ${post.postId} + '.png'" alt="post-image" class="img-responsive post-image" />
                   </div>
                 </div>
               </div>
             </div>
-          </div>
     	</div>
       </div>
     </div>
