@@ -15,6 +15,7 @@ import com.weshare.model.Post;
 import com.weshare.model.User;
 import com.weshare.service.CommunityService;
 import com.weshare.service.UserService;
+import com.weshare.service.VoteService;
 
 @Controller
 @RequestMapping("/user/community")
@@ -25,6 +26,9 @@ public class JoinLeaveCommunityController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private VoteService voteService;
 	
 	
 	@GetMapping("/{communityName}")
@@ -52,6 +56,8 @@ public class JoinLeaveCommunityController {
 		}
 		m.addAttribute("com", c);
 		m.addAttribute("comunityPosts", comunityPosts);
+		m.addAttribute("user", user);
+		m.addAttribute("voteService", voteService);
 		return "user/ViewCommunity";
 	}
 

@@ -23,7 +23,6 @@ import com.weshare.model.User;
 import com.weshare.service.CommunityService;
 import com.weshare.service.PostService;
 import com.weshare.service.UserService;
-import com.weshare.service.VoteService;
 
 @Controller
 @RequestMapping("/user/community")
@@ -124,7 +123,7 @@ public class PostController
     	newPost.setImageUrl(newPost.getPostId()+"");
     	postService.savePost(newPost);
     	
-    	String imageName = newPost.getPostId() + ".png";
+    	String imageName = "_" + newPost.getPostId() + ".png";
     	
     	try
     	{

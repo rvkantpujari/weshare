@@ -4,7 +4,7 @@ function downvote(postId)
 
 	$.ajax({
 		type : "POST",
-		url : "/user/community/downvote",
+		url : "/downvote",
 		data : {
 			postId: postId
 		},

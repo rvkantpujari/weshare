@@ -2,7 +2,6 @@ package com.weshare.service;
 
 import java.util.List;
 
-
 import com.weshare.model.Post;
 
 public interface PostService

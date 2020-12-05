@@ -64,4 +64,13 @@ public class Post {
     @JsonIgnore
  	@OneToMany(mappedBy="post",cascade = CascadeType.ALL)
     private List<Vote> votes;
+    
+
+	public boolean hasUserVoted(User user)
+	{
+		for(Vote vote: this.votes)
+			if(vote.getUser() == user)
+				return true;
+		return false;
+	}
 }
