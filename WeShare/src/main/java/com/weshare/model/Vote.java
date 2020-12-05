@@ -26,6 +26,13 @@ public class Vote {
 	@JoinColumn(name="post_id")
 	private Post post;
 	
-	private int vote;	
+	private int vote;
 	
+	public Vote(User user, Post post, int vote) {
+	    this.user = user;
+	    this.post = post;
+	    this.vote = vote;
+	  }
+	public Vote() {
+	  }
 }

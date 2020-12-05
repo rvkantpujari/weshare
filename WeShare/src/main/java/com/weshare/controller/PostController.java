@@ -4,7 +4,6 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.security.Principal;
-import java.util.NoSuchElementException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,6 +23,7 @@ import com.weshare.model.User;
 import com.weshare.service.CommunityService;
 import com.weshare.service.PostService;
 import com.weshare.service.UserService;
+import com.weshare.service.VoteService;
 
 @Controller
 @RequestMapping("/user/community")
@@ -35,6 +35,8 @@ public class PostController
 	private PostService postService;
 	@Autowired
 	private CommunityService communityService;
+	
+	
 //	@Autowired
 //    private CommunityServiceImpl communityService;
 	
@@ -139,5 +141,5 @@ public class PostController
     	}
     	return "redirect:/user/community/"+communityName;
 	}
-	
+
 }
