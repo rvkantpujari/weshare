@@ -2,7 +2,6 @@ package com.weshare.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Controller;
 
 import com.weshare.model.Post;
 

@@ -36,15 +36,20 @@ public class JoinLeaveCommunityController {
 		 if(user.getJoinedCommunityList().contains(c))
 	     {
 //				m.addAttribute("communityName", comName);
-			 	m.addAttribute("com", c);
+//			 	m.addAttribute("com", c);
 	        	m.addAttribute("exist", true);
-	        	return "user/ViewCommunity";
+//	        	return "user/ViewCommunity";
 	     }
+		 else
+		 {
+			 m.addAttribute("exist", false);
+		 }
 		List<Post> comunityPosts = c.getPosts();
-//		for (Post post : comunityPosts)
-//		{
-//			System.out.println("\n\npost title: "+post.getTitle());
-//		}
+		System.out.println("\n\nprint all post of : "+comName);
+		for (Post post : comunityPosts)
+		{
+			System.out.println("\n\npost title: "+post.getTitle());
+		}
 		m.addAttribute("com", c);
 		m.addAttribute("comunityPosts", comunityPosts);
 		return "user/ViewCommunity";

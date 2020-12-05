@@ -99,15 +99,15 @@
               <div class="post-container">
                 <div class="post-detail" style="margin-left:0px;">
                   <div class="user-info">
-                    <h5><a href="timeline.html" class="profile-link"><h2 th:text="${post.title}"></h2></a></h5>
+                    <a href="timeline.html" class="profile-link"><h2 th:text="${post.title}"></h2></a>
                     <p class="text-muted" th:utext="'posted by ' + ${post.user.userName} + ' on ' + ${post.creationDate}"></p>
                     <span th:text=" ${post.commentsNum} + ' comments '" class="following ion-compose" style="font-size:1.5rem; margin:0px; padding:0px;"></span>
                     <a class="following ion-ios-plus" style="font-size:1.5rem; cursor:pointer; text-decoration:none;"> Save</a>
                   </div>
                   <div class="reaction">
-                    <a class="btn text-green"><i class="icon ion-thumbsup"></i></a>
+                    <button th:onclick=" 'upvote(' + ${post.postId} + ')' " class="upvoteBtn btn text-green icon ion-thumbsup"></button>
                     	<span th:text=" ${post.score}"></span>
-                    <a class="btn text-red"><i class="fa fa-thumbs-down"></i></a>
+                    <button th:onclick=" 'downvote(' + ${post.postId} + ')' " class="downvoteBtn btn text-red fa fa-thumbs-down"></button>
                   </div>
                   
                   <div class="post_with_content" th:if="${post.content}">
@@ -152,7 +152,8 @@
     <script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
     <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
     <script th:src="@{/js/script.js}"></script>
-	
+	<script th:src="@{/js/upvote.js}"></script>
+	<script th:src="@{/js/downvote.js}"></script>
     <script th:inline="javascript">
 	    /*<![CDATA[*/	
 		    var communityName = /*[[${com.communityName}]]*/ 'Sebastian';
