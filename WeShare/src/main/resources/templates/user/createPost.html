@@ -179,9 +179,11 @@
 	
 	
 	<script>
+		
 	    tinymce.init({
 	      selector: '#postDescription'
 	    });
+	    
 	
 		// Post and File Attachment Script
 		
@@ -238,6 +240,9 @@
 		  readURL(this);
 		});
 		
+		window.addEventListener('DOMContentLoaded', (event) => {
+	        setTimeout(function(){ $('.tox-notifications-container').hide(); }, 3000);
+	    });
 		
 	</script>    
   </body>
