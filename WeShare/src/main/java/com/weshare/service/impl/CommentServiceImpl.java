@@ -1,5 +1,7 @@
 package com.weshare.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,11 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public void saveComment(Comment c) {
 		commentRepository.save(c);
+	}
+
+	@Override
+	public List<Comment> getAllComments() {
+		return commentRepository.findAll();
 	}
 
 }

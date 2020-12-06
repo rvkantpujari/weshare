@@ -1,5 +1,7 @@
 package com.weshare.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,11 +30,19 @@ public class CommentController {
 		return "user/addComment";
 	}
 	
+	@GetMapping("/all")
+	public String commentList(Model m)
+	{
+		List<Comment> commentList = commentService.getAllComments();
+		m.addAttribute("comList", commentList);
+		return "user/commentList";
+	}
+	
 	@PostMapping("/save")
 	public String saveComment(@ModelAttribute("comment")Comment c)
 	{
 		commentService.saveComment(c);
-		return "redirect:/user/addComment";
+		return "redirect:/user/comment/all";
 	}
 
 }
