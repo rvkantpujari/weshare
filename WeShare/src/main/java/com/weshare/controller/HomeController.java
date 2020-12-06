@@ -62,6 +62,13 @@ public class HomeController {
 		 return "user/createPost";
 	 }
 	 
+	 @GetMapping("/user/viewPost")
+	 public String viewPost(Model model)
+	 {
+		 model.addAttribute("loggedIn", true);
+		 return "user/viewPost";
+	 }
+	 
 	 @GetMapping("/admin/home")
 	 public String adminHome(Model model)
 	 {

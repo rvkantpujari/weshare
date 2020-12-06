@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="This is social network platform." />
+	<meta name="keywords" content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
+	<meta name="robots" content="index, follow" />
+	<title>View Post | WeShare</title>
+
+    <!-- Stylesheets
+    ================================================= -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/ionicons.min.css}" />
+   	<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+    
+    <!--Google Font-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i" rel="stylesheet">
+    
+    <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+    
+    <!--Favicon-->
+    <link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}"/>
+    
+    <style>
+    	.icon, .fa {
+    		margin: 0px;
+    	}
+    	.vertical-line-divider {
+    		display:inline;
+    		border: 1px solid lightgrey; margin:0 10px 0 10px;
+    	}
+    	
+    	/* 3-dots icon*/
+    	.test:after {
+	        content: '\2807';
+	        font-size: 25px;
+	        color: black;
+	    }
+	    .dropdown-menu li {
+	    	list-style: none;
+	    }
+	    .btn-danger {
+	    	margin:0 5px;
+	    	border-radius: 20px;
+	    	padding:6px 20px;
+	    }
+    </style>
+  </head>
+  <body>
+
+    <!-- Header
+    ================================================= navbar-fixed-top -->
+	<header id="header">
+      <nav th:replace="header::navbar"></nav>
+    </header>
+    
+    <!--Header End-->	
+    <div id="page-contents">
+      <div class="container">
+    	<div class="row">
+    	  <div class="col-md-1"></div>
+    	  <div class="col-md-10">
+              <h2>Community Name</h2>
+              <div class="line"></div>
+    	  </div>
+    	  <div class="col-md-1"></div>
+    	</div>
+    	
+    	<div class="row">
+
+          <!-- About Community Side Bar Left
+          ================================================= --
+    	  <div class="col-md-3 static" style="margin-top:10px;">
+            <div class="suggestions" id="sticky-sidebar" style="margin-top:2px;border:1px solid lightgrey; border-radius: 5px; padding: 20px; min-height:200px;">
+              <h3 style="font-size: 2.2rem; margin:0;">communityName</h3>
+              <h4 class="grey" style="font-size:1.8rem; margin:10px 0px;">About Community</h4>
+              <p class="text-muted">communityDescription</p>
+            </div>
+          </div>-->
+          <div class="col-md-1"></div>
+          <!-- Post Content
+          ================================================= -->
+    	  <div class="col-md-10" style="margin-top:10px;">
+			
+			<div class="row" style="margin:10px;">
+			  <div class="post-content">
+                <div class="post-container">
+                  
+                  <div class="post-detail" style="margin:-10px 0 0 0;">
+                    <div class="user-info">
+                      <a href="#" class="profile-link"><h2>Post Title</h2></a>
+                      <p class="text-muted">posted by userName on creationDate</p>
+                      <span class="following icon ion-compose" style="font-size:1.5rem; margin:0px; padding:0px;"> 0 comments</span>
+                      <div class=" vertical-line-divider"></div>
+                      <a class="following icon ion-android-bookmark" style="font-size:1.5rem; cursor:pointer; text-decoration:none;"> Save</a>
+                      <div class=" vertical-line-divider"></div>
+                      <span>
+		                <a class="btn text-green"><i style="font-size:2rem;" class="icon ion-thumbsup"></i></a> 13
+		                <a class="btn text-red"><i style="font-size:2rem;" class="fa fa-thumbs-down"></i></a>
+	                  </span>
+                    </div>
+                 
+                    <div class="post_with_content" style="margin-top:10px;">
+	                  <div class="line-divider"></div>
+	                  <div class="post-text text-justify">
+	                    <span style="font-size:1.8rem; padding:5px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						   tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						   quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						   consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						   cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						   proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+						</span>
+	                  </div>
+                    </div>
+                    
+                    <div class="line-divider" style="margin: 30px 0px;"></div>
+                    
+                    <div class="row">
+                    	<div class="col-sm-1"></div>
+                    	<div class="col-sm-10">
+                    		<form method="POST" id="addNewComment">
+			                    <textarea type="text" name="commentDesc" class="form-control control-input" placeholder="Add New Comment" style="resize: vertical; height: 120px;" required></textarea><br>
+			                    <button type="submit" class="btn btn-primary pull-left"><span class="fa fa-paper-plane"></span></button>
+			                </form>
+						</div>
+                    	<div class="col-sm-1"></div>
+                    </div>
+                    
+                    <div class="line-divider" style="margin: 30px 0px;"></div>
+                    
+					<h3>Comments</h3>
+                    <div class="accordion" id="accordionExample">
+					  <div class="card">
+					    <div class="card-header" id="headingOne">
+					      <h2 class="row" style="background-color:white; border-radius: 5px; padding:5px;" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+					        <span class="btn collapsed">
+					          John Doe
+					        </span>
+					        <span class="h6 pull-right" style="padding: 5px 20px 0px 0px;">createdOn</span>
+					      </h2>
+					    </div>
+					    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample" style="margin-bottom:10px;">
+					      <span class="pull-right" id="3-dots-btn-1">
+                            <div class="dropdown" style="cursor:pointer;">
+                              <div class="test dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              </div>
+                              <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                  <a href="#" class="link-page edit-comment-link" data-toggle="modal" data-commentid="1">
+                                  Edit</a>
+                                </li>
+                                <li>
+                                  <a href="#" class="link-page">Delete</a>
+                                </li>
+                              </ul>
+                            </div>
+                          </span>
+					      <div class="card-body text-justify" style="padding:0px 30px 0 0;" id="viewCommentId-1">
+					        Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+					      </div>
+					      <form method="post" id="editCommentForm-1">
+                            <textarea name="commentDescription" id="editCommentId-1" class="form-control control-input" placeholder="Edit Comment" style="resize: vertical; min-height: 150px;"></textarea>
+                            <button type="submit" class="btn btn-primary" id="saveCommentBtn" style="margin-top:10px;"><span>Save</span></button>
+                            <a class="btn btn-danger btn-cancel" data-commentid="1" style="margin-top:10px;">Cancel</a>
+                          </form>
+					    </div>
+					  </div>
+
+					  <div class="card">
+					    <div class="card-header" id="headingTwo">
+					      <h2 class="row" style="background-color:white; border-radius: 5px; padding:5px;" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+					        <span class="btn collapsed">
+					          John Doe
+					        </span>
+					        <span class="h6 pull-right" style="padding: 5px 20px 0px 0px;">createdOn</span>
+					      </h2>
+					    </div>
+					    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample" style="margin-bottom:10px;">
+					      <span class="pull-right" id="3-dots-btn-2">
+                            <div class="dropdown" style="cursor:pointer;">
+                              <div class="test dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              </div>
+                              <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                  <a href="#" class="link-page edit-comment-link" data-toggle="modal" data-commentid="2">
+                                  Edit</a>
+                                </li>
+                                <li>
+                                  <a href="#" class="link-page">Delete</a>
+                                </li>
+                              </ul>
+                            </div>
+                          </span>
+					      <div class="card-body text-justify" style="padding:0px 30px 0 0;" id="viewCommentId-2">
+					        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+					      </div>
+					      <form method="post" id="editCommentForm-2">
+                            <textarea name="commentDescription" id="editCommentId-2" class="form-control control-input" placeholder="Edit Comment" style="resize: vertical; min-height: 150px;"></textarea>
+                            <button type="submit" class="btn btn-primary" id="saveCommentBtn" style="margin-top:10px;"><span>Save</span></button>
+                            <a class="btn btn-danger btn-cancel" data-commentid="2" style="margin-top:10px;">Cancel</a>
+                          </form>
+					    </div>
+					  </div>
+					  
+					</div>
+	                
+                  </div>
+                  <!-- post-details ends here -->
+                
+                </div>
+              </div>
+			</div>
+           	
+          </div>
+          <div class="col-md-1"></div>
+    	</div>
+      </div>
+    </div>
+
+
+    <!-- Footer
+    ================================================= -->
+    <footer class="navbar navbar-fixed-bottom" th:include="footer::footer"></footer>
+    
+    <!--preloader-->
+    <div id="spinner-wrapper">
+      <div class="spinner"></div>
+    </div>
+    
+    <!-- Scripts
+    ================================================= -->
+    <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
+    <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+    
+	<script>
+	    
+	    $(document).ready(function(){
+	        $('form').hide();
+	        $('#addNewComment').show();
+	    })
+	    
+	    // Edit Comment Button
+	    $(".edit-comment-link").click(function(){
+	        let commentId = $(this).data('commentid');
+	        $('#viewCommentId-'+commentId).hide();
+	        $('#3-dots-btn-'+commentId).hide();
+	        $('#editCommentForm-'+commentId).show();
+	        $('#editCommentId-'+commentId).val($('#viewCommentId-'+commentId).text().trim());
+	    });
+		// Cancel Button 
+	    $(".btn-cancel").click(function(){
+	        let commentId = $(this).data('commentid');
+	        $('#editCommentForm-'+commentId).hide();
+	        $('#viewCommentId-'+commentId).show();
+	        $('#3-dots-btn-'+commentId).show(100);
+	    });
+	</script>
+    
+  </body>
+</html>

@@ -140,7 +140,7 @@
                   <div class="post_with_content" th:if="${post.content}">
                   <div class="line-divider"></div>
                   <div class="post-text text-justify">
-                    <span th:utext="${post.content}"  style="font-size:1.8rem"></span>
+                    <span th:utext="${post.content}" class="short-description" style="font-size:1.8rem"></span>
                   </div>
                   </div>
                   
@@ -189,6 +189,21 @@
     	{
     		window.location = "/user/community/"+communityName+"/createPost";
     	}
+		
+    	// Limit Description
+	    function truncateText(element, maxLength) {
+	        let truncated = element.innerText;
+	        if (truncated.length > maxLength) {
+	            truncated = truncated.substr(0, maxLength) + '...';
+	        }
+	        //return truncated;
+	        element.innerText = truncated;
+	    }
+	    let countBDesc = document.querySelectorAll('.short-description');
+	    for(let i=0; i<countBDesc.length; i++)
+	    {
+	        truncateText(countBDesc[i], 150);
+	    }
     </script>    
   </body>
 </html>
