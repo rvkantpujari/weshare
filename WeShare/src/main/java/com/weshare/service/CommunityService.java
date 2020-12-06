@@ -3,11 +3,12 @@ package com.weshare.service;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
 import com.weshare.model.Category;
 import com.weshare.model.Community;
 
-@Controller
+@Service
 public interface CommunityService {
 
 	public List<Community> getAllCommunities();

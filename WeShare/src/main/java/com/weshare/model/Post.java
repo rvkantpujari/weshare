@@ -13,8 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -44,6 +46,9 @@ public class Post {
     private int score;
     private int commentsNum;
     
+    @Transient
+	private MultipartFile postImage;
+    
     @ManyToOne
     @JoinColumn(name="community_id")
 	private Community community;
@@ -57,6 +62,15 @@ public class Post {
     private List<Comment> comments;
 
     @JsonIgnore
- 	@OneToMany(mappedBy="post",cascade = CascadeType.ALL)
+ 	@OneToMany(mappedBy="post")
     private List<Vote> votes;
+    
+
+	public boolean hasUserVoted(User user)
+	{
+		for(Vote vote: this.votes)
+			if(vote.getUser() == user)
+				return true;
+		return false;
+	}
 }
