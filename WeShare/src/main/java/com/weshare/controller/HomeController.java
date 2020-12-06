@@ -24,6 +24,24 @@ public class HomeController {
 	     return "index";
 	 }
 	 
+	 @GetMapping("/user/createdCommunities")
+	 public String createdCommunities(Model model)
+	 {
+		 return "user/createdCommunities";
+	 }
+	 
+	 @GetMapping("/user/createdPosts")
+	 public String createdPosts(Model model)
+	 {
+		 return "user/createdPosts";
+	 }
+	 
+	 @GetMapping("/user/createdComments")
+	 public String createdComments(Model model)
+	 {
+		 return "user/createdComments";
+	 }
+	 
 	 @GetMapping("/user/manageProfile")
 	 public String manageProfile(Model model)
 	 {
