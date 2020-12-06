@@ -19,7 +19,10 @@ public class VoteServiceImpl implements VoteService
 	
 	@Override
 	  public Vote findByPostAndUser(Post post, User user) {
-	    return voteRepository.findByPostAndUser(post, user);
+		Vote vote = voteRepository.findByPostAndUser(post, user);
+		if(vote == null)
+			return null;
+		return voteRepository.findById(vote.getVoteId()).get();
 	  }
 
 	  @Override
@@ -34,6 +37,11 @@ public class VoteServiceImpl implements VoteService
 
 	  @Override
 	  public void delete(Vote vote) {
-	    voteRepository.deleteById(vote.getVoteId());
+	    voteRepository.delete(vote);
 	  }
+	  @Override
+	  public Vote findByVoteId(int voteId) {
+	    return voteRepository.findById(voteId).get();
+	  }
+	  
 }

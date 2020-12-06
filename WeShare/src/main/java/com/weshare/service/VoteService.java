@@ -14,4 +14,5 @@ public interface VoteService {
 	 List<Vote> findByPost(Post post);
 	 void save(Vote vote);
 	 void delete(Vote vote);
+	Vote findByVoteId(int voteId);
 }

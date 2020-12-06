@@ -72,7 +72,7 @@
 			</ul>
 			
 			<div class="tab-content" style="padding:10px;">
-			  <div id="POST" class="tab-pane fade in active">
+			  <div id="post" class="tab-pane fade in active">
 	              
 	              <div class="post-container">
 	                <div class="post-detail" style="margin:10px 0px;">
@@ -179,9 +179,11 @@
 	
 	
 	<script>
+		
 	    tinymce.init({
 	      selector: '#postDescription'
 	    });
+	    
 	
 		// Post and File Attachment Script
 		
@@ -238,6 +240,9 @@
 		  readURL(this);
 		});
 		
+		window.addEventListener('DOMContentLoaded', (event) => {
+	        setTimeout(function(){ $('.tox-notifications-container').hide(); }, 3000);
+	    });
 		
 	</script>    
   </body>

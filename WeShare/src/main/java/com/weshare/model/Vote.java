@@ -22,7 +22,7 @@ public class Vote {
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name="post_id")
 	private Post post;
 	
