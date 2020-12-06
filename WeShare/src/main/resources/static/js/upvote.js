@@ -1,8 +1,10 @@
 function upvote(postId, event)
 {
-	console.log("post id: ",postId);
-	var buttonClasses = event.classList;
-	console.log(buttonClasses.contains("text-red"));
+	var downvoteBtn = document.getElementById("downvote"+postId);
+	var downvoteBtnClasses = downvoteBtn.classList;
+	var upvoteBtnClasses = event.classList;
+	var scoreBtn = document.getElementById("score"+postId);
+	var currentScore = parseInt(scoreBtn.textContent);
 	$.ajax({
 		type : "POST",
 		url : "/upvote",
@@ -13,21 +15,30 @@ function upvote(postId, event)
 		{
 			if (result == "success")
 			{
-				if(buttonClasses.contains("text-green"))
+				if(upvoteBtnClasses.contains("text-green"))
 				{
 					event.classList.remove("text-green");
 					event.classList.add("text-muted");
+					scoreBtn.textContent = currentScore - 1;
 				}
-				else if(buttonClasses.contains("text-muted"))
+				else if(upvoteBtnClasses.contains("text-muted"))
 				{
+					console.log("changin up btn to green");
 					event.classList.add("text-green");
 					event.classList.remove("text-muted");
+					scoreBtn.textContent = currentScore + 1;
+				}
+				if(downvoteBtnClasses.contains("text-red"))
+				{
+					downvoteBtn.classList.remove("text-red");
+					downvoteBtn.classList.add("text-muted");
+					scoreBtn.textContent = currentScore + 2;
 				}
 				console.log("upvoted successfully!!!");
 			} else {
 				console.log("upvote  unsuccessfully!!!");
 			}
-		alert(result);
+		//alert(result);
 		},
 		error : function(e) {
 			alert("Error!")

@@ -62,7 +62,7 @@ public class Post {
     private List<Comment> comments;
 
     @JsonIgnore
- 	@OneToMany(mappedBy="post",cascade = CascadeType.ALL)
+ 	@OneToMany(mappedBy="post")
     private List<Vote> votes;
     
 

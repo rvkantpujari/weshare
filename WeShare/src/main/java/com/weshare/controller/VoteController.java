@@ -40,22 +40,28 @@ public class VoteController
 			Principal principal)
 	{
 		int postId = Integer.parseInt(request.getParameter("postId"));
-		System.out.println(" in upvote postid: : "+postId);
+		System.out.println(" in upvote postid: "+postId);
 		User user=this.userService.findUserByUserName(principal.getName());
 		Post post = postService.getPostById(postId);
+		System.out.println(" in upvote post : "+post.getTitle());
+		System.out.println(" in upvote email : "+user.getEmail());
 		Vote vote = voteService.findByPostAndUser(post, user);
+		
         if (vote == null) {
             Vote upvote = new Vote(user, post, 1);
             voteService.save(upvote);
         } else if (vote.getVote() == -1) {
-            vote.setVote(1);
+        	vote.setVote(1);
             voteService.save(vote);
         } else {
             post.getVotes().remove(vote);
             voteService.delete(vote);
         }
 //        postRepository.setCustomScore(post.getVotes().stream().mapToInt(Vote::getVote).sum(), post.getPostId());
-        post.setScore(post.getVotes().stream().mapToInt(Vote::getVote).sum());
+//        post.setScore(post.getVotes().stream().mapToInt(Vote::getVote).sum());
+//        postService.savePost(post);
+        int score = (post.getVotes().stream().mapToInt(Vote::getVote).sum());
+        postService.setPostScoreById(score, postId);
         postService.savePost(post);
         model.addAttribute("voteService", voteService);
 		return new ResponseEntity<>("success", 
@@ -75,13 +81,14 @@ public class VoteController
             Vote downvote = new Vote(user, post, -1);
             voteService.save(downvote);
         } else if (vote.getVote() == 1) {
-            vote.setVote(-1);
+        	vote.setVote(-1);
             voteService.save(vote);
         } else {
             post.getVotes().remove(vote);
             voteService.delete(vote);
         }
-        post.setScore(post.getVotes().stream().mapToInt(Vote::getVote).sum());
+        int score = (post.getVotes().stream().mapToInt(Vote::getVote).sum());
+        postService.setPostScoreById(score, postId);
         postService.savePost(post);
         model.addAttribute("voteService", voteService);
         return new ResponseEntity<>("success", 

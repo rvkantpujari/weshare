@@ -2,8 +2,10 @@ package com.weshare.service;
 
 import java.util.List;
 
-import com.weshare.model.Post;
+import org.springframework.stereotype.Service;
 
+import com.weshare.model.Post;
+@Service
 public interface PostService
 {
 	public List<Post> getAllPosts();
@@ -11,4 +13,6 @@ public interface PostService
 	public void savePost(Post post);
 
 	public Post getPostById(int id);
+	
+	public void setPostScoreById(int score, int postId);
 }

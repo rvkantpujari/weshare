@@ -1,8 +1,10 @@
 function downvote(postId, event)
 {
-	console.log("post id: ",postId);
-	var buttonClasses = event.classList;
-	console.log(buttonClasses.contains("text-red"));
+	var upvoteBtn = document.getElementById("upvote"+postId);
+	var upvoteBtnClasses = upvoteBtn.classList;
+	var downvoteBtnClasses = event.classList;
+	var scoreBtn = document.getElementById("score"+postId);
+	var currentScore = parseInt(scoreBtn.textContent);
 	$.ajax({
 		type : "POST",
 		url : "/downvote",
@@ -14,21 +16,29 @@ function downvote(postId, event)
 			if (result == "success")
 			{
 				
-				if(buttonClasses.contains("text-red"))
+				if(downvoteBtnClasses.contains("text-red"))
 				{
 					event.classList.remove("text-red");
 					event.classList.add("text-muted");
+					scoreBtn.textContent = currentScore + 1;
 				}
-				else if(buttonClasses.contains("text-muted"))
+				else if(downvoteBtnClasses.contains("text-muted"))
 				{
 					event.classList.add("text-red");
 					event.classList.remove("text-muted");
+					scoreBtn.textContent = currentScore - 1;
+				}
+				if(upvoteBtnClasses.contains("text-green"))
+				{
+					upvoteBtn.classList.remove("text-green");
+					upvoteBtn.classList.add("text-muted");
+					scoreBtn.textContent = currentScore - 2;
 				}
 				console.log("downvoted successfully!!!");
 			} else {
 				console.log("downvote  unsuccessfully!!!");
 			}
-		alert(result);
+		//alert(result);
 		},
 		error : function(e) {
 			alert("Error!")

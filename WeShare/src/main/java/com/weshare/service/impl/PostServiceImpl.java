@@ -24,7 +24,7 @@ public class PostServiceImpl implements PostService
 	@Override
 	public void savePost(Post post)
 	{
-		postRepository.save(post);
+		postRepository.saveAndFlush(post);
 	}
 	
 	@Override
@@ -32,6 +32,10 @@ public class PostServiceImpl implements PostService
 	{
 		return postRepository.findById(id).get();
 	}
-	
+	@Override
+	  public void setPostScoreById(int score, int postId)
+	  {
+		postRepository.setPostScoreById(score, postId);
+	  }
 }
 
