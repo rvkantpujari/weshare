@@ -1,7 +1,9 @@
 package com.weshare.service;
 
-import com.weshare.model.User;
+import org.springframework.stereotype.Service;
 
+import com.weshare.model.User;
+@Service
 public interface UserService {
 
 	  public User findUserByEmail(String email);
@@ -11,5 +13,5 @@ public interface UserService {
 	  public User saveUser(User user);
 	  
 	  public User updateUser(User user);
-	  
+	 
 }
