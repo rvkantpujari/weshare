@@ -18,13 +18,13 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav navbar-right main-menu">
-		        <li class="dropdown">
+		        <li class="dropdown" th:classappend="${#httpServletRequest.getRequestURI() == '/user/home' ? 'active':''}">
 		          <a th:href="@{/user/home}" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
 		        </li>
-		        <li class="dropdown">
+		        <li class="dropdown" th:classappend="${#httpServletRequest.getRequestURI() == '/user/category/all/communities' ? 'active':''}">
 		          <a th:href="@{/user/category/all/communities}" role="button" aria-haspopup="true" aria-expanded="false">Communities</a>
 		        </li>
-		        <li class="dropdown">
+		        <li class="dropdown" th:classappend="${#httpServletRequest.getRequestURI() == '/user/contact' ? 'active':''}">
 		          <a th:href="@{/user/contact}" role="button" aria-haspopup="true" aria-expanded="false">Contact Us</a>
 		        </li>
 		        
@@ -33,16 +33,17 @@
                   <a th:unless="${loggedIn}==false" href="#" class="btn btn-primary" style="padding:8px 12px 8px 12px; margin-top: 7px;">Logout</a>
               	</li> -->
               	
-              	<li class="dropdown">
-              		<a sec:authorize="isAnonymous()" th:href="@{/login}" class="btn btn-primary" style="padding: 8px; margin-top: 7px;">Login/Register</a>
+              	<li sec:authorize="isAnonymous()" class="dropdown">
+              		<a th:href="@{/login}" class="btn btn-primary" style="padding: 8px; margin-top: 7px;">
+	              		<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Login/Register</a>
               	</li>
-              	
-              	<li class="dropdown">
-		          <a sec:authorize="isAuthenticated()" th:href="@{/user/manageProfile}" role="button" aria-haspopup="true" aria-expanded="false">Manage Profile</a>
+              
+              	<li sec:authorize="isAuthenticated()" class="dropdown"  th:classappend="${#httpServletRequest.getRequestURI() == '/user/manageProfile' ? 'active':''}">
+		          <a th:href="@{/user/manageProfile}" role="button" aria-haspopup="true" aria-expanded="false">Manage Profile</a>
 		        </li>
               	
-              	<li class="dropdown">
-              		<a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-primary" style="padding:8px 12px 8px 12px; margin-top: 7px;">Logout</a>
+              	<li sec:authorize="isAuthenticated()" class="dropdown">
+              		<a th:href="@{/logout}" class="btn btn-primary" style="padding:8px 12px 8px 12px; margin-top: 7px;">Logout</a>
               	</li>
               	
 		      </ul>
@@ -55,6 +56,7 @@
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container -->
 		</nav>
+		
 		
 	</body>
 </html>
