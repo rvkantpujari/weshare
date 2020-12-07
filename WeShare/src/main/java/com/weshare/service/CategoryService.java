@@ -2,8 +2,10 @@ package com.weshare.service;
 
 import java.util.List;
 
-import com.weshare.model.Category;
+import org.springframework.stereotype.Service;
 
+import com.weshare.model.Category;
+@Service
 public interface CategoryService {
 
 	public void saveCategory(Category c);

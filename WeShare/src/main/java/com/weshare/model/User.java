@@ -103,8 +103,6 @@ public class User {
     @JoinTable(name="CommunityMembers",
     		joinColumns = @JoinColumn(name="user_id"),
     		inverseJoinColumns = @JoinColumn(name="community_id"))
-    private Set<Community> joinedCommunityList= new HashSet<>();;
-    
-    
+    private Set<Community> joinedCommunityList= new HashSet<>();
 }
 
