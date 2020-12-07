@@ -40,8 +40,25 @@
                 <span th:utext="${userName}"></span>
             </div>
             <p class="text-center" th:utext="${userMessage}"></p>
+            <p class="text-center">Logged user: <span sec:authentication="name"></span></p>
+			<p class="text-center">Roles: <span sec:authentication="principal.authorities"></span></p>
+			
+			<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+
+			<!--  <p th:each="authority : ${#authentication.getAuthorities()}"
+       			th:text="${authority.getAuthority()}">
+    		</p> -->
+    		
+    		<div th:if="${#authorization.expression('hasAuthority(''USER'')')}">HELLO USER</div>
+    		
+			
+			<div sec:authorize="isAuthenticated()">
+			  This content is only shown to authenticated users.
+			</div>		
         </div>
     </div>
+    
+    
 
 </div>
 

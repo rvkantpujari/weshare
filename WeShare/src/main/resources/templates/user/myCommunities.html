@@ -6,7 +6,7 @@
 	<meta name="description" content="This is social network platform." />
 	<meta name="keywords" content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
 	<meta name="robots" content="index, follow" />
-	<title>Edit Profile | WeShare</title>
+	<title>My Communities | WeShare</title>
 
     <!-- Stylesheets
     ================================================= -->
@@ -20,6 +20,23 @@
     
     <!--Favicon-->
     <link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}"/>
+    <style>
+    	.post-container {
+    		margin-top:20px; 
+    		background-color:#f8f8f8;
+    		border-radius: 5px; 
+    		padding:20px; 
+    	}
+    	.post-container:hover {
+    		background-color: #f0f0f0;
+    	}
+    	i.icon {
+    		margin-right: 5px;
+    	}
+    	.post-description {
+    		margin-top: 10px;
+    	}
+    </style>
   </head>
   <body>
 
@@ -36,7 +53,7 @@
       <!-- Timeline
       ================================================= -->
       <div class="timeline">
-        <div class="timeline-cover">
+                <div class="timeline-cover">
 
           <!--Timeline Menu for Large Screens-->
           <div class="timeline-nav-bar hidden-sm hidden-xs">
@@ -76,84 +93,66 @@
           </div><!--Timeline Menu for Small Screens End-->
 
         </div>
+        
         <div id="page-contents">
-          <div class="row">
-            <div class="col-md-3">
-              
-              <!--Edit Profile Menu-->
-              <ul class="edit-menu">
-              	<li class="active"><i class="icon ion-ios-information-outline"></i><a th:href="@{/user/manageProfile}">Basic Information</a></li>
-                <li><i class="icon ion-ios-people-outline"></i><a th:href="@{/user/myCommunities}">My Communities</a></li>
-              	<li><i class="icon ion-ios-compose-outline"></i><a th:href="@{/user/myPosts}">My Posts</a></li>
-              	<li><i class="icon ion-ios-list-outline"></i><a th:href="@{/user/myComments}">My Comments</a></li>
-              	<li><i class="icon ion-ios-locked-outline"></i><a th:href="@{/user/changePassword}">Change Password</a></li>
-              </ul>
-            </div>
-            <div class="col-md-9">
-
-              <!-- Basic Information
-              ================================================= -->
-              <div class="edit-profile-container">
-                <div class="block-title">
-                  <h4 class="grey"><i class="icon ion-android-checkmark-circle"></i>Edit basic information</h4>
-                  <div class="line"></div>
-                </div>
-                <div class="edit-block">
-                <div name="basic-info" id="basic-info" class="form-inline">
-                <form th:action="@{/user/manageProfile/save}" th:object="${u}" method="POST">	
-                   <div class="row">
-                      <div class="form-group col-sm-8">
-                        <label for="username">Username</label>
-                        <input id="username" class="form-control input-group-lg" type="text" th:field="*{userName}"
-                         title="Your Username" placeholder="My Username" readonly style="background-color: white; cursor:pointer;"/>
-                      </div>
-                    </div>
-                    
-                    <div class="row">
-                      <div class="form-group col-sm-8">
-                        <label for="email">Email</label>
-                        <input id="email" class="form-control input-group-lg" type="text" th:field="*{email}"
-                         title="Your Email" placeholder="My Email" readonly style="background-color: white; cursor:pointer;"/>
-                      </div>
-                    </div>
-                    
-                    <div class="row">
-                      <div class="form-group col-sm-8">
-                        <label for="firstname">First Name</label>
-                        <input id="firstname" class="form-control input-group-lg" type="text" th:field="*{firstName}" 
-                         title="Your first name" placeholder="First name"/>
-                      </div>
-                    </div>
-                    
-                    <div class="row">
-                      <div class="form-group col-sm-8">
-                        <label for="lastname" class="">Last Name</label>
-                        <input id="lastname" class="form-control input-group-lg" type="text" th:field="*{lastName}" 
-                        title="Your last name" placeholder="Last name"/>
-                      </div>
-                    </div>
-                    
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <button class="btn btn-primary">Save Changes</button>
-                      </div>
-                    </div>
-                    
-                   </form>
-                    
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+    		<div class="row">
+		  
+	          <!--  Side Bar Left
+	          ================================================= -->
+	    	  <div class="col-md-3">
+				  <!--Edit Profile Menu-->
+		          <div id="sticky-sidebar">
+		             <!--Edit Profile Menu-->
+		              <ul class="edit-menu">
+		              	<li><i class="icon ion-ios-information-outline"></i><a th:href="@{/user/manageProfile}">Basic Information</a></li>
+		                <li class="active"><i class="icon ion-ios-people-outline"></i><a th:href="@{/user/myCommunities}">My Communities</a></li>
+		              	<li><i class="icon ion-ios-compose-outline"></i><a th:href="@{/user/myPosts}">My Posts</a></li>
+		              	<li><i class="icon ion-ios-list-outline"></i><a th:href="@{/user/myComments}">My Comments</a></li>
+		              	<li><i class="icon ion-ios-locked-outline"></i><a th:href="@{/user/changePassword}">Change Password</a></li>
+		              </ul>
+		          </div>
+	          </div>
+	          
+	          <!-- Side Bar Right
+	          ================================================= -->
+	    	  <div class="col-md-9">
+	              
+	              <div th:each="com : ${myComList}" class="post-container">
+	                <img th:src="@{'https://ui-avatars.com/api/?name='+${com.communityName}+'&rounded=true&background=random'}" alt="user" class="profile-photo-md pull-left" />
+	                <div class="post-detail">
+	                  <div class="user-info" style="margin-left:70px;">
+	                    <h4><a class="profile-link" th:href="@{/user/community/{communityName}(communityName=${com.communityName})}" th:text="${com.communityName}">Community Name</a></h4>
+						<div class="row">
+	                      <span class="col-md-6"><i class="icon ion-android-calendar"> </i> Created On: <span th:text="${com.creationDate}"></span></span>
+	                      <span class="col-md-6"> <i class="icon ion-ios-person"> </i> Members: <span th:text="${com.membersCount}"></span></span>
+	                    </div>
+	                    <p class="text-muted post-description short-description" 
+	                    		th:text="'Description: '+${com.communityDescription}">Community Description</p>
+	                  </div>
+	                </div>
+	              </div>
+	              
+	              
+	             <div th:if="${emptyList}">
+					<h3 style="font-style: italic; color:black;">You haven't created any community!</h3><hr/>
+					<div>
+                			<a th:href="@{'/user/community/insert'}" class="btn btn-primary">Click to create community</a>
+              		</div>
+				</div>
+	              
+	            
+	          </div>
+	          
+    		</div>
+    	  </div>
         </div>
-      </div>
+        
     </div>
 
 
     <!-- Footer
     ================================================= -->
-    <footer id="footer" th:replace="footer::footer"></footer>
+    <footer id="footbar" th:include="footer::footer"></footer>
     
     <!--preloader-->
     <div id="spinner-wrapper">
@@ -168,5 +167,21 @@
     <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
     <script th:src="@{/js/script.js}"></script>
     
+    <script>
+	 	// Limit Board Description
+	    function truncateText(element, maxLength) {
+	        let truncated = element.innerText;
+	        if (truncated.length > maxLength) {
+	            truncated = truncated.substr(0, maxLength) + '...';
+	        }
+	        //return truncated;
+	        element.innerText = truncated;
+	    }
+	    let countBDesc = document.querySelectorAll('.short-description');
+	    for(let i=0; i<countBDesc.length; i++)
+	    {
+	        truncateText(countBDesc[i], 150);
+	    }
+    </script>
   </body>
 </html>

@@ -31,6 +31,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .userDetailsService(myUserDetailsService)
                     .passwordEncoder(bCryptPasswordEncoder);
     }
+    
+    private static final String[] PUBLIC_MATCHERS = {
+    		"/user/category/all/communities",
+    		"/user/contact",
+    		"/user/home",
+    		"/",
+    		"/registration",
+    		"/user/community/{communityName}",
+    		"/user/category/{communityName}/communities"
+    		
+    };
+    
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -40,9 +52,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
         		// URLs matching for access rights
-                .antMatchers("/").permitAll()
                 .antMatchers(loginPage).permitAll()
-                .antMatchers("/registration").permitAll()
+                .antMatchers(PUBLIC_MATCHERS).permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/user/**").hasAuthority("USER")
                 .anyRequest().authenticated()
@@ -66,9 +77,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         		   		"/css/**", 
         		   		"/js/**", 
         		   		"/images/**", 
-        		   		"/fonts/**",
-        		   		"/user/category/all/communities",
-        		   		"/user/contact");
+        		   		"/fonts/**");
     }
 
 }
