@@ -24,12 +24,6 @@ public class HomeController {
 	     return "index";
 	 }
 	 
-	 @GetMapping("/user/manageProfile")
-	 public String manageProfile(Model model)
-	 {
-		 return "user/manageProfile";
-	 }
-	 
 	 @GetMapping("/user/contact")
 	 public String contact(Model model)
 	 {

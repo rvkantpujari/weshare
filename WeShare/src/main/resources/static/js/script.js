@@ -165,3 +165,7 @@ function initMap() {
     map: map
   });
 }
+
+
+var navbarActiveLink=document.querySelector('.navbar-nav>.active>a');
+navbarActiveLink.style.backgroundColor="#154b88";

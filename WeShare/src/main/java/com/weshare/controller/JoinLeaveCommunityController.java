@@ -29,18 +29,25 @@ public class JoinLeaveCommunityController {
 	public String viewSingleCommunity(@PathVariable("communityName")String comName,
 										Principal principal,Model m)
 	{
-		User user = userService.findUserByUserName(principal.getName());
 		Community c = communityService.getCommunityByName(comName);
-		 if(user.getJoinedCommunityList().contains(c))
-	     {
-//				m.addAttribute("communityName", comName);
-			 	m.addAttribute("com", c);
-	        	m.addAttribute("exist", true);
-	        	return "user/ViewCommunity";
-	     }
-		
 		m.addAttribute("com", c);
-		
+		if(principal==null)
+		{
+			m.addAttribute("exist", false);
+		}
+		else
+		{
+			User user = userService.findUserByUserName(principal.getName());
+			if(user.getJoinedCommunityList().contains(c))
+			{
+//				m.addAttribute("communityName", comName);
+	        	m.addAttribute("exist", true);
+			}
+			else
+			{
+				m.addAttribute("exist", false);
+			}
+		}
 		return "user/ViewCommunity";
 	}
 
