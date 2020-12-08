@@ -1,5 +1,7 @@
 package com.weshare.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -7,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.weshare.model.Category;
+import com.weshare.model.Community;
 import com.weshare.model.User;
 import com.weshare.service.UserService;
 
@@ -65,17 +69,22 @@ public class HomeController {
 	     model.addAttribute("userMessage","Content Available Only for User Role");
 	     return "user/home";
 	 }
+
 	 @GetMapping(value= {"/admin/getFeedback"})
 	 public String getFeedback(Model model)
 	 {
 		 model.addAttribute("loggedIn", true);
+		 List<String> feedback=List.of("naika","bhatt");
+		  model.addAttribute("feedback",feedback);
 		 return "admin/getFeedback";	 
 	 }
 	 @GetMapping(value= {"/user/feedback"})
 	 public String feedback(Model model)
 	 {
 		 model.addAttribute("loggedIn", true);
+		
 		 return "user/feedback";	 
-	 }
+	 }	
+	
 }
 

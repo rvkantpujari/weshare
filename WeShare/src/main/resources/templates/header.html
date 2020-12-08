@@ -25,7 +25,7 @@
 		          <a th:href="@{/user/category/all/communities}" role="button" aria-haspopup="true" aria-expanded="false">Communities</a>
 		        </li>
 		        <li class="dropdown">
-		          <a th:href="@{/user/contact}" role="button" aria-haspopup="true" aria-expanded="false">Contact Us</a>
+		          <a th:href="@{/user/feedback}" role="button" aria-haspopup="true" aria-expanded="false">Contact Us</a>
 		        </li>
 		        
 		        <!-- <li class="dropdown" style="margin:0px 5px 0px 5px">
@@ -44,8 +44,7 @@
               	<li class="dropdown">
               		<a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-primary" style="padding:8px 12px 8px 12px; margin-top: 7px;">Logout</a>
               	</li>
-              	
-		      </ul>
+                </ul>
 		      <form class="navbar-form navbar-right hidden-sm">
 		        <div class="form-group">
 		          <i class="icon ion-android-search"></i>
