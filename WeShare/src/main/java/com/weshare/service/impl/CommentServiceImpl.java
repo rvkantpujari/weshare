@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.weshare.model.Comment;
+import com.weshare.model.Post;
 import com.weshare.repository.CommentRepository;
 import com.weshare.service.CommentService;
 
@@ -23,6 +24,12 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public List<Comment> getAllComments() {
 		return commentRepository.findAll();
+	}
+
+	@Override
+	public List<Comment> getCommentsByPost(Post post) {
+	
+		return commentRepository.findByPost(post);
 	}
 
 }
