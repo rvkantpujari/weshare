@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Feedback</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+ </head>
+	<body>
+
+    
+   
+<div align="center">
+
+	<hr/><h2>FEEDBACK</h2><hr/>
+	<div class="container">
+	
+			
+		<table class="table table-bordered table-responsive-md">
+		<thead class="thead-dark">
+			<tr>
+				<th>User Name</th>
+				<th>Comments</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<tr th:each="f : ${feedback}">
+				
+				<td th:text="${f}" />	
+				<td th:text="${f}" />
+			</tr>
+		</tbody>	
+		
+			
+	</table>
+</div>
+</div>
+   
+       </body>
+	</html>
+	
+	
+	
