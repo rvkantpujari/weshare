@@ -1,0 +1,61 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+     <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>User-Insert Comment</title>
+</head>
+
+<body>
+
+<div class="container">
+		<hr/><h1>New Comment</h1><hr/>
+		
+		<form th:action="@{/user/comment/save}" th:object="${comment}" method="POST">
+			
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{commentId}"/>
+			
+			<div class="form-group">
+				<label>Comment:</label>
+				<input type="text" th:field="*{content}" class="form-control mb-4 col-4"
+						placeholder="Comment description" required/>
+	
+			</div>
+			
+			<!-- <div class="form-group">
+				<label>Date:</label>
+				<input type="date" th:field="*{creationDate}" class="form-control mb-4 col-4"
+						placeholder="" required/>
+			</div> -->
+			
+			<!-- <div class="form-group">
+				<label>User ID:</label>
+				<input type="text" th:field="*{user}" class="form-control mb-4 col-4"
+						placeholder="" required/>
+			</div>
+			
+			<div class="form-group">
+				<label>Post ID:</label>
+				<input type="text" th:field="*{post}" class="form-control mb-4 col-4"
+						placeholder="" required/>
+			</div> -->
+			
+					
+			<button type="submit" class="btn btn-success col-2">Insert Comment</button>
+						
+		</form>
+	
+		<hr>
+		<a th:href="@{/admin/category/all}">Back to Category List</a>
+		
+		<hr>
+	</div>
+	
+</body>
+</html>
