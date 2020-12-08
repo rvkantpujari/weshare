@@ -37,13 +37,13 @@ public class JoinLeaveCommunityController {
 	{
 		Community c = communityService.getCommunityByName(comName);
 		m.addAttribute("com", c);
+		User user = userService.findUserByUserName(principal.getName());
 		if(principal==null)
 		{
 			m.addAttribute("exist", false);
 		}
 		else
 		{
-			User user = userService.findUserByUserName(principal.getName());
 			if(user.getJoinedCommunityList().contains(c))
 			{
 //				m.addAttribute("communityName", comName);
