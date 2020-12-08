@@ -29,6 +29,7 @@ public class Community {
 	@Column(unique=true)
 	private String communityName;
 	
+	@Column(length=3000)
 	private String communityDescription;
 	
     @CreationTimestamp
@@ -47,5 +48,4 @@ public class Community {
     private List<Post> posts;
 	
 	private int membersCount;
-	
 }

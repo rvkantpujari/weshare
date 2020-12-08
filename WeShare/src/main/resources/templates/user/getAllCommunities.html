@@ -53,7 +53,7 @@
             <!-- Create New Community -->
           <div id="sticky-sidebar">
             <div class="suggestions">
-              <div>
+              <div sec:authorize="isAuthenticated()">
                 <a th:href="@{'/user/community/insert'}" class="btn btn-primary">Create Community</a>
               </div>
             </div>
@@ -82,7 +82,7 @@
           <!-- Newsfeed Common Side Bar Left
           ================================================= -->
     	  <div class="col-md-9" style="margin-top:20px;">
-    	  
+
 			<h2 th:if="${allCom}">ALL Communities</h2>    	  
     	  	<h2 th:unless="${allCom}">Communities from <span th:text="${categoryName}"></span> Category </h2>
 			<hr/>
@@ -97,7 +97,7 @@
                     <h4><a class="profile-link" th:href="@{/user/community/{communityName}(communityName=${com.communityName})}" th:text="${com.communityName}">Community Name</a></h4>
                     <span th:text="'Created By: '+${com.user.userName}"> Created By</span>
                     <!-- <p class="text-muted" th:text="'Created on: '+${com.creationDate}"> Creation Date</p> -->
-                    <p class="text-muted" th:text="'Description: '+${com.communityDescription}">Community Description</p>
+                    <p class="text-muted post-description short-description" th:text="'Description: '+${com.communityDescription}">Community Description</p>
                   </div>
                 </div>
               </div>
@@ -131,6 +131,24 @@
     <script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
     <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
     <script th:src="@{/js/script.js}"></script>
+    
+        <script>
+	 	// Limit Board Description
+	    function truncateText(element, maxLength) {
+	        let truncated = element.innerText;
+	        if (truncated.length > maxLength) {
+	            truncated = truncated.substr(0, maxLength) + '...';
+	        }
+	        //return truncated;
+	        element.innerText = truncated;
+	    }
+	    let countBDesc = document.querySelectorAll('.short-description');
+	    for(let i=0; i<countBDesc.length; i++)
+	    {
+	        truncateText(countBDesc[i], 340);
+	    }
+    </script>
+    
     
   </body>
 </html>

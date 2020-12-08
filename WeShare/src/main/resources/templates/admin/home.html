@@ -49,6 +49,9 @@
                 <span th:utext="${userName}"></span>
             </div>
             <p class="text-center" th:utext="${adminMessage}"></p>
+            <p class="text-center">Logged user: <span sec:authentication="name"></span></p>
+			<p class="text-center">Roles: <span sec:authentication="principal.authorities"></span></p>
+			<div th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">Only visible to ADMIN</div>
         </div>
     </div>
 

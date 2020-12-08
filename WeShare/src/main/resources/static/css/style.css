@@ -1636,11 +1636,11 @@ ul.online-users li span.online-dot{
 }
 
 .timeline-cover .navbar-mobile .profile-info img.profile-photo{
-  border: 10px solid #fff;
+  border: 5px solid #000000;
   border-radius: 50%;
-  height: 200px;
+  height: 100px;
   margin: auto;
-  width: 200px;
+  width: 100px;
 }
 
 .timeline-cover .navbar-mobile .mobile-menu ul{

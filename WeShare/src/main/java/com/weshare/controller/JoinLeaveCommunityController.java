@@ -1,6 +1,7 @@
 package com.weshare.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,9 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.weshare.model.Community;
+import com.weshare.model.Post;
 import com.weshare.model.User;
 import com.weshare.service.CommunityService;
 import com.weshare.service.UserService;
+import com.weshare.service.VoteService;
 
 @Controller
 @RequestMapping("/user/community")
@@ -24,23 +27,36 @@ public class JoinLeaveCommunityController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private VoteService voteService;
+	
 	
 	@GetMapping("/{communityName}")
 	public String viewSingleCommunity(@PathVariable("communityName")String comName,
 										Principal principal,Model m)
 	{
-		User user = userService.findUserByUserName(principal.getName());
 		Community c = communityService.getCommunityByName(comName);
-		 if(user.getJoinedCommunityList().contains(c))
-	     {
-//				m.addAttribute("communityName", comName);
-			 	m.addAttribute("com", c);
-	        	m.addAttribute("exist", true);
-	        	return "user/ViewCommunity";
-	     }
-		
 		m.addAttribute("com", c);
-		
+		User user = userService.findUserByUserName(principal.getName());
+		if(principal!=null && user.getJoinedCommunityList().contains(c))
+		{
+//				m.addAttribute("communityName", comName);
+	        	m.addAttribute("exist", true);
+		}
+		else
+		{
+				m.addAttribute("exist", false);
+		}
+		List<Post> comunityPosts = c.getPosts();
+		System.out.println("\n\nprint all post of : "+comName);
+		for (Post post : comunityPosts)
+		{
+			System.out.println("\n\npost title: "+post.getTitle());
+		}
+		m.addAttribute("com", c);
+		m.addAttribute("comunityPosts", comunityPosts);
+		m.addAttribute("user", user);
+		m.addAttribute("voteService", voteService);
 		return "user/ViewCommunity";
 	}
 
