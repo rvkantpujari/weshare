@@ -39,17 +39,22 @@ public class JoinLeaveCommunityController {
 	{
 		Community c = communityService.getCommunityByName(comName);
 		m.addAttribute("com", c);
-		User user = userService.findUserByUserName(principal.getName());
-		if(principal!=null && user.getJoinedCommunityList().contains(c))
+		
+		if(principal!=null) 
 		{
-//				m.addAttribute("communityName", comName);
-	        	m.addAttribute("exist", true);
+			User user = userService.findUserByUserName(principal.getName());
+			m.addAttribute("user", user);
+			if(user.getJoinedCommunityList().contains(c))
+			{
+	//				m.addAttribute("communityName", comName);
+		        	m.addAttribute("exist", true);
+			}
+			else
+			{
+					m.addAttribute("exist", false);
+			}			
 		}
-		else
-		{
-				m.addAttribute("exist", false);
-		}
-
+		
 		List<Post> comunityPosts = c.getPosts().stream()
 				  								.sorted(Comparator.comparing(Post::getCreationDate).reversed())
 				  								.collect(Collectors.toList());
@@ -58,9 +63,7 @@ public class JoinLeaveCommunityController {
 //		{
 //			System.out.println("\n\npost title: "+post.getTitle());
 //		}
-		m.addAttribute("com", c);
 		m.addAttribute("comunityPosts", comunityPosts);
-		m.addAttribute("user", user);
 		m.addAttribute("voteService", voteService);
 		return "user/ViewCommunity";
 	}

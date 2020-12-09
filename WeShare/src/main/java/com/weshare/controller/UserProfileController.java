@@ -120,7 +120,6 @@ public class UserProfileController {
 							  .sorted(Comparator.comparing(Post::getCreationDate).reversed())
 							  .collect(Collectors.toList());
 					 m.addAttribute("myPostList", myPostList);
-					 
 				 }
 				
 				

@@ -66,6 +66,7 @@
 	                <div class="post-detail">
 	                  <div class="user-info" style="margin-left:10px;">
 	                    <div class="row" style="word-spacing: 2px;">
+	                    
 	                    	<a th:href="@{'/user/community/'+${post.community.communityName}+'/'+${post.postId}}" class="profile-link">
 	                    		<span class="h3 col-md-*" th:text="${post.title}"></span>
 	                    	</a>
@@ -85,6 +86,7 @@
 	                      <span class="col-md-5"><i class="icon ion-android-calendar"> </i> Posted On: <span th:text="${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></span></span>
 	                      <span class="col-md-7"> <i class="icon ion-ios-list"> </i> Comments: <span th:text="${#lists.size(post.comments)}"></span></span>
 	                    </div>
+	                    
 	                    
 					<!--<div class="post_with_content" th:if="${post.content}">
 		                  <div class="line-divider"></div>
@@ -144,5 +146,7 @@
     <script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
     <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
     <script th:src="@{/js/script.js}"></script>
+    <script th:src="@{/js/upvote.js}"></script>
+	<script th:src="@{/js/downvote.js}"></script>
   </body>
 </html>

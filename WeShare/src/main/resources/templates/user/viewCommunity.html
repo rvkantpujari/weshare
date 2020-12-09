@@ -109,8 +109,8 @@
                   
                   <div class="reaction" th:with="vote=${voteService.findByPostAndUser(post, user)}">
 
-                  	<span th:if="${user == null}" data-title="Please login or sing up to vote!">
-                  		<button th:id="'upvote' + ${post.postId}" class="upvoteBtn btn text-muted icon ion-thumbsup" style="font-size:2.5rem; background-color:white"></button>
+                  	<span th:if="${user == null}">
+                  		<button onclick="votePostNotSignIn()" class="upvoteBtn btn text-muted icon ion-thumbsup" style="font-size:2.5rem; background-color:white"></button>
                     </span>
                     <span th:if="${user != null}">
                     	<span th:if="${vote == null or vote.vote == -1}">
@@ -123,8 +123,8 @@
                     
                     	<span th:id="'score' + ${post.postId}" th:text=" ${post.score}" style="font-size:2.0rem; padding:15px"></span>
                     	
-                    <span th:if="${user == null}" data-title="Please login or sing up to vote!">
-                  		<button th:id="'downvote' + ${post.postId}" class="downvoteBtn btn text-red fa fa-thumbs-down" style="font-size:2.5rem; padding:10px; background-color:white"></button>
+                    <span th:if="${user == null}">
+                  		<button onclick="votePostNotSignIn()" class="downvoteBtn btn text-muted fa fa-thumbs-down" style="font-size:2.5rem; padding:10px; background-color:white"></button>
                     </span>
                     <span th:if="${user != null}">
                     	<span th:if="${vote == null or vote.vote == 1}">
@@ -191,6 +191,10 @@
     	{
     		window.location = "/user/community/"+communityName+"/createPost";
     	}
+		
+    	function votePostNotSignIn() {
+            alert("Please login or register to vote!");
+        }
 		
 /*     	// Limit Description
 	    function truncateText(element, maxLength) {
