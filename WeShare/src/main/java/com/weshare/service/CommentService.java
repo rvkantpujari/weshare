@@ -9,8 +9,11 @@ public interface CommentService {
 	
 	public void saveComment(Comment c);
 	
+	public void deleteComment(Comment c);
+	
 	public List<Comment> getAllComments();
 	
 	public List<Comment> getCommentsByPost(Post post);
 
+	public Comment findCommentById(int commentId);
 }
