@@ -32,4 +32,15 @@ public class CommentServiceImpl implements CommentService {
 		return commentRepository.findByPost(post);
 	}
 
+	@Override
+	public Comment findCommentById(int commentId)
+	{
+		return commentRepository.findById(commentId).get();
+	}
+
+	@Override
+	public void deleteComment(Comment c) {
+		commentRepository.delete(c);
+	}
+
 }

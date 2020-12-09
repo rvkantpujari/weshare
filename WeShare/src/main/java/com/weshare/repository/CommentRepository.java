@@ -12,5 +12,4 @@ import com.weshare.model.Post;
 public interface CommentRepository extends JpaRepository<Comment,Integer> {
 	
 	public List<Comment> findByPost(Post post);
-
 }

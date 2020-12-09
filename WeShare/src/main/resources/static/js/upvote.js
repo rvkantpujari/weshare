@@ -45,4 +45,28 @@ function upvote(postId, event)
 			console.log("ERROR: ", e);
 		}
 	});
-}	
+}
+/*
+$('#do-login').click(function(e) {
+    var me = $(this);
+    e.preventDefault();
+
+    if ( me.data('requestRunning') ) {
+        return;
+    }
+
+    me.data('requestRunning', true);
+
+    $.ajax({
+        type: "POST",
+        url: "/php/auth/login.php",
+        data: $("#login-form").serialize(),
+        success: function(msg) {
+            //stuffs
+        },
+        complete: function() {
+            me.data('requestRunning', false);
+        }
+    });      
+}); 
+*/

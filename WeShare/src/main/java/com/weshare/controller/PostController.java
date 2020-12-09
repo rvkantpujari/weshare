@@ -26,6 +26,7 @@ import com.weshare.service.CommentService;
 import com.weshare.service.CommunityService;
 import com.weshare.service.PostService;
 import com.weshare.service.UserService;
+import com.weshare.service.VoteService;
 
 @Controller
 @RequestMapping("/user/community")
@@ -39,6 +40,9 @@ public class PostController
 	private CommunityService communityService;
 	@Autowired
 	private CommentService commentService;
+	
+	@Autowired
+	private VoteService voteService;
 	
 	
 //	@Autowired
@@ -157,7 +161,7 @@ public class PostController
 		Post post=postService.getPostById(postId);
 		model.addAttribute("post",post);
 		model.addAttribute("user", user);
-		
+		model.addAttribute("voteService", voteService);
 		List<Comment> comments=commentService.getCommentsByPost(post);
 		model.addAttribute("comments",comments);
 		return "user/viewPost";

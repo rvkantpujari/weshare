@@ -101,7 +101,7 @@
                   <div class="user-info">
                     <a th:href="@{'/user/community/'+${com.communityName}+'/'+${post.postId}}" class="profile-link"><h2 th:text="${post.title}"></h2></a>
                     <p class="text-muted" th:utext="'posted by ' + ${post.user.userName} + ' on ' + ${post.creationDate}"></p>
-                    <span th:text=" ${post.commentsNum} + ' comments '" class="following ion-compose" style="font-size:1.5rem; margin:0px; padding:0px;"></span>
+                    <span th:text=" '&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments '" class="following ion-compose" style="font-size:1.5rem; margin:0px; padding:0px;"></span>
                     <a class="following ion-ios-plus" style="font-size:1.5rem; cursor:pointer; text-decoration:none;"> Save</a>
                   </div>
                   
@@ -140,7 +140,7 @@
                   <div class="post_with_content" th:if="${post.content}">
                   <div class="line-divider"></div>
                   <div class="post-text text-justify">
-                    <span th:utext="${post.content}" class="short-description" style="font-size:1.8rem"></span>
+                    <span th:utext="${post.content}" class="short-description" style="font-size:1.8rem; color: black"></span>
                   </div>
                   </div>
                   
