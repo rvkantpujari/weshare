@@ -132,7 +132,7 @@
                     <div class="post_with_content" th:if="${post.content}">
                   	<div class="line-divider"></div>
 	                  <div class="post-text text-justify">
-	                    <span th:utext="${post.content}" class="short-description" style="font-size:1.8rem"></span>
+	                    <span th:utext="${post.content}" class="short-description" style="font-size:1.8rem; color: black"></span>
 	                  </div>
 	                  </div>
 	                  
@@ -184,11 +184,11 @@
                               </div>
                               <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
-                                  <a th:href="'editCommentForm-'+${comment.commentId}" class="link-page edit-comment-link" data-toggle="modal" th:data-commentid="${comment.commentId}">
+                                  <a th:href="'editCommentForm-'+${comment.commentId}" class="link-page edit-comment-link" data-toggle="modal" th:data-commentid="${comment.commentId}" style="margin-left: 6px">
                                   Edit</a>
                                 </li>
                                 <li>
-                                  <button type="submit" class="delete-comment" th:value="${comment.commentId}">Delete</button>
+                                  <a><button type="submit" class="delete-comment" th:value="${comment.commentId}" style="border: none;background-color: transparent;">Delete</button></a>
                                 </li>
                               </ul>
                             </div>
