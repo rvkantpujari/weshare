@@ -37,22 +37,15 @@ public class JoinLeaveCommunityController {
 	{
 		Community c = communityService.getCommunityByName(comName);
 		m.addAttribute("com", c);
-		if(principal==null)
+		User user = userService.findUserByUserName(principal.getName());
+		if(principal!=null && user.getJoinedCommunityList().contains(c))
 		{
-			m.addAttribute("exist", false);
+//				m.addAttribute("communityName", comName);
+	        	m.addAttribute("exist", true);
 		}
 		else
 		{
-			User user = userService.findUserByUserName(principal.getName());
-			if(user.getJoinedCommunityList().contains(c))
-			{
-//				m.addAttribute("communityName", comName);
-	        	m.addAttribute("exist", true);
-			}
-			else
-			{
 				m.addAttribute("exist", false);
-			}
 		}
 		List<Post> comunityPosts = c.getPosts();
 		System.out.println("\n\nprint all post of : "+comName);
