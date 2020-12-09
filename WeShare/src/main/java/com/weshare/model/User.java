@@ -1,6 +1,6 @@
 package com.weshare.model;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -74,7 +74,7 @@ public class User {
     private Boolean active;
     
     @CreationTimestamp
-    private LocalDateTime joinedOn;
+    private Date joinedOn;
     
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role", 
@@ -103,4 +103,10 @@ public class User {
     		joinColumns = @JoinColumn(name="user_id"),
     		inverseJoinColumns = @JoinColumn(name="community_id"))
     private Set<Community> joinedCommunityList= new HashSet<>();
+    
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="SavedPosts",
+			joinColumns = @JoinColumn(name="user_id"),
+			inverseJoinColumns = @JoinColumn(name="post_id"))
+    private List<Post> savedPosts;
 }
