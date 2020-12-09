@@ -30,23 +30,35 @@ public class FeedbackController {
 	@Autowired 
 	private UserService userService;
 	
-	@GetMapping("/user/feedback/insert")
+	@GetMapping("/user/contact")
 	public String insertFeedback(Model m,Principal principal)
 	{
-		User user=this.userService.findUserByUserName(principal.getName());
-		m.addAttribute("user", user);
-		return "user/addComment";
+		Feedback feedback=new Feedback();
+		if(principal==null)
+		{
+			m.addAttribute("userLoggedIn", false);
+			
+		}
+		else
+		{
+			User user=this.userService.findUserByUserName(principal.getName());
+			m.addAttribute("userLoggedIn", true);
+			m.addAttribute("user", user);
+			feedback.setEmail(user.getEmail());
+		}
+		m.addAttribute("feedback", feedback);		
+		return "user/contact";
 	}
 	
 	@GetMapping("/admin/feedback/all")
-	public String commentList(Model m,HttpServletRequest request)
+	public String feedbackList(Model m,HttpServletRequest request)
 	{
 		List<Feedback> feedbacktList = feedbackService.getAllFeedbacks();
 		m.addAttribute("fdList", feedbacktList);
-		return "user/commentList";
+		return "admin/getFeedback";
 	}
 	
-	@PostMapping("/save")
+	@PostMapping("/user/contact/save")
 	public String saveFeedback(@ModelAttribute("feedback")Feedback fd)
 	{
 		feedbackService.saveFeedback(fd);

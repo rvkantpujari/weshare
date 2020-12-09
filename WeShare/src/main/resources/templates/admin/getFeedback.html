@@ -30,10 +30,10 @@
 		</thead>
 		
 		<tbody>
-			<tr th:each="f : ${feedback}">
+			<tr th:each="fd : ${fdList}">
 				
-				<td th:text="${f}" />	
-				<td th:text="${f}" />
+				<td th:text="${fd.email}" />	
+				<td th:text="${fd.content}" />
 			</tr>
 		</tbody>	
 		

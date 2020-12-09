@@ -24,11 +24,6 @@ public class HomeController {
 	     return "index";
 	 }
 	 
-	 @GetMapping("/user/contact")
-	 public String contact(Model model)
-	 {
-		 return "user/contact";
-	 }
 	 
 	 @GetMapping("/user/createPost")
 	 public String createPost(Model model)
