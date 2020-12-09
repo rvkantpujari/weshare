@@ -1,7 +1,9 @@
 package com.weshare.controller;
 
 import java.security.Principal;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,12 +50,14 @@ public class JoinLeaveCommunityController {
 				m.addAttribute("exist", false);
 		}
 
-		List<Post> comunityPosts = c.getPosts();
+		List<Post> comunityPosts = c.getPosts().stream()
+				  								.sorted(Comparator.comparing(Post::getCreationDate).reversed())
+				  								.collect(Collectors.toList());
 		System.out.println("\n\nprint all post of : "+comName);
-		for (Post post : comunityPosts)
-		{
-			System.out.println("\n\npost title: "+post.getTitle());
-		}
+//		for (Post post : comunityPosts)
+//		{
+//			System.out.println("\n\npost title: "+post.getTitle());
+//		}
 		m.addAttribute("com", c);
 		m.addAttribute("comunityPosts", comunityPosts);
 		m.addAttribute("user", user);

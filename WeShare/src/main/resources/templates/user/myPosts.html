@@ -85,6 +85,28 @@
 	                      <span class="col-md-5"><i class="icon ion-android-calendar"> </i> Posted On: <span th:text="${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></span></span>
 	                      <span class="col-md-7"> <i class="icon ion-ios-list"> </i> Comments: <span th:text="${#lists.size(post.comments)}"></span></span>
 	                    </div>
+	                    
+					<!--<div class="post_with_content" th:if="${post.content}">
+		                  <div class="line-divider"></div>
+		                  <div class="post-text text-justify">
+		                    <span th:utext="${#strings.abbreviate(post.content, 1000)}" class="short-description" style="font-size:1.8rem"></span>
+		                  </div>
+		                  </div>
+		                  
+		                  <div class="post_with_link" th:if="${post.link}">
+		                  <div class="line-divider" ></div>
+		                  <div class="post-text text-justify">
+		                    <a th:href="${post.link}" th:text="${post.link}" style="font-size:1.8rem" target="_blank"></a>
+		                  </div>
+		                  </div>
+		                  
+		                  <div class="post_with_media" th:if="${post.imageUrl}">
+		                  <div class="line-divider"></div>
+		                  <img th:src="'/postImages/' + ${post.postId} + '.png'" alt="post-image" class="img-responsive post-image" />
+		                  </div>
+		                </div> -->
+	                    
+	                    
 	                    <!-- <p class="text-muted post-description">Community Description</p> -->
 	                  </div>
 	                </div>
