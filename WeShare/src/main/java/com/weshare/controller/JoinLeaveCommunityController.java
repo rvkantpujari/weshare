@@ -1,7 +1,9 @@
 package com.weshare.controller;
 
 import java.security.Principal;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import com.weshare.model.Community;
 import com.weshare.model.Post;
 import com.weshare.model.User;
 import com.weshare.service.CommunityService;
+import com.weshare.service.SavePostService;
 import com.weshare.service.UserService;
 import com.weshare.service.VoteService;
 
@@ -30,6 +33,9 @@ public class JoinLeaveCommunityController {
 	@Autowired
 	private VoteService voteService;
 	
+	@Autowired
+	private SavePostService savePostService;
+	
 	
 	@GetMapping("/{communityName}")
 	public String viewSingleCommunity(@PathVariable("communityName")String comName,
@@ -37,26 +43,33 @@ public class JoinLeaveCommunityController {
 	{
 		Community c = communityService.getCommunityByName(comName);
 		m.addAttribute("com", c);
-		User user = userService.findUserByUserName(principal.getName());
-		if(principal!=null && user.getJoinedCommunityList().contains(c))
-		{
-//				m.addAttribute("communityName", comName);
-	        	m.addAttribute("exist", true);
-		}
-		else
-		{
-				m.addAttribute("exist", false);
-		}
-		List<Post> comunityPosts = c.getPosts();
+		
+		List<Post> comunityPosts = c.getPosts().stream()
+				  								.sorted(Comparator.comparing(Post::getCreationDate).reversed())
+				  								.collect(Collectors.toList());
 		System.out.println("\n\nprint all post of : "+comName);
-		for (Post post : comunityPosts)
-		{
-			System.out.println("\n\npost title: "+post.getTitle());
-		}
-		m.addAttribute("com", c);
+//		for (Post post : comunityPosts)
+//		{
+//			System.out.println("\n\npost title: "+post.getTitle());
+//		}
 		m.addAttribute("comunityPosts", comunityPosts);
-		m.addAttribute("user", user);
 		m.addAttribute("voteService", voteService);
+	
+		if(principal!=null) 
+		{
+			User user = userService.findUserByUserName(principal.getName());
+			m.addAttribute("user", user);
+			if(user.getJoinedCommunityList().contains(c))
+			{
+	//				m.addAttribute("communityName", comName);
+		        	m.addAttribute("exist", true);
+			}
+			else
+			{
+					m.addAttribute("exist", false);
+			}
+			m.addAttribute("savePostService",savePostService);
+		}		
 		return "user/ViewCommunity";
 	}
 

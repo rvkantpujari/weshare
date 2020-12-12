@@ -38,9 +38,9 @@
     	}
     	.comment-description {
     		margin: 15px 0px;
-    		padding: 0px 10px;
-    		text-align: justify;
-    		border-left: 2px solid lightgrey;
+		    padding: 0px 10px;
+		    text-align: justify;
+		    border-left: 2px solid #0c2adc;
     	}
     </style>
   </head>
@@ -58,109 +58,54 @@
 
       <!-- Timeline
       ================================================= -->
-      <div class="timeline">
-       	<div class="timeline-cover">
-
-          <!--Timeline Menu for Large Screens-->
-          <div class="timeline-nav-bar hidden-sm hidden-xs">
-            <div class="row">
-              <div class="col-md-3">
-                <div class="profile-info">
-                  <img th:src="@{'https://ui-avatars.com/api/?name='+${u.userName}+'&rounded=true&background=random'}" alt="" class="img-responsive profile-photo" />
-                  <h3 th:text="${u.firstName}+' '+${u.lastName}">User Full Name</h3>
-                  <p class="text-muted" th:text="'u/'+${u.userName}">u/username</p>
-                </div>
-              </div>
-              <div class="col-md-9">
-                <div class="list-inline profile-menu row" style="padding: 10px;">
-                  <div class="col-sm-8"></div>
-                  <div class="col-sm-4">Joined On: <span th:text="${u.joinedOn}"></span></div>
-                </div>
-              </div>
-            </div>
-          </div><!--Timeline Menu for Large Screens End-->
-
-          <!--Timeline Menu for Small Screens-->
-          <div class="navbar-mobile hidden-lg hidden-md">
-            <div class="profile-info">
-              <img th:src="@{'https://ui-avatars.com/api/?name='+${u.userName}+'&rounded=true&background=random'}" alt="" class="img-responsive profile-photo" />
-              <h3 th:text="${u.firstName}+' '+${u.lastName}">User Full Name</h3>
-             <p class="text-muted" th:text="'u/'+${u.userName}">u/username</p>
-            </div>
-            <!--<div class="mobile-menu">
-              <ul class="list-inline">
-                <li><a href="timline.html">Timeline</a></li>
-                <li><a href="timeline-about.html" class="active">About</a></li>
-                <li><a href="timeline-album.html">Album</a></li>
-                <li><a href="timeline-friends.html">Friends</a></li>
-              </ul>
-              <button class="btn-primary">Add Friend</button>
-            </div>-->
-          </div><!--Timeline Menu for Small Screens End-->
-
-        </div>
+		<div class="timeline">
+      		<div th:replace="user/fragments::timeline-cover"></div>
         
         <div id="page-contents">
     		<div class="row">
 		  
-	          <!-- Side Bar Left
-	          ================================================= -->
-	    	  <div class="col-md-3">
-				  <!-- Profile Sidebar Menu -->
-		          <div id="sticky-sidebar">
-		              <!--Edit Profile Menu-->
-		              <ul class="edit-menu">
-		              	<li><i class="icon ion-ios-information-outline"></i><a th:href="@{/user/manageProfile}">Basic Information</a></li>
-		                <li><i class="icon ion-ios-people-outline"></i><a th:href="@{/user/myCommunities}">My Communities</a></li>
-		              	<li><i class="icon ion-ios-compose-outline"></i><a th:href="@{/user/myPosts}">My Posts</a></li>
-		              	<li class="active"><i class="icon ion-ios-list-outline"></i><a th:href="@{/user/myComments}">My Comments</a></li>
-		              	<li><i class="icon ion-ios-locked-outline"></i><a th:href="@{/user/changePassword}">Change Password</a></li>
-		              </ul>
-		          </div>
-	          </div>
+          	<!--  Side Bar Left  ================================================= -->
+      		<div th:replace="user/fragments::sideBarLeft"></div>
+
 	          <!-- Side Bar Right
 	          ================================================= -->
 	    	  <div class="col-md-9">
 	              
-	              <div class="post-container">
+	              <div class="post-container" th:each="comment: ${myCommentList}">
 	                <div class="post-detail">
 	                  <div class="user-info" style="margin-left:10px;">
 	                  	<div class="row" style="word-spacing: 2px;">
-	                    	<span class="h4 col-md-*"><a class="profile-link" href="#">Post Title</a></span>
-	                    	<span class="h5 col-md-*"> by <i class="icon ion-ios-person"></i>Creator</span>
-	                    	<span class="h5 col-md-*"> in CommunityName</span>
+	                  		
+	                  		<a th:href="@{'/user/community/'+${comment.post.community.communityName}+'/'+${comment.post.postId}}" class="profile-link">
+	                    		<span class="h4 col-md-*" th:text="${comment.post.title}"></span>
+	                    	</a>
+							
+	                    	<span class="h5 col-md-*"> posted by <i class="icon ion-ios-person"></i><span class="h4 col-md-*" th:text="${comment.post.user.userName}"></span></span>
+		                    	
+	                    	<span> in </span>
+	                    	<a th:href="@{'/user/community/'+${comment.post.community.communityName}}" class="profile-link">
+	                    		<span class="h5 col-md-*" th:text="${comment.post.community.communityName}"></span>
+	                    	</a>
+	                    	<span> community </span>
+	                    	
 	                    </div>
+	                    
+	                    <h2 class="text-muted comment-description short-description" style="color: black;" th:text="${#strings.abbreviate(comment.content, 300)}"></h2>
+	                    
                     	<div class="icon ion-ios-list-outline comment-date-time">
-                    		Commented On: Date
+                    		Commented On: <span th:text="${#dates.format(comment.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></span>
                     	</div>
-	                    <p class="text-muted comment-description short-description">My Comment</p>
+	                    
 	                  </div>
 	                </div>
 	              </div>
 	              
-	              <div class="post-container">
-	                <div class="post-detail">
-	                  <div class="user-info" style="margin-left:10px;">
-	                  	<div class="row" style="word-spacing: 2px;">
-	                    	<span class="h4 col-md-*"><a class="profile-link" href="#">Post Title</a></span>
-	                    	<span class="h5 col-md-*"> by <i class="icon ion-ios-person"></i>Creator</span>
-	                    	<span class="h5 col-md-*"> in CommunityName</span>
-	                    </div>
-                    	<div class="icon ion-ios-list-outline comment-date-time">
-                    		Commented On: Date
-                    	</div>
-	                    <p class="text-muted comment-description short-description">
-	                    	Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-						    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</p>
-	                  </div>
-	                </div>
-	              </div>
-	            
+			 <div th:if="${emptyList}">
+					<h3 style="font-style: italic; color:black;">You haven't commented on any post!</h3><hr/>
+					<div>
+                			<a th:href="@{'/user/category/all/communities'}" class="btn btn-primary">Go to all communities</a>
+              		</div>
+	              
 	          </div>
 	          
     		</div>
@@ -186,7 +131,7 @@
     <script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
     <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
     <script th:src="@{/js/script.js}"></script>
-    <script>
+<!--     <script>
 	 	// Limit Board Description
 	    function truncateText(element, maxLength) {
 	        let truncated = element.innerText;
@@ -201,6 +146,6 @@
 	    {
 	        truncateText(countBDesc[i], 150);
 	    }
-    </script>
+    </script> -->
   </body>
 </html>

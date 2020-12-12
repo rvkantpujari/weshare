@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.weshare.model.Comment;
 import com.weshare.model.Community;
 import com.weshare.model.Post;
 import com.weshare.model.User;
@@ -131,6 +132,18 @@ public class UserProfileController {
 				User user=this.userService.findUserByUserName(principal.getName());
 				m.addAttribute("u", user);
 				
+				 if(user.getComments().isEmpty())
+				 {
+					 m.addAttribute("emptyList", true);
+				 }
+				 else
+				 {
+					 List<Comment> myCommentList = user.getComments().stream()
+							  .sorted(Comparator.comparing(Comment::getCreationDate).reversed())
+							  .collect(Collectors.toList());
+					 m.addAttribute("myCommentList", myCommentList);
+					 
+				 }
 
 				return "user/myComments";
 		    }	 
