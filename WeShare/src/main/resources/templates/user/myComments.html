@@ -38,9 +38,9 @@
     	}
     	.comment-description {
     		margin: 15px 0px;
-    		padding: 0px 10px;
-    		text-align: justify;
-    		border-left: 2px solid lightgrey;
+		    padding: 0px 10px;
+		    text-align: justify;
+		    border-left: 2px solid #0c2adc;
     	}
     </style>
   </head>
@@ -75,23 +75,27 @@
 	                <div class="post-detail">
 	                  <div class="user-info" style="margin-left:10px;">
 	                  	<div class="row" style="word-spacing: 2px;">
+	                  		
 	                  		<a th:href="@{'/user/community/'+${comment.post.community.communityName}+'/'+${comment.post.postId}}" class="profile-link">
-	                    		<span class="h3 col-md-*" th:text="${comment.post.title}"></span>
+	                    		<span class="h4 col-md-*" th:text="${comment.post.title}"></span>
 	                    	</a>
-
+							
 	                    	<span class="h5 col-md-*"> posted by <i class="icon ion-ios-person"></i><span class="h4 col-md-*" th:text="${comment.post.user.userName}"></span></span>
 		                    	
 	                    	<span> in </span>
 	                    	<a th:href="@{'/user/community/'+${comment.post.community.communityName}}" class="profile-link">
-	                    		<span class="h4 col-md-*" th:text="${comment.post.community.communityName}"></span>
+	                    		<span class="h5 col-md-*" th:text="${comment.post.community.communityName}"></span>
 	                    	</a>
 	                    	<span> community </span>
 	                    	
 	                    </div>
+	                    
+	                    <h2 class="text-muted comment-description short-description" style="color: black;" th:text="${#strings.abbreviate(comment.content, 300)}"></h2>
+	                    
                     	<div class="icon ion-ios-list-outline comment-date-time">
                     		Commented On: <span th:text="${#dates.format(comment.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></span>
                     	</div>
-	                    <p class="text-muted comment-description short-description" th:text="${#strings.abbreviate(comment.content, 300)}"></p>
+	                    
 	                  </div>
 	                </div>
 	              </div>
