@@ -34,7 +34,7 @@
       <div class="container">
     	<div class="row">
     	  <div class="col-md-12">
-   			<div class="post-content" th:title="${com.category.categoryName}">
+   			<div class="post-content">
               <div class="post-container">
                 <img th:src="@{'https://ui-avatars.com/api/?name='+${com.communityName}+'&rounded=true&background=random'}" alt="user" class="profile-photo-md pull-left" />
                 <div class="post-detail">
@@ -104,7 +104,22 @@
                     </a>
                     <p class="text-muted" th:text="'posted by ' + ${post.user.userName} + ' on ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}" ></p>
                     <span th:text=" ${post.commentsNum} + ' comments '" class="following ion-compose" style="font-size:1.5rem; margin:0px; padding:0px;"></span>
-                    <a class="following ion-ios-plus" style="font-size:1.5rem; cursor:pointer; text-decoration:none;"> Save</a>
+                   
+                   <span th:with="isPostSaved=${savePostService.findByPostAndUser(post,user)}"> 
+                    <span th:unless="${isPostSaved}">
+                    	<a class="following ion-ios-plus" style="font-size:1.5rem; cursor:pointer; text-decoration:none;"
+                    		th:href="@{'/user/community/'+${com.communityName}+'/'+${post.postId}+'/save'}">Save
+                    	</a>
+					</span>
+	
+					<span th:if="${isPostSaved}">
+						<a class="following ion-ios-plus" style="font-size:1.5rem; cursor:pointer; text-decoration:none;"
+                    		th:href="@{'/user/community/'+${com.communityName}+'/'+${post.postId}+'/unsave'}"> Unsave
+                    	</a>
+					</span>
+                    </span>
+                    
+                    
                   </div>
                   
                   <div class="reaction" th:with="vote=${voteService.findByPostAndUser(post, user)}">

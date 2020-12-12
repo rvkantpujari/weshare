@@ -16,6 +16,7 @@ import com.weshare.model.Community;
 import com.weshare.model.Post;
 import com.weshare.model.User;
 import com.weshare.service.CommunityService;
+import com.weshare.service.SavePostService;
 import com.weshare.service.UserService;
 import com.weshare.service.VoteService;
 
@@ -32,6 +33,9 @@ public class JoinLeaveCommunityController {
 	@Autowired
 	private VoteService voteService;
 	
+	@Autowired
+	private SavePostService savePostService;
+	
 	
 	@GetMapping("/{communityName}")
 	public String viewSingleCommunity(@PathVariable("communityName")String comName,
@@ -40,6 +44,18 @@ public class JoinLeaveCommunityController {
 		Community c = communityService.getCommunityByName(comName);
 		m.addAttribute("com", c);
 		
+		
+		List<Post> comunityPosts = c.getPosts().stream()
+				  								.sorted(Comparator.comparing(Post::getCreationDate).reversed())
+				  								.collect(Collectors.toList());
+		System.out.println("\n\nprint all post of : "+comName);
+//		for (Post post : comunityPosts)
+//		{
+//			System.out.println("\n\npost title: "+post.getTitle());
+//		}
+		m.addAttribute("comunityPosts", comunityPosts);
+		m.addAttribute("voteService", voteService);
+	
 		if(principal!=null) 
 		{
 			User user = userService.findUserByUserName(principal.getName());
@@ -52,19 +68,10 @@ public class JoinLeaveCommunityController {
 			else
 			{
 					m.addAttribute("exist", false);
-			}			
+			}
+			m.addAttribute("savePostService",savePostService);
 		}
 		
-		List<Post> comunityPosts = c.getPosts().stream()
-				  								.sorted(Comparator.comparing(Post::getCreationDate).reversed())
-				  								.collect(Collectors.toList());
-		System.out.println("\n\nprint all post of : "+comName);
-//		for (Post post : comunityPosts)
-//		{
-//			System.out.println("\n\npost title: "+post.getTitle());
-//		}
-		m.addAttribute("comunityPosts", comunityPosts);
-		m.addAttribute("voteService", voteService);
 		return "user/ViewCommunity";
 	}
 

@@ -84,7 +84,7 @@
 	                    
 						<div class="row">
 	                      <span class="col-md-5"><i class="icon ion-android-calendar"> </i> Posted On: <span th:text="${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></span></span>
-	                      <span class="col-md-7"> <i class="icon ion-ios-list"> </i> Comments: <span th:text="${#lists.size(post.comments)}"></span></span>
+	                      <span class="col-md-7"> <i class="icon ion-ios-list"> </i> Comments: <span th:text="${post.commentsNum}"></span></span>
 	                    </div>
 	                    
 	                    

@@ -1,5 +1,6 @@
 package com.weshare.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -98,15 +99,15 @@ public class User {
     @OneToMany(mappedBy="user")
     private List<Vote> votes;
     
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name="CommunityMembers",
     		joinColumns = @JoinColumn(name="user_id"),
     		inverseJoinColumns = @JoinColumn(name="community_id"))
     private Set<Community> joinedCommunityList= new HashSet<>();
     
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name="SavedPosts",
 			joinColumns = @JoinColumn(name="user_id"),
 			inverseJoinColumns = @JoinColumn(name="post_id"))
-    private List<Post> savedPosts;
+    private List<Post> savedPostList=new ArrayList<Post>();
 }
