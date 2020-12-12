@@ -111,3 +111,4 @@ public class User {
 			inverseJoinColumns = @JoinColumn(name="post_id"))
     private List<Post> savedPostList=new ArrayList<Post>();
 }
+

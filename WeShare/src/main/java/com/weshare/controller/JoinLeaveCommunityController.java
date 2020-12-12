@@ -44,7 +44,6 @@ public class JoinLeaveCommunityController {
 		Community c = communityService.getCommunityByName(comName);
 		m.addAttribute("com", c);
 		
-		
 		List<Post> comunityPosts = c.getPosts().stream()
 				  								.sorted(Comparator.comparing(Post::getCreationDate).reversed())
 				  								.collect(Collectors.toList());
@@ -70,8 +69,7 @@ public class JoinLeaveCommunityController {
 					m.addAttribute("exist", false);
 			}
 			m.addAttribute("savePostService",savePostService);
-		}
-		
+		}		
 		return "user/ViewCommunity";
 	}
 

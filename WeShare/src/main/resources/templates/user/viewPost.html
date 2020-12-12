@@ -62,7 +62,7 @@
     	<div class="row">
     	  <div class="col-md-1"></div>
     	  <div class="col-md-10">
-              <h2>Community Name</h2>
+              <a th:href=" '/user/community/' + ${post.community.communityName}"><h2 th:text="${post.community.communityName}"></h2></a>
               <div class="line"></div>
     	  </div>
     	  <div class="col-md-1"></div>
@@ -90,38 +90,74 @@
                   
                   <div class="post-detail" style="margin:-10px 0 0 0;">
                     <div class="user-info">
-                      <a href="#" class="profile-link"><h2>Post Title</h2></a>
-                      <p class="text-muted">posted by userName on creationDate</p>
-                      <span class="following icon ion-compose" style="font-size:1.5rem; margin:0px; padding:0px;"> 0 comments</span>
+                      <h2 th:text="${post.title}"></h2>
+                      <p class="text-muted" th:utext="'posted by ' + ${post.user.userName} + ' on ' + ${post.creationDate}"></p>
+                      <span th:text="'&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments '" class="following icon ion-compose" style="font-size:1.5rem; margin:0px; padding:0px;"></span>
                       <div class=" vertical-line-divider"></div>
                       <a class="following icon ion-android-bookmark" style="font-size:1.5rem; cursor:pointer; text-decoration:none;"> Save</a>
                       <div class=" vertical-line-divider"></div>
-                      <span>
-		                <a class="btn text-green"><i style="font-size:2rem;" class="icon ion-thumbsup"></i></a> 13
-		                <a class="btn text-red"><i style="font-size:2rem;" class="fa fa-thumbs-down"></i></a>
-	                  </span>
+
+	                  <div class="reaction" th:with="vote=${voteService.findByPostAndUser(post, user)}">
+	
+	                  	<span th:if="${user == null}" data-title="Please login or sing up to vote!">
+	                  		<button th:id="'upvote' + ${post.postId}" class="upvoteBtn btn text-muted icon ion-thumbsup" style="font-size:2.5rem; background-color:white"></button>
+	                    </span>
+	                    <span th:if="${user != null}">
+	                    	<span th:if="${vote == null or vote.vote == -1}">
+	                    		<button th:id="'upvote' + ${post.postId}" th:onclick=" 'upvote(' + ${post.postId} + ', this)' " class="upvoteBtn btn text-muted icon ion-thumbsup" style="font-size:2.5rem; background-color:white"></button>
+	 						</span>
+	 						<span th:if="${vote != null and vote.vote == 1}">
+	                    		<button th:id="'upvote' + ${post.postId}" th:onclick=" 'upvote(' + ${post.postId} + ', this)' " class="upvoteBtn btn text-green icon ion-thumbsup" style="font-size:2.5rem; background-color:white"></button>
+	 						</span>
+	                    </span>
+	                    
+	                    	<span th:id="'score' + ${post.postId}" th:text=" ${post.score}" style="font-size:2.0rem; padding:15px"></span>
+	                    	
+	                    <span th:if="${user == null}" data-title="Please login or sing up to vote!">
+	                  		<button th:id="'downvote' + ${post.postId}" class="downvoteBtn btn text-red fa fa-thumbs-down" style="font-size:2.5rem; padding:10px; background-color:white"></button>
+	                    </span>
+	                    <span th:if="${user != null}">
+	                    	<span th:if="${vote == null or vote.vote == 1}">
+	                    		<button th:id="'downvote' + ${post.postId}" th:onclick=" 'downvote(' + ${post.postId} + ', this)' " class="downvoteBtn btn text-muted fa fa-thumbs-down" style="font-size:2.5rem; padding:10px; background-color:white"></button>
+	 						</span>
+	 						<span th:if="${vote != null and vote.vote == -1}">
+	                    		<button th:id="'downvote' + ${post.postId}" th:onclick=" 'downvote(' + ${post.postId} + ', this)' " class="downvoteBtn btn text-red fa fa-thumbs-down" style="font-size:2.5rem; padding:10px; background-color:white"></button>
+	 						</span>
+	                    </span>
+	                    
+	                  </div>
+
                     </div>
                  
-                    <div class="post_with_content" style="margin-top:10px;">
-	                  <div class="line-divider"></div>
+                    <div class="post_with_content" th:if="${post.content}">
+                  	<div class="line-divider"></div>
 	                  <div class="post-text text-justify">
-	                    <span style="font-size:1.8rem; padding:5px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						   tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						   quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						   consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-						   cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						   proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</span>
+	                    <span th:utext="${post.content}" class="short-description" style="font-size:1.8rem; color: black"></span>
 	                  </div>
-                    </div>
-                    
+	                  </div>
+	                  
+	                  <div class="post_with_link" th:if="${post.link}">
+	                  <div class="line-divider" ></div>
+	                  <div class="post-text text-justify">
+	                    <a th:href="${post.link}" th:text="${post.link}" style="font-size:1.8rem" target="_blank"></a>
+	                  </div>
+	                  </div>
+	                  
+	                  <div class="post_with_media" th:if="${post.imageUrl}">
+	                  <div class="line-divider"></div>
+	                  <img th:src="'/postImages/' + ${post.postId} + '.png'" alt="post-image" class="img-responsive post-image" />
+	                  </div>
+	                </div>
+	                
                     <div class="line-divider" style="margin: 30px 0px;"></div>
                     
                     <div class="row">
                     	<div class="col-sm-1"></div>
                     	<div class="col-sm-10">
-                    		<form method="POST" id="addNewComment">
-			                    <textarea type="text" name="commentDesc" class="form-control control-input" placeholder="Add New Comment" style="resize: vertical; height: 120px;" required></textarea><br>
+                    		<form th:action="@{/user/comment/save}" method="POST" id="addNewComment">
+                
+                    			<input type="hidden" name="postId" th:value="${post.postId}"/>
+			                    <textarea type="text" name="commentDescription" class="form-control control-input" placeholder="Add New Comment" style="resize: vertical; height: 60px;" required></textarea><br>
 			                    <button type="submit" class="btn btn-primary pull-left"><span class="fa fa-paper-plane"></span></button>
 			                </form>
 						</div>
@@ -131,77 +167,46 @@
                     <div class="line-divider" style="margin: 30px 0px;"></div>
                     
 					<h3>Comments</h3>
-                    <div class="accordion" id="accordionExample">
-					  <div class="card">
-					    <div class="card-header" id="headingOne">
-					      <h2 class="row" style="background-color:white; border-radius: 5px; padding:5px;" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-					        <span class="btn collapsed">
-					          John Doe
+					 <hr color="red" style=" height: 1px;background-color: #149AC9;border: none;">
+                    <div class="accordion" id="accordionExample" style="margin-bottom: 10vh; ">
+					  <div class="card" th:each="comment:${comments}" th:id="'card-'+${comment.commentId}">
+					    <div class="card-header" th:id="'heading-'+${comment.commentId}">
+					      <h6 class="row" style="background-color:white; border-radius: 5px; padding:5px;" data-toggle="collapse" th:data-target="'#'+${comment.commentId}" aria-expanded="true" th:aria-controls="'#'+${comment.commentId}">
+					        <span class="btn collapsed" th:text="${comment.user.userName}">
 					        </span>
-					        <span class="h6 pull-right" style="padding: 5px 20px 0px 0px;">createdOn</span>
-					      </h2>
+					        <span th:text="${comment.creationDate}" class="h6 pull-right" style="padding: 5px 20px 0px 0px;"></span>
+					      </h6>
 					    </div>
-					    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample" style="margin-bottom:10px;">
-					      <span class="pull-right" id="3-dots-btn-1">
+					    <div th:id="${comment.commentId}" class="collapse in" aria-labelledby="headingOne" data-parent="#accordionExample" style="margin-bottom:10px;">
+					      <span th:if="${comment.user.userName} == ${user.userName}" class="pull-right" th:id="'3-dots-btn-' + ${comment.commentId}">
                             <div class="dropdown" style="cursor:pointer;">
                               <div class="test dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               </div>
                               <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
-                                  <a href="#" class="link-page edit-comment-link" data-toggle="modal" data-commentid="1">
+                                  <a th:href="'editCommentForm-'+${comment.commentId}" class="link-page edit-comment-link" data-toggle="modal" th:data-commentid="${comment.commentId}" style="margin-left: 6px">
                                   Edit</a>
                                 </li>
                                 <li>
-                                  <a href="#" class="link-page">Delete</a>
+                                  <a><button type="submit" class="delete-comment" th:value="${comment.commentId}" style="border: none;background-color: transparent;">Delete</button></a>
                                 </li>
                               </ul>
                             </div>
                           </span>
-					      <div class="card-body text-justify" style="padding:0px 30px 0 0;" id="viewCommentId-1">
-					        Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo.
+					      <div class="card-body text-justify" style="padding:0px 30px 0 0;" th:id="'viewCommentId-' + ${comment.commentId}">
+					      	<span style="font-size: 2.0rem" th:id="'showCommentContent-'+${comment.commentId}" th:text="${comment.content}"></span>
 					      </div>
-					      <form method="post" id="editCommentForm-1">
-                            <textarea name="commentDescription" id="editCommentId-1" class="form-control control-input" placeholder="Edit Comment" style="resize: vertical; min-height: 150px;"></textarea>
-                            <button type="submit" class="btn btn-primary" id="saveCommentBtn" style="margin-top:10px;"><span>Save</span></button>
-                            <a class="btn btn-danger btn-cancel" data-commentid="1" style="margin-top:10px;">Cancel</a>
-                          </form>
-					    </div>
-					  </div>
+					      <form method="post" th:id="'editCommentForm-'+${comment.commentId}">
 
-					  <div class="card">
-					    <div class="card-header" id="headingTwo">
-					      <h2 class="row" style="background-color:white; border-radius: 5px; padding:5px;" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-					        <span class="btn collapsed">
-					          John Doe
-					        </span>
-					        <span class="h6 pull-right" style="padding: 5px 20px 0px 0px;">createdOn</span>
-					      </h2>
-					    </div>
-					    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample" style="margin-bottom:10px;">
-					      <span class="pull-right" id="3-dots-btn-2">
-                            <div class="dropdown" style="cursor:pointer;">
-                              <div class="test dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              </div>
-                              <ul class="dropdown-menu dropdown-menu-right">
-                                <li>
-                                  <a href="#" class="link-page edit-comment-link" data-toggle="modal" data-commentid="2">
-                                  Edit</a>
-                                </li>
-                                <li>
-                                  <a href="#" class="link-page">Delete</a>
-                                </li>
-                              </ul>
-                            </div>
-                          </span>
-					      <div class="card-body text-justify" style="padding:0px 30px 0 0;" id="viewCommentId-2">
-					        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
-					      </div>
-					      <form method="post" id="editCommentForm-2">
-                            <textarea name="commentDescription" id="editCommentId-2" class="form-control control-input" placeholder="Edit Comment" style="resize: vertical; min-height: 150px;"></textarea>
-                            <button type="submit" class="btn btn-primary" id="saveCommentBtn" style="margin-top:10px;"><span>Save</span></button>
-                            <a class="btn btn-danger btn-cancel" data-commentid="2" style="margin-top:10px;">Cancel</a>
+                            <textarea name="commentDescription" th:id="'editCommentTextArea-'+${comment.commentId}" class="form-control control-input" placeholder="Edit Comment" style="resize: vertical; min-height: 150px;"></textarea>
+                            
+                            <input type="hidden" name="commentId" th:value="${comment.commentId}"/>
+
+                            <button type="submit" th:value="${comment.commentId}"  class="btn btn-primary editCommentBtn" th:id="'saveCommentBtn'+${comment.commentId}" style="margin-top:10px;">Save</button>
+                            <a class="btn btn-danger btn-cancel" th:data-commentid="${comment.commentId}" style="margin-top:10px;">Cancel</a>
                           </form>
 					    </div>
+					    <hr color="red" style=" height: 1px;background-color: #149AC9;border: none;width: 95%">
 					  </div>
 					  
 					</div>
@@ -236,7 +241,10 @@
     <script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
     <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
     <script th:src="@{/js/script.js}"></script>
-    
+	<script th:src="@{/js/upvote.js}"></script>
+	<script th:src="@{/js/downvote.js}"></script>
+    <script th:src="@{/js/editComment.js}"></script>
+    <script th:src="@{/js/deleteComment.js}"></script>
 	<script>
 	    
 	    $(document).ready(function(){
@@ -250,7 +258,7 @@
 	        $('#viewCommentId-'+commentId).hide();
 	        $('#3-dots-btn-'+commentId).hide();
 	        $('#editCommentForm-'+commentId).show();
-	        $('#editCommentId-'+commentId).val($('#viewCommentId-'+commentId).text().trim());
+	        $('#editCommentTextArea-'+commentId).val($('#viewCommentId-'+commentId).text().trim());
 	    });
 		// Cancel Button 
 	    $(".btn-cancel").click(function(){

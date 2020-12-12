@@ -4,6 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,12 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.weshare.model.Comment;
 import com.weshare.model.Community;
 import com.weshare.model.Post;
 import com.weshare.model.User;
+import com.weshare.service.CommentService;
 import com.weshare.service.CommunityService;
 import com.weshare.service.PostService;
 import com.weshare.service.UserService;
+import com.weshare.service.VoteService;
 
 @Controller
 @RequestMapping("/user/community")
@@ -34,6 +38,11 @@ public class PostController
 	private PostService postService;
 	@Autowired
 	private CommunityService communityService;
+	@Autowired
+	private CommentService commentService;
+	
+	@Autowired
+	private VoteService voteService;
 	
 	
 //	@Autowired
@@ -140,5 +149,22 @@ public class PostController
     	}
     	return "redirect:/user/community/"+communityName;
 	}
-
+	
+	@GetMapping("{communityName}/{postId}")
+	public String viewPost(Model model, HttpServletRequest request,
+    		 Principal principal
+    		, @PathVariable String communityName, @PathVariable int postId)
+	{
+		System.out.println("\n\n\n in ViewPost "+communityName+" "+postId+"\n\n\n");
+		User user=this.userService.findUserByUserName(principal.getName());
+		
+		Post post=postService.getPostById(postId);
+		model.addAttribute("post",post);
+		model.addAttribute("user", user);
+		model.addAttribute("voteService", voteService);
+		List<Comment> comments=commentService.getCommentsByPost(post);
+		model.addAttribute("comments",comments);
+		return "user/viewPost";
+	}
+	
 }

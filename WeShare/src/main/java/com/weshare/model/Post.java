@@ -57,7 +57,7 @@ public class Post {
 	private User user;
     
     @JsonIgnore
-	@OneToMany(mappedBy="post",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="post",cascade = CascadeType.MERGE)
     private List<Comment> comments;
 
     @JsonIgnore
