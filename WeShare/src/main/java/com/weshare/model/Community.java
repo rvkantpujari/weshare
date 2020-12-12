@@ -1,6 +1,6 @@
 package com.weshare.model;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -33,7 +33,7 @@ public class Community {
 	private String communityDescription;
 	
     @CreationTimestamp
-    private LocalDateTime creationDate;
+    private Date creationDate;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")

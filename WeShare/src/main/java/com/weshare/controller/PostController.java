@@ -132,7 +132,7 @@ public class PostController
     	newPost.setImageUrl(newPost.getPostId()+"");
     	postService.savePost(newPost);
     	
-    	String imageName = "_" + newPost.getPostId() + ".png";
+    	String imageName = newPost.getPostId() + ".png";
     	
     	try
     	{

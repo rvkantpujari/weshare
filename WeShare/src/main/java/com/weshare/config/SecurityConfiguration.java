@@ -39,7 +39,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     		"/",
     		"/registration",
     		"/user/community/{communityName}",
-    		"/user/category/{communityName}/communities"
+    		"/user/category/{communityName}/communities",
+    		"/user/contact/save"
     		
     };
     
@@ -77,7 +78,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         		   		"/css/**", 
         		   		"/js/**", 
         		   		"/images/**", 
-        		   		"/fonts/**");
+        		   		"/fonts/**",
+        		   		"/postImages/**");
     }
 
 }
