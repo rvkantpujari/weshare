@@ -120,7 +120,7 @@
                     </span>
                     
                   </div>
-                  
+                 
                   <div class="reaction" th:with="vote=${voteService.findByPostAndUser(post, user)}">
 
                   	<span th:if="${user == null}">
@@ -150,7 +150,6 @@
                     </span>
                     
                   </div>
-                 
                   
                   
                   <div class="post_with_content" th:if="${post.content}">

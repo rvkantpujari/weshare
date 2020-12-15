@@ -40,8 +40,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     		"/registration",
     		"/user/community/{communityName}",
     		"/user/category/{communityName}/communities",
-    		"/user/contact/save"
-    		
     };
     
 
