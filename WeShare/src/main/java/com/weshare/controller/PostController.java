@@ -58,7 +58,7 @@ public class PostController
 		Community community = communityService.getCommunityByName(communityName);
 		if(community==null)
 	    {
-			return "404";
+			return "user/error";
 		}
 //		System.out.println("\n\n\n"+community+"\n\n\n");
 		model.addAttribute("community", community);
@@ -81,7 +81,7 @@ public class PostController
         Community community = communityService.getCommunityByName(communityName);
 		if(community==null)
 	    {
-			return "404";
+			return "user/error";
 		}
         newPost.setTitle(title);
         
@@ -122,7 +122,7 @@ public class PostController
         Community community = communityService.getCommunityByName(communityName);
 		if(community==null)
 	    {
-			return "404";
+			return "user/error";
 		}
         newPost.setTitle(title);
 		newPost.setUser(user);

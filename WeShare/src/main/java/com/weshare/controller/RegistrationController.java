@@ -20,11 +20,12 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String createNewUser(@Valid User user, BindingResult bindingResult, Model model) {
         
+    	model.addAttribute("classActiveRegister", true);
         User userExists = userService.findUserByUserName(user.getUserName());
         User emailExists = userService.findUserByEmail(user.getEmail());
         
         if (userExists != null) {
-            bindingResult.rejectValue("userName", "error.user","User already exists!");
+            bindingResult.rejectValue("userName", "error.user","Username already exists!");
         }
         
         if (emailExists != null) {
@@ -35,7 +36,7 @@ public class RegistrationController {
             return "index";
         } else {
             userService.saveUser(user);
-            model.addAttribute("successMessage", "User has been registered successfully");
+            model.addAttribute("successMessage", "You have been registered successfully");
             model.addAttribute("user", new User());
             return "index";
         }

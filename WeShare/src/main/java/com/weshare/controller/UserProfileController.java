@@ -148,5 +148,26 @@ public class UserProfileController {
 				return "user/myComments";
 		    }	 
 		 
+		    @GetMapping("/user/mySavedPosts")
+		    public String mySavedPosts(Model m,Principal principal)
+		    {
+				User user=this.userService.findUserByUserName(principal.getName());
+				m.addAttribute("u", user);
+				
+				 if(user.getSavedPostList().isEmpty())
+				 {
+					 m.addAttribute("emptyList", true);
+				 }
+				 else
+				 {
+					 List<Post> mySavedPostList = user.getSavedPostList().stream()
+							  .sorted(Comparator.comparing(Post::getCreationDate).reversed())
+							  .collect(Collectors.toList());
+					 m.addAttribute("mySavedPostList", mySavedPostList);
+				 }
+				
+				
+		        return "user/mySavedPosts";
+		    }
 		    
 }
