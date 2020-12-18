@@ -48,14 +48,27 @@
               <!-- Register/Login Tabs-->
               <div class="reg-options">
                 <ul class="nav nav-tabs">
-                  <li><a href="#register" data-toggle="tab">Register</a></li>
-                  <li class="active"><a href="#login" data-toggle="tab">Login</a></li>
+                	<li th:classappend="${classActiveRegister}? 'active'">
+						<a href="#register" data-toggle="tab">
+							Register
+						</a>
+					</li>
+					<li th:classappend="${classActiveLogin}? 'active'">
+						<a href="#login" data-toggle="tab">
+							Login
+						</a>
+					</li>
                 </ul><!--Tabs End-->
               </div>
               
               <!-- Login and Registration Forms -->
               <div class="tab-content">
-                <div class="tab-pane" id="register">
+                <div class="tab-pane" id="register" th:classappend="${classActiveRegister}? 'in active'">
+                	
+                	<div class="alert alert-success" th:if="${successMessage}">
+						<h4 th:text="${successMessage}"></h4>	
+					</div>
+					
                   <h3>Register</h3>
                   <p class="text-muted">Join hands for community contribution</p>
                   
@@ -67,19 +80,19 @@
                         <label for="username" class="sr-only">Username</label>
                         <input id="username" class="form-control input-group-lg" type="text" placeholder="Enter Username" data-validation="custom length" data-validation-length="min3"
                         	 th:field="*{userName}"/>
-                       	<label th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></label>
+                       	<h5 th:if="${#fields.hasErrors('userName')}" style="color:red;" th:errors="*{userName}"></h5>
                       </div>
                     </div>
                     <div class="row">
                       <div class="form-group col-xs-6">
                         <label for="firstname" class="sr-only">First Name</label>
-                        <input id="firstname" class="form-control input-group-lg" type="text" placeholder="Enter First Name" data-validation="custom" data-validation-regexp="^([a-zA-Z]+)$"  data-validation-length="min3"
+                        <input id="firstname" class="form-control input-group-lg" type="text" placeholder="Enter First Name" data-validation="custom" data-validation-regexp="^([a-zA-Z]+)$"  data-validation-length="min2"
                         	th:field="*{firstName}"/>
                         <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></label>	
                       </div>
                       <div class="form-group col-xs-6">
                         <label for="lastname" class="sr-only">Last Name</label>
-                        <input id="lastname" class="form-control input-group-lg" type="text" placeholder="Enter Last Name" data-validation="custom" data-validation-regexp="^([a-zA-Z]+)$"  data-validation-length="min3"
+                        <input id="lastname" class="form-control input-group-lg" type="text" placeholder="Enter Last Name" data-validation="custom" data-validation-regexp="^([a-zA-Z]+)$"  data-validation-length="min2"
                         	th:field="*{lastName}"/>
                         <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></label>
                       </div>
@@ -89,7 +102,7 @@
                         <label for="email" class="sr-only">Email</label>
                         <input id="regEmail" class="form-control input-group-lg" type="text" placeholder="Enter Email" data-validation="email"
                         	th:field="*{email}"/>
-                        <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></label>
+                        <h5 th:if="${#fields.hasErrors('email')}" style="color:red;" th:errors="*{email}"></h5>
                       </div>
                     </div>
                     <div class="row">
@@ -109,12 +122,17 @@
                     <input type="submit" style="margin-top: 10px;" class="btn btn-primary" value="Register" name="regBtn">
                   </form>
                   
-                  <h2><span class="text-success" th:utext="${successMessage}"></span></h2>
+                  <!-- <h2><span class="text-success" th:utext="${successMessage}"></span></h2> -->
                   <!--Register Now Form Ends-->
                 </div>
                 
                 <!--Login-->
-                <div class="tab-pane active" id="login" style="margin-top: 18%;">
+                <div class="tab-pane" id="login" style="margin-top: 5%;" th:classappend="${classActiveLogin}? 'in active'">
+                
+                <div class="alert alert-danger" th:if="${param.error != null}">
+						<h4>Incorrect username or password. Try again!</h4>	
+				</div>
+				
                   <h3>Login</h3>
                   <p class="text-muted">Log into your account</p>
                   <!--Login Form-->
@@ -122,13 +140,15 @@
                      <div class="row">
                       <div class="form-group col-xs-12">
                         <label for="my-email" class="sr-only">Email</label>
-                        <input id="loginEmail" class="form-control input-group-lg" type="text" name="username" title="Enter Username" placeholder="Enter Username"/>
+                        <input id="loginEmail" class="form-control input-group-lg" type="text" name="username" title="Enter Username" 
+                        		placeholder="Enter Username" required/>
                       </div>
                     </div>
                     <div class="row">
                       <div class="form-group col-xs-12">
                         <label for="loginPassword" class="sr-only">Password</label>
-                        <input id="loginPassword" class="form-control input-group-lg" type="password" name="password" title="Enter password" placeholder="Enter Password"/>
+                        <input id="loginPassword" class="form-control input-group-lg" type="password" name="password" title="Enter password" 
+                        		placeholder="Enter Password" required/>
                       </div>
                     </div>
                     <p><a href="#">Forgot Password?</a></p>

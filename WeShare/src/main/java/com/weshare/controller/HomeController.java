@@ -16,29 +16,15 @@ public class HomeController {
 	 @Autowired
 	 private UserService userService;
 	
-	 @GetMapping(value={"/", "/login", "/registration"})
+	 @GetMapping(value={"/", "/login"})
 	 public String home(Model model)
 	 {
 		 User user = new User();
 	     model.addAttribute("user", user);
+	     model.addAttribute("classActiveLogin", true);
 	     return "index";
 	 }
 	 
-	 
-	 @GetMapping("/user/createPost")
-	 public String createPost(Model model)
-	 {
-		 model.addAttribute("loggedIn", true);
-		 model.addAttribute("joined", false);
-		 return "user/createPost";
-	 }
-	 
-	 @GetMapping("/user/viewPost")
-	 public String viewPost(Model model)
-	 {
-		 model.addAttribute("loggedIn", true);
-		 return "user/viewPost";
-	 }
 	 
 	 @GetMapping("/admin/home")
 	 public String adminHome(Model model)
