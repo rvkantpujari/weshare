@@ -25,6 +25,7 @@ import com.weshare.model.User;
 import com.weshare.service.CommentService;
 import com.weshare.service.CommunityService;
 import com.weshare.service.PostService;
+import com.weshare.service.SavePostService;
 import com.weshare.service.UserService;
 import com.weshare.service.VoteService;
 
@@ -43,6 +44,9 @@ public class PostController
 	
 	@Autowired
 	private VoteService voteService;
+	
+	@Autowired
+	private SavePostService savePostService;
 	
 	
 //	@Autowired
@@ -164,6 +168,7 @@ public class PostController
 		model.addAttribute("voteService", voteService);
 		List<Comment> comments=commentService.getCommentsByPost(post);
 		model.addAttribute("comments",comments);
+		model.addAttribute("savePostService",savePostService);
 		return "user/viewPost";
 	}
 	

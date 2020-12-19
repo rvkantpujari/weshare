@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="This is social network platform." />
+<meta name="keywords"
+	content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
+<meta name="robots" content="index, follow" />
+<title>Home | WeShare</title>
+
+<!-- Stylesheets
+    ================================================= -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+<link rel="stylesheet" th:href="@{/css/ionicons.min.css}" />
+<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
+
+<!--Google Font-->
+<link
+	href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i"
+	rel="stylesheet">
+<style>
+</style>
+<!--Favicon-->
+<link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}" />
+</head>
+<body>
+
+	<!-- Header
+    ================================================= navbar-fixed-top -->
+	<header id="header">
+		<nav th:replace="header::navbar"></nav>
+	</header>
+
+	<!--Header End-->
+
+
+	<!--<div class="panel-group" style="margin-top:40px">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span th:utext="${userName}"></span>
+            </div>
+            <p class="text-center" th:utext="${userMessage}"></p>
+        </div>
+    </div>-->
+
+	<div class="container">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="col-md-10">
+						<div style="padding: 20px;">
+
+							<div class="post-content">
+								<div class="post-container">
+									<div class="post-detail" style="margin-left: 0px;">
+										<div class="user-info">
+											<a href="timeline.html" class="profile-link"><h2>toba
+													toba pura mood kharab ho gaya!!!</h2></a>
+											<p class="text-muted">posted by JP on 2020-12-09
+												14:45:57.0</p>
+											<span class="following ion-compose"
+												style="font-size: 1.5rem; margin: 0px; padding: 0px;">0
+												comments </span> <a class="following ion-ios-plus"
+												style="font-size: 1.5rem; cursor: pointer; text-decoration: none;">
+												Save</a>
+										</div>
+										<div class="reaction">
+											<span> <span>
+													<button id="upvote2" onclick="upvote(2, this)"
+														class="upvoteBtn btn text-muted icon ion-thumbsup"
+														style="font-size: 2.5rem; background-color: white"></button>
+											</span>
+											</span> <span id="score2" style="font-size: 2.0rem; padding: 15px">0</span>
+											<span> <span>
+													<button id="downvote2" onclick="downvote(2, this)"
+														class="downvoteBtn btn text-muted fa fa-thumbs-down"
+														style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
+											</span>
+											</span>
+										</div>
+										<img
+											src="https://avatars1.githubusercontent.com/u/24791108?s=400&u=b5014226b2b695e30f47df30e233e7e0aadc72da&v=4"
+											alt="post-image" class="img-responsive post-image" height=200
+											width=200 />
+									</div>
+								</div>
+							</div>
+
+							<div class="post-content" th:each="post: ${posts}">
+								<div class="post-container">
+									<div class="post-detail" style="margin-left: 0px;">
+										<div class="user-info">
+											<a
+												th:href="@{'/user/community/'+${post.community.communityName}+'/'+${post.postId}}"
+												class="profile-link">
+												<h2 th:text="${post.title}"></h2>
+											</a>
+											<p class="text-muted"
+												th:text="'posted by ' + ${post.user.userName} + ' on ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></p>
+											<span
+												th:text=" '&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments '"
+												class="following ion-compose"
+												style="font-size: 1.5rem; margin: 0px; padding: 0px;"></span>
+
+											<span
+												th:with="isPostSaved=${savePostService.findByPostAndUser(post,user)}">
+												<span th:unless="${isPostSaved}"> <a
+													class="following ion-ios-plus"
+													style="font-size: 1.5rem; cursor: pointer; text-decoration: none;"
+													th:href="@{'/user/community/'+${post.community.communityName}+'/'+${post.postId}+'/save'}">Save
+												</a>
+											</span> <span th:if="${isPostSaved}"> <a
+													class="following ion-ios-plus"
+													style="font-size: 1.5rem; cursor: pointer; text-decoration: none;"
+													th:href="@{'/user/community/'+${com.communityName}+'/'+${post.postId}+'/unsave'}">
+														Unsave </a>
+											</span>
+											</span>
+
+										</div>
+
+										<div class="reaction"
+											th:with="vote=${voteService.findByPostAndUser(post, user)}">
+
+											<span th:if="${user == null}">
+												<button onclick="votePostNotSignIn()"
+													class="upvoteBtn btn text-muted icon ion-thumbsup"
+													style="font-size: 2.5rem; background-color: white"></button>
+											</span> <span th:if="${user != null}"> <span
+												th:if="${vote == null or vote.vote == -1}">
+													<button th:id="'upvote' + ${post.postId}"
+														th:onclick=" 'upvote(' + ${post.postId} + ', this)' "
+														class="upvoteBtn btn text-muted icon ion-thumbsup"
+														style="font-size: 2.5rem; background-color: white"></button>
+											</span> <span th:if="${vote != null and vote.vote == 1}">
+													<button th:id="'upvote' + ${post.postId}"
+														th:onclick=" 'upvote(' + ${post.postId} + ', this)' "
+														class="upvoteBtn btn text-green icon ion-thumbsup"
+														style="font-size: 2.5rem; background-color: white"></button>
+											</span>
+											</span> <span th:id="'score' + ${post.postId}"
+												th:text=" ${post.score}"
+												style="font-size: 2.0rem; padding: 15px"></span> <span
+												th:if="${user == null}">
+												<button onclick="votePostNotSignIn()"
+													class="downvoteBtn btn text-muted fa fa-thumbs-down"
+													style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
+											</span> <span th:if="${user != null}"> <span
+												th:if="${vote == null or vote.vote == 1}">
+													<button th:id="'downvote' + ${post.postId}"
+														th:onclick=" 'downvote(' + ${post.postId} + ', this)' "
+														class="downvoteBtn btn text-muted fa fa-thumbs-down"
+														style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
+											</span> <span th:if="${vote != null and vote.vote == -1}">
+													<button th:id="'downvote' + ${post.postId}"
+														th:onclick=" 'downvote(' + ${post.postId} + ', this)' "
+														class="downvoteBtn btn text-red fa fa-thumbs-down"
+														style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
+											</span>
+											</span>
+
+										</div>
+
+
+										<div class="post_with_content" th:if="${post.content}">
+											<div class="line-divider"></div>
+											<div class="post-text text-justify">
+												<span th:utext="${#strings.abbreviate(post.content, 1000)}"
+													class="short-description" style="font-size: 1.8rem"></span>
+											</div>
+										</div>
+
+										<div class="post_with_link" th:if="${post.link}">
+											<div class="line-divider"></div>
+											<div class="post-text text-justify">
+												<a th:href="${post.link}" th:text="${post.link}"
+													style="font-size: 1.8rem" target="_blank"></a>
+											</div>
+										</div>
+
+										<div class="post_with_media" th:if="${post.imageUrl}">
+											<div class="line-divider"></div>
+											<img th:src="'/postImages/' + ${post.postId} + '.png'"
+												alt="post-image" class="img-responsive post-image" />
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+					<aside>
+
+						<div class="md-3 col-md-offset-10">
+							<div
+								style="margin-top: 40px; border: 2px solid grey; padding: 20px;">
+								<h3 style="text-align: center;" class="grey">Popular
+									Community</h3>
+								<hr style="border: 0.5px solid black;">
+								<ul>
+									<!-- <li style="font-size:16px;margin:7px;" th:each="c : ${comunityList}">
+									<a th:href="@{'/user/community/'+${c.communityName}">
+										<span th:text="${c.communityName}"></span>
+									</a> 
+								</li> -->
+									<li><a>Java</a></li>
+									<li><a>Among us</a></li>
+									<li><a>Pubg</a></li>
+									<li><a>Harry potter</a></li>
+									<li><a>c++</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="md-3 col-md-offset-10">
+							<div
+								style="margin-top: 40px; border: 2px solid grey; padding: 20px;">
+								<h3 style="text-align: center;" class="grey">Joined
+									Community</h3>
+								<ul>
+									<!-- <li style="font-size:16px;margin:7px;" th:each="c : ${comunityList}">
+									<a th:href="@{'/user/community/'+${c.communityName}">
+										<span th:text="${c.communityName}"></span>
+									</a> 
+								</li> -->
+									<li><a>Java</a></li>
+									<li><a>Among us</a></li>
+									<li><a>Pubg</a></li>
+									<li><a>Harry potter</a></li>
+									<li><a>c++</a></li>
+									<li><a>Java</a></li>
+									<li><a>Among us</a></li>
+									<li><a>Pubg</a></li>
+									<li><a>Harry potter</a></li>
+									<li><a>c++</a></li>
+
+								</ul>
+
+							</div>
+						</div>
+					</aside>
+				</div>
+
+
+
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Footer
+    ================================================= -->
+	<footer id="footer" th:replace="footer::footer"></footer>
+
+	<!--preloader-->
+	<div id="spinner-wrapper">
+		<div class="spinner"></div>
+	</div>
+
+	<!-- Scripts
+    ================================================= -->
+
+	<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
+	<script th:src="@{/js/jquery.scrollbar.min.js}"></script>
+	<script th:src="@{/js/script.js}"></script>
+
+</body>
+</html>
