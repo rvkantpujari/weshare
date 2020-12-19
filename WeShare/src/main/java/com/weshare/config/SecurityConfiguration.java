@@ -40,8 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     		"/registration",
     		"/user/community/{communityName}",
     		"/user/category/{communityName}/communities",
-    		"/user/contact/save"
-    		
+    		"/error"
     };
     
 
@@ -67,7 +66,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher(logoutPage))
                 .logoutSuccessUrl(loginPage).and().exceptionHandling()
-        		.accessDeniedPage("/access-denied");
+        		.accessDeniedPage("/error");
     }
 
     @Override

@@ -21,6 +21,10 @@
               		<i class="icon ion-ios-list-outline"></i><a th:href="@{/user/myComments}">My Comments</a>
               	</li>
               	
+              	<li th:classappend="${#httpServletRequest.getRequestURI() == '/user/mySavedPosts' ? 'active':''}">
+              		<i class="icon ion-ios-compose-outline"></i><a th:href="@{/user/mySavedPosts}">My Saved Posts</a>
+              	</li>
+              	
               	<li th:classappend="${#httpServletRequest.getRequestURI() == '/user/changePassword' ? 'active':''}">
               		<i class="icon ion-ios-locked-outline"></i><a th:href="@{/user/changePassword}">Change Password</a>
               	</li>
