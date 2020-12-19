@@ -20,6 +20,7 @@ import com.weshare.model.User;
 import com.weshare.service.SavePostService;
 import com.weshare.service.UserService;
 import com.weshare.service.VoteService;
+import com.weshare.service.impl.CommunityServiceImpl;
 import com.weshare.service.impl.PostServiceImpl;
 
 @Controller
@@ -36,6 +37,9 @@ public class HomeController {
 	
 	@Autowired
 	private VoteService voteService;
+
+	@Autowired
+	private CommunityServiceImpl communityService;
 
 	@GetMapping(value = { "/", "/login" })
 	public String home(Model model) {
@@ -63,14 +67,12 @@ public class HomeController {
 //	     model.addAttribute("userMessage","Content Available Only for User Role");
 
 		List<Post> posts = new ArrayList<Post>();
-
-		System.out.println("communities joined by " + user.getUserName() + ":");
+		
 		for (Community community : user.getJoinedCommunityList())
 		{
 			for(Post post: community.getPosts())
 			{
 				posts.add(post);
-				System.out.println(post.getTitle());
 			}
 		}
 		posts = posts.stream()
@@ -79,11 +81,14 @@ public class HomeController {
 		
 		Set<Community> joinedCommunities = user.getJoinedCommunityList();
 		
+		List<Community> topCommunities = communityService.findTopCommunities(5);
+		
 		model.addAttribute("posts", posts);
 		model.addAttribute("savePostService",savePostService);
 		model.addAttribute("voteService", voteService);
 		model.addAttribute("user", user);
 		model.addAttribute("joinedCommunities", joinedCommunities);
+		model.addAttribute("topCommunities", topCommunities);
 		return "user/home_new";
 	}
 }
