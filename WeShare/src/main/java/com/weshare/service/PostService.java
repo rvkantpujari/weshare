@@ -16,6 +16,4 @@ public interface PostService
 	public Post getPostById(int id);
 	
 	public void setPostScoreById(int score, int postId);
-	
-	public List<Post> findPostFromJoinedCommunities(User user);
 }

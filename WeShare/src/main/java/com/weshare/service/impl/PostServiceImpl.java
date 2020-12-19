@@ -34,12 +34,4 @@ public class PostServiceImpl implements PostService {
 	public void setPostScoreById(int score, int postId) {
 		postRepository.setPostScoreById(score, postId);
 	}
-	
-	@Override
-	public List<Post> findPostFromJoinedCommunities(User user)
-	{
-//		List<Post> posts = postRepository.findPostFromJoinedCommunities(user);
-		
-		return null;
-	}
 }

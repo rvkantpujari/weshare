@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.weshare.model.Comment;
 import com.weshare.model.Community;
 import com.weshare.model.Post;
 import com.weshare.model.User;
 import com.weshare.service.SavePostService;
 import com.weshare.service.UserService;
 import com.weshare.service.VoteService;
+import com.weshare.service.impl.CommunityServiceImpl;
 import com.weshare.service.impl.PostServiceImpl;
 
 @Controller
@@ -36,6 +37,9 @@ public class HomeController {
 	
 	@Autowired
 	private VoteService voteService;
+
+	@Autowired
+	private CommunityServiceImpl communityService;
 
 	@GetMapping(value = { "/", "/login" })
 	public String home(Model model) {
@@ -63,24 +67,28 @@ public class HomeController {
 //	     model.addAttribute("userMessage","Content Available Only for User Role");
 
 		List<Post> posts = new ArrayList<Post>();
-
-		System.out.println("communities joined by " + user.getUserName() + ":");
+		
 		for (Community community : user.getJoinedCommunityList())
 		{
 			for(Post post: community.getPosts())
 			{
 				posts.add(post);
-				System.out.println(post.getTitle());
 			}
 		}
 		posts = posts.stream()
 				  .sorted(Comparator.comparing(Post::getCreationDate).reversed())
 				  .collect(Collectors.toList());
 		
+		Set<Community> joinedCommunities = user.getJoinedCommunityList();
+		
+		List<Community> topCommunities = communityService.findTopCommunities(5);
+		
 		model.addAttribute("posts", posts);
 		model.addAttribute("savePostService",savePostService);
 		model.addAttribute("voteService", voteService);
 		model.addAttribute("user", user);
+		model.addAttribute("joinedCommunities", joinedCommunities);
+		model.addAttribute("topCommunities", topCommunities);
 		return "user/home_new";
 	}
 }

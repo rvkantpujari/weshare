@@ -200,17 +200,8 @@
 								<h3 style="text-align: center;" class="grey">Popular
 									Community</h3>
 								<hr style="border: 0.5px solid black;">
-								<ul>
-									<!-- <li style="font-size:16px;margin:7px;" th:each="c : ${comunityList}">
-									<a th:href="@{'/user/community/'+${c.communityName}">
-										<span th:text="${c.communityName}"></span>
-									</a> 
-								</li> -->
-									<li><a>Java</a></li>
-									<li><a>Among us</a></li>
-									<li><a>Pubg</a></li>
-									<li><a>Harry potter</a></li>
-									<li><a>c++</a></li>
+								<ul th:each="community: ${topCommunities}">
+									<li><a th:href=" '/user/community/' + ${community.communityName}" th:text="${community.communityName}"></a></li>
 								</ul>
 							</div>
 						</div>
@@ -220,31 +211,15 @@
 								style="margin-top: 40px; border: 2px solid grey; padding: 20px;">
 								<h3 style="text-align: center;" class="grey">Joined
 									Community</h3>
-								<ul>
-									<!-- <li style="font-size:16px;margin:7px;" th:each="c : ${comunityList}">
-									<a th:href="@{'/user/community/'+${c.communityName}">
-										<span th:text="${c.communityName}"></span>
-									</a> 
-								</li> -->
-									<li><a>Java</a></li>
-									<li><a>Among us</a></li>
-									<li><a>Pubg</a></li>
-									<li><a>Harry potter</a></li>
-									<li><a>c++</a></li>
-									<li><a>Java</a></li>
-									<li><a>Among us</a></li>
-									<li><a>Pubg</a></li>
-									<li><a>Harry potter</a></li>
-									<li><a>c++</a></li>
-
+								
+								<ul th:each="community: ${joinedCommunities}">
+									<li><a th:href=" '/user/community/' + ${community.communityName}" th:text="${community.communityName}"></a></li>
 								</ul>
 
 							</div>
 						</div>
 					</aside>
 				</div>
-
-
 
 			</div>
 		</div>
@@ -268,6 +243,8 @@
 	<script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
 	<script th:src="@{/js/jquery.scrollbar.min.js}"></script>
 	<script th:src="@{/js/script.js}"></script>
+	<script th:src="@{/js/upvote.js}"></script>
+	<script th:src="@{/js/downvote.js}"></script>
 
 </body>
 </html>
