@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.weshare.model.Comment;
 import com.weshare.model.Community;
 import com.weshare.model.Post;
 import com.weshare.model.User;
@@ -77,10 +77,13 @@ public class HomeController {
 				  .sorted(Comparator.comparing(Post::getCreationDate).reversed())
 				  .collect(Collectors.toList());
 		
+		Set<Community> joinedCommunities = user.getJoinedCommunityList();
+		
 		model.addAttribute("posts", posts);
 		model.addAttribute("savePostService",savePostService);
 		model.addAttribute("voteService", voteService);
 		model.addAttribute("user", user);
+		model.addAttribute("joinedCommunities", joinedCommunities);
 		return "user/home_new";
 	}
 }

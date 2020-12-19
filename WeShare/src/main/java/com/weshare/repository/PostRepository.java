@@ -18,6 +18,4 @@ public interface PostRepository extends JpaRepository<Post,Integer>
 	 @Transactional
 	 @Query("update Post p set p.score= :score where p.postId= :postId")
 	 void setPostScoreById(int score, int postId);
-	 
-//	 List<Post> findPostFromJoinedCommunities(User user);
 }
