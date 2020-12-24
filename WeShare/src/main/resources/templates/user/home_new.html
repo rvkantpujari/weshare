@@ -52,42 +52,6 @@
 					<div class="col-md-10">
 						<div style="padding: 20px;">
 
-							<div class="post-content">
-								<div class="post-container">
-									<div class="post-detail" style="margin-left: 0px;">
-										<div class="user-info">
-											<a href="timeline.html" class="profile-link"><h2>toba
-													toba pura mood kharab ho gaya!!!</h2></a>
-											<p class="text-muted">posted by JP on 2020-12-09
-												14:45:57.0</p>
-											<span class="following ion-compose"
-												style="font-size: 1.5rem; margin: 0px; padding: 0px;">0
-												comments </span> <a class="following ion-ios-plus"
-												style="font-size: 1.5rem; cursor: pointer; text-decoration: none;">
-												Save</a>
-										</div>
-										<div class="reaction">
-											<span> <span>
-													<button id="upvote2" onclick="upvote(2, this)"
-														class="upvoteBtn btn text-muted icon ion-thumbsup"
-														style="font-size: 2.5rem; background-color: white"></button>
-											</span>
-											</span> <span id="score2" style="font-size: 2.0rem; padding: 15px">0</span>
-											<span> <span>
-													<button id="downvote2" onclick="downvote(2, this)"
-														class="downvoteBtn btn text-muted fa fa-thumbs-down"
-														style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
-											</span>
-											</span>
-										</div>
-										<img
-											src="https://avatars1.githubusercontent.com/u/24791108?s=400&u=b5014226b2b695e30f47df30e233e7e0aadc72da&v=4"
-											alt="post-image" class="img-responsive post-image" height=200
-											width=200 />
-									</div>
-								</div>
-							</div>
-
 							<div class="post-content" th:each="post: ${posts}">
 								<div class="post-container">
 									<div class="post-detail" style="margin-left: 0px;">
@@ -114,7 +78,7 @@
 											</span> <span th:if="${isPostSaved}"> <a
 													class="following ion-ios-plus"
 													style="font-size: 1.5rem; cursor: pointer; text-decoration: none;"
-													th:href="@{'/user/community/'+${com.communityName}+'/'+${post.postId}+'/unsave'}">
+													th:href="@{'/user/community/'+${post.community.communityName}+'/'+${post.postId}+'/unsave'}">
 														Unsave </a>
 											</span>
 											</span>
