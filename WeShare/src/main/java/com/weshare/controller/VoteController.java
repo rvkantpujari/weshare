@@ -29,8 +29,6 @@ public class VoteController
 	
 	@Autowired
 	private VoteService voteService;
-	@Autowired
-	private PostRepository postRepository;
 	
 //	@Autowired
 //    private CommunityServiceImpl communityService;

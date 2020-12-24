@@ -122,7 +122,7 @@ public class UserProfileController {
 					 m.addAttribute("myPostList", myPostList);
 				 }
 				
-				
+				 m.addAttribute("user", user);
 		        return "user/myPosts";
 		    }
 		    
