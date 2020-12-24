@@ -57,11 +57,11 @@ public class Post {
 	private User user;
     
     @JsonIgnore
-	@OneToMany(mappedBy="post",cascade = CascadeType.MERGE)
+	@OneToMany(mappedBy="post",cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private List<Comment> comments;
 
     @JsonIgnore
- 	@OneToMany(mappedBy="post")
+ 	@OneToMany(mappedBy="post", cascade = {CascadeType.MERGE, CascadeType.REMOVE})
     private List<Vote> votes;
     
 
