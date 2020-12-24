@@ -1555,8 +1555,28 @@ ul.online-users li span.online-dot{
   Timeline
   ==================================================*/
 
+.timeline-cover-image-1 {
+	background: url("../images/covers/1.jpg") no-repeat;
+}
+
+.timeline-cover-image-2 {
+	background: url("../images/covers/3.jpg") no-repeat;
+}
+
+.timeline-cover-image-3 {
+	background: url("../images/covers/5.jpg") no-repeat;
+}
+
+.timeline-cover-image-4 {
+	background: url("../images/covers/7.jpg") no-repeat;
+}
+
+.timeline-cover-image-5 {
+	background: url("../images/covers/9.jpg") no-repeat;
+}
+
 .timeline-cover{
-  background: url("../images/covers/1.jpg") no-repeat;
+  /*background: url("../images/covers/1.jpg") no-repeat;*/
   background-position: center;
   background-size: cover;
   min-height: 360px;
