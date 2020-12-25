@@ -93,23 +93,21 @@
                       <h2 th:text="${post.title}"></h2>
                       <p class="text-muted" th:utext="'posted by ' + ${post.user.userName} + ' on ' + ${post.creationDate}"></p>
                       <span th:text="'&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments '" class="following icon ion-compose" style="font-size:1.5rem; margin:0px; padding:0px;"></span>
-                      <div class=" vertical-line-divider"></div>
+                      <span class=" vertical-line-divider"></span>
                       
                       <span th:with="isPostSaved=${savePostService.findByPostAndUser(post,user)}"> 
 	                    <span th:unless="${isPostSaved}">
-	                    	<a class="following ion-ios-plus" style="font-size:1.5rem; cursor:pointer; text-decoration:none;"
-	                    		th:href="@{'/user/community/'+${post.community.communityName}+'/'+${post.postId}+'/save'}">Save
+	                    	<a class="fa fa-bookmark-o" style="font-size:1.5rem; cursor:pointer; text-decoration:none; color:#00ab44;"
+	                    		th:href="@{'/user/community/'+${post.community.communityName}+'/'+${post.postId}+'/save'}"> Save
 	                    	</a>
 						</span>
 		
 						<span th:if="${isPostSaved}">
-							<a class="following ion-ios-plus" style="font-size:1.5rem; cursor:pointer; text-decoration:none;"
+							<a class="fa fa-bookmark" style="font-size:1.5rem; cursor:pointer; text-decoration:none; color:#00ab44;"
 	                    		th:href="@{'/user/community/'+${post.community.communityName}+'/'+${post.postId}+'/unsave'}"> Unsave
 	                    	</a>
 						</span>
                       </span>
-                      
-                      <div class=" vertical-line-divider"></div>
 
 	                  <div class="reaction" th:with="vote=${voteService.findByPostAndUser(post, user)}">
 	

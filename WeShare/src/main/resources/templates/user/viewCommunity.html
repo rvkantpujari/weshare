@@ -107,13 +107,13 @@
                    
                    <span th:with="isPostSaved=${savePostService.findByPostAndUser(post,user)}"> 
                     <span th:unless="${isPostSaved}">
-                    	<a class="following ion-ios-plus" style="font-size:1.5rem; cursor:pointer; text-decoration:none;"
-                    		th:href="@{'/user/community/'+${com.communityName}+'/'+${post.postId}+'/save'}">Save
+                    	<a class="fa fa-bookmark-o" style="font-size:1.5rem; cursor:pointer; text-decoration:none; color:#00ab44; margin-left:10px;"
+                    		th:href="@{'/user/community/'+${com.communityName}+'/'+${post.postId}+'/save'}"> Save
                     	</a>
 					</span>
 	
 					<span th:if="${isPostSaved}">
-						<a class="following ion-ios-plus" style="font-size:1.5rem; cursor:pointer; text-decoration:none;"
+						<a class="fa fa-bookmark" style="font-size:1.5rem; cursor:pointer; text-decoration:none; color:#00ab44; margin-left:10px;"
                     		th:href="@{'/user/community/'+${com.communityName}+'/'+${post.postId}+'/unsave'}"> Unsave
                     	</a>
 					</span>
