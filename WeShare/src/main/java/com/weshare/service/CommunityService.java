@@ -20,6 +20,8 @@ public interface CommunityService {
 	public List<Community> findCommunitiesByCategory(Category c);
 	
 	public Community getCommunityByName(String communityName);
+
+	List<Community> blurrySearch(String query);
 	
 //	public List<Community> getCommunityByCategory(String category);
 }

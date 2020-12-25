@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.weshare.model.Community;
 import com.weshare.model.Post;
 import com.weshare.model.User;
 import com.weshare.service.PostService;
 import com.weshare.service.UserService;
+import com.weshare.service.impl.CommunityServiceImpl;
 import com.weshare.service.impl.SavePostServiceImpl;
 import com.weshare.service.impl.VoteServiceImpl;
 
@@ -32,6 +34,9 @@ public class SearchConttroller
 	
 	@Autowired
 	private VoteServiceImpl voteService;
+	
+	@Autowired
+	private CommunityServiceImpl communityServiceImpl;
 	
 	
 	@PostMapping("")
@@ -54,7 +59,11 @@ public class SearchConttroller
 			model.addAttribute("posts", posts);
 			return "user/searchResultPost";
 		}
-		
-		return "user/searchResultPost";
+		else
+		{
+			List<Community> communities = communityServiceImpl.blurrySearch(query);
+			model.addAttribute("communities", communities);
+			return "user/searchResultCommunity";
+		}
 	}
 }
