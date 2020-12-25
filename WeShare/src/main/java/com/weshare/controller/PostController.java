@@ -9,6 +9,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -171,5 +173,25 @@ public class PostController
 		model.addAttribute("savePostService",savePostService);
 		return "user/viewPost";
 	}
-	
+	@PostMapping("/post/delete/{postId}")
+	public ResponseEntity<String> deleteComment(Model model,Principal principal,
+		HttpServletRequest request, @PathVariable int postId)
+	{
+		User user=this.userService.findUserByUserName(principal.getName());
+		Post post = postService.getPostById(postId);
+		
+//		int postId = comment.getPost().getPostId();
+//		String communityName = comment.getPost().getCommunity().getCommunityName();
+		if(post.getUser()==user)
+		{
+			postService.deletePost(post);
+			System.out.println("\n\nsuccessfully deleted post " + ' ' + postId);
+		}
+		
+		System.out.println("\n\nin delete comment " + ' ' + postId);
+		
+//		String redirectUrl = "/user/community/" + communityName + '/' + postId;
+		return new ResponseEntity<>("success",
+				   HttpStatus.OK);
+	}
 }

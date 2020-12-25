@@ -35,16 +35,6 @@
 
 	<!--Header End-->
 
-
-	<!--<div class="panel-group" style="margin-top:40px">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <span th:utext="${userName}"></span>
-            </div>
-            <p class="text-center" th:utext="${userMessage}"></p>
-        </div>
-    </div>-->
-
 	<div class="container">
 		<div class="container">
 			<div class="row">
@@ -155,37 +145,6 @@
 
 						</div>
 					</div>
-					<aside>
-
-						<div class="md-3 col-md-offset-10">
-							<div
-								style="margin-top: 40px; border: 2px solid grey; padding: 20px;">
-								<h3 style="text-align: center;" class="grey">Popular
-									Community</h3>
-								<hr style="border: 0.5px solid black;">
-								<ul th:each="community: ${topCommunities}">
-									<li><a
-										th:href=" '/user/community/' + ${community.communityName}"
-										th:text="${community.communityName}"></a></li>
-								</ul>
-							</div>
-						</div>
-
-						<div class="md-3 col-md-offset-10">
-							<div
-								style="margin-top: 40px; border: 2px solid grey; padding: 20px;">
-								<h3 style="text-align: center;" class="grey">Joined
-									Community</h3>
-
-								<ul th:each="community: ${joinedCommunities}">
-									<li><a
-										th:href=" '/user/community/' + ${community.communityName}"
-										th:text="${community.communityName}"></a></li>
-								</ul>
-
-							</div>
-						</div>
-					</aside>
 				</div>
 
 			</div>
@@ -204,6 +163,12 @@
 
 	<!-- Scripts
     ================================================= -->
+
+	<script>
+		function votePostNotSignIn() {
+            alert("Please login or register to vote!");
+        }
+	</script>
 
 	<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
 	<script th:src="@{/js/bootstrap.min.js}"></script>

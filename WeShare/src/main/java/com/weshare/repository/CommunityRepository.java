@@ -14,6 +14,9 @@ public interface CommunityRepository extends JpaRepository<Community,Integer> {
 	List<Community> findByCategory(Category c);
 
 	Community findByCommunityName(String cname);
+	
+	List<Community> findByCommunityNameContaining(String query);
+	
 //	List<Community> findByCategory(int cid);
 
 	

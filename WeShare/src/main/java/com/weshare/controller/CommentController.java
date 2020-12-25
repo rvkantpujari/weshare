@@ -66,11 +66,16 @@ public class CommentController {
 	{
 		User user=this.userService.findUserByUserName(principal.getName());
 		Comment comment = commentService.findCommentById(commentId);
-		
+		Post post = comment.getPost();
 //		int postId = comment.getPost().getPostId();
 //		String communityName = comment.getPost().getCommunity().getCommunityName();
 		if(comment.getUser()==user)
-		commentService.deleteComment(comment);
+		{
+			commentService.deleteComment(comment);
+			postService.setCommentsNumById(post.getPostId(), post.getCommentsNum()-1);
+			postService.savePost(post);
+			System.out.println("\n\nsuccessfully deleted comment " + ' ' + commentId);
+		}
 		
 		System.out.println("\n\nin delete comment " + ' ' + commentId);
 		
