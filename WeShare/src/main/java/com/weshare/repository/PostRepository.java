@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.weshare.model.Post;
-import com.weshare.model.User;
 @Repository
 public interface PostRepository extends JpaRepository<Post,Integer>
 {
@@ -23,4 +22,6 @@ public interface PostRepository extends JpaRepository<Post,Integer>
 	 @Modifying
 	 @Query("update Post p set p.commentsNum= :commentsNum where p.postId= :postId")
 	 void setCommentsNumById(int commentsNum, int postId);
+	 
+	 List<Post> findByTitleContaining(String query);
 }

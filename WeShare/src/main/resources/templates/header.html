@@ -48,15 +48,15 @@
               	
 		      </ul>
 		      
-		      <form class="navbar-form navbar-right hidden-sm">
-		      	<select class="input-group" style="height:35px;border-radius:5px;" id="">
-		      		<option>Post</option>
-		      		<option>Community</option>
+		      <form action="/search" method="POST" class="navbar-form navbar-right hidden-sm">
+		      	<select class="input-group" style="height:35px;border-radius:5px;" name="queryType" id="queryType">
+		      		<option value="post">Post</option>
+		      		<option value="community">Community</option>
 		      	</select>
 		        <div class="input-group" style="width:350px;">
-		        	<input type="text" class="form-control">
+		        	<input type="text" name="query" class="form-control">
 					<span class="input-group-btn">
-						<button class="btn btn-default" type="button">Search</button>
+						<button class="btn btn-default" type="submit">Search</button>
 					</span>
 				</div>
 		      </form>
