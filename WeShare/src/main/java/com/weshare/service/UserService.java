@@ -1,5 +1,7 @@
 package com.weshare.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.weshare.model.User;
@@ -14,4 +16,5 @@ public interface UserService {
 	  
 	  public User updateUser(User user);
 	 
+	  public List<User> getAllUsers();
 }

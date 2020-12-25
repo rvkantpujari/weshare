@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="This is social network platform." />
+	<meta name="keywords" content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
+	<meta name="robots" content="index, follow" />
+	<title>All Communities | WeShare</title>
+
+    <!-- Stylesheets
+    ================================================= -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<link rel="stylesheet" th:href="@{/css/ionicons.min.css}" />
+   	<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
+    
+    <!--Google Font-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i" rel="stylesheet">
+    
+    <!--Favicon-->
+    <link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}"/>
+    <style>
+     	.listCategories {
+			border: '1px solid black';
+			border-radius: 5px;     		
+     	}
+     	
+    	.listCategories > li{
+    		list-style: none;
+    		
+    	}
+    </style>
+  </head>
+  <body>
+
+    <!-- Header
+    ================================================= navbar-fixed-top -->
+	<header id="header">
+      <nav th:replace="header::adminNavbar"></nav>
+    </header>
+    
+    <!--Header End-->
+
+    <div id="page-contents">
+    	<div class="container">
+    		<div class="row">
+		  
+
+          <!-- Newsfeed Common Side Bar Right
+          ================================================= -->
+    	  <div class="col-md-3 static" style="margin-top:20px;">
+            <!-- Create New Community -->
+          <div id="sticky-sidebar">
+            
+            <div class="suggestions listCategories" style="margin-top:40px;border:1px solid grey; padding: 20px;">
+              <h3 style="text-align:center;" class="grey">Categories</h3>
+              <hr style="border: 1px solid black;">
+                <ul>
+                	<li style="font-size:16px;margin:7px;">
+                		<a th:href="@{'/admin/category/all/communities'}">
+							<span>ALL Communities</span>
+						</a>
+					</li>
+					
+					
+					<li style="font-size:16px;margin:7px;" th:each="c : ${catList}">
+						<a th:href="@{'/admin/category/'+${c.categoryName}+'/communities'}">
+							<span th:text="${c.categoryName}"></span>
+						</a>
+					</li>
+                </ul>
+            </div>
+          </div>
+          </div>
+          <!-- Newsfeed Common Side Bar Left
+          ================================================= -->
+    	  <div class="col-md-9" style="margin-top:20px;">
+
+			<h2 th:if="${allCom}">ALL Communities</h2>    	  
+    	  	<h2 th:unless="${allCom}">Communities from <span th:text="${categoryName}"></span> Category </h2>
+			<hr/>
+            <!-- Post Content
+            ================================================= -->
+            <div th:each="com : ${comList}" class="post-content" th:title="${com.category.categoryName}">
+              <div class="post-container">
+              
+                <img th:src="@{'https://ui-avatars.com/api/?name='+${com.communityName}+'&rounded=true&background=random'}" alt="user" class="profile-photo-md pull-left" />
+                <div class="post-detail">
+                  <div class="user-info">
+                    <h4><a class="profile-link" th:href="@{/admin/community/{communityName}(communityName=${com.communityName})}" th:text="${com.communityName}">Community Name</a></h4>
+                    <span th:text="'Created By: '+${com.user.userName}"> Created By</span>
+                    <!-- <p class="text-muted" th:text="'Created on: '+${com.creationDate}"> Creation Date</p> -->
+                    <p class="text-muted post-description short-description" th:text="'Description: '+${#strings.abbreviate(com.communityDescription, 400)}">Community Description</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            
+           	<div th:if="${emptyList}" title="Category">
+				<h3 style="font-style: italic; color:black;">Oops, no result found. Try something else or try again later!</h3>
+			</div>
+			
+		
+          </div>
+    		</div>
+    	</div>
+    </div>
+
+
+    <!-- Footer
+    ================================================= -->
+    <footer class="navbar navbar-fixed-bottom" th:include="footer::footer"></footer>
+    
+    <!--preloader-->
+    <div id="spinner-wrapper">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Scripts
+    ================================================= -->
+    <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
+    <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+    
+        <!-- <script>
+	 	// Limit Board Description
+	    function truncateText(element, maxLength) {
+	        let truncated = element.innerText;
+	        if (truncated.length > maxLength) {
+	            truncated = truncated.substr(0, maxLength) + '...';
+	        }
+	        //return truncated;
+	        element.innerText = truncated;
+	    }
+	    let countBDesc = document.querySelectorAll('.short-description');
+	    for(let i=0; i<countBDesc.length; i++)
+	    {
+	        truncateText(countBDesc[i], 340);
+	    }
+    </script> -->
+    
+    
+  </body>
+</html>

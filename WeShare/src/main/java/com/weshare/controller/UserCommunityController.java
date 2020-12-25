@@ -16,7 +16,7 @@ import com.weshare.service.CommunityService;
 
 @Controller
 @RequestMapping("/user")
-public class UserCategoryController {
+public class UserCommunityController {
 
 	@Autowired
 	private CategoryService categoryService;
@@ -26,7 +26,7 @@ public class UserCategoryController {
 	
 	
 	@GetMapping("/category/all/communities")
-	public String categoryList(Model m)
+	public String communityList(Model m)
 	{
 		List<Category> categoryList = categoryService.getAllCategories();
 		m.addAttribute("catList", categoryList);

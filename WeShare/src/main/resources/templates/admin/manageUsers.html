@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="This is social network platform." />
+<meta name="keywords"
+	content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
+<meta name="robots" content="index, follow" />
+	<title>Manage Users | WeShare</title>
+
+<!-- Stylesheets
+    ================================================= -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+<link rel="stylesheet" th:href="@{/css/ionicons.min.css}" />
+<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
+
+<!--Google Font-->
+<link
+	href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i"
+	rel="stylesheet">
+<style>
+</style>
+<!--Favicon-->
+<link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}" />
+</head>
+<body>
+
+	<!-- Header
+    ================================================= navbar-fixed-top -->
+	<header id="header">
+		<nav th:replace="header::adminNavbar"></nav>
+	</header>
+
+	<!--Header End-->
+
+	<div class="container">
+	
+              <!-- Profile Settings
+              ================================================= -->
+              <div class="col-md-3">
+              </div>
+              <div class="edit-profile-container col-md-6">
+                <div class="block-title"><br>
+                  <h3 class="grey"><i class="icon ion-ios-settings"></i>Block/Unblock Users</h3>
+                  <div class="line"></div>
+                </div>
+                <div class="edit-block">
+                
+                  <div th:each="u : ${userList}" class="settings-block">
+                    <div class="row">
+                     <div class="col-sm-3">
+	                      <br><img th:src="@{'https://ui-avatars.com/api/?name='+${u.userName}+'&rounded=true&background=random'}" alt="" class="img-responsive profile-photo" />
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="switch-description">
+	                      
+                          <h3 th:text="${u.firstName}+' '+${u.lastName}">User Full Name</h3>
+                          <p style="font-size:16px;" th:text="'u/'+${u.userName}">u/username</p>
+                        </div>
+                      </div>
+                      <div class="col-sm-3">
+                        
+                        <!-- <div th:unless="${u.active}">
+	                        <div class="toggle-switch">
+	                          <label class="switch">
+	                            <input type="checkbox">
+	                            <span class="slider round"></span>
+	                          </label>
+	                        </div>
+						</div>
+	
+						<div th:if="${u.active}">
+							<div class="toggle-switch">
+	                          <label class="switch">
+	                            <input type="checkbox" checked>
+	                            <span class="slider round"></span>
+	                          </label>
+	                        </div>
+						</div> -->
+						
+						
+						
+						<div th:unless="${u.active}">
+	                        <div class="toggle-switch"><br>
+	                          <a th:href="@{'/admin/manageUsers/'+${u.userName}+'/unblock'}">
+	                          	<button type="submit" class="btn btn-success col-3">Unblock</button>
+							  </a>
+	                        </div>
+						</div>
+	
+						<div th:if="${u.active}">
+							<div class="toggle-switch"><br>
+	                          <a th:href="@{'/admin/manageUsers/'+${u.userName}+'/block'}">
+	                          	<button type="submit" class="btn btn-danger col-3">Block</button>
+							  </a>
+	                        </div>
+						</div> 
+						
+                      </div>
+                    </div>
+                    <div class="line"></div>
+                  </div>
+                  
+                </div>
+              </div>
+              <div class="col-md-3"></div>
+    </div>
+
+	<!-- Footer
+    ================================================= -->
+	<footer id="footer" th:replace="footer::footer"></footer>
+
+	<!--preloader-->
+	<div id="spinner-wrapper">
+		<div class="spinner"></div>
+	</div>
+
+	<!-- Scripts
+    ================================================= -->
+
+	<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
+	<script th:src="@{/js/jquery.scrollbar.min.js}"></script>
+	<script th:src="@{/js/script.js}"></script>
+
+</body>
+</html>

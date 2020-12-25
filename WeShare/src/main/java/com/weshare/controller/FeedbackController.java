@@ -49,12 +49,11 @@ public class FeedbackController {
 		return "user/contact";
 	}
 	
-	@GetMapping("/admin/feedback/all")
+	@GetMapping("/admin/feedbacks")
 	public String feedbackList(Model m,HttpServletRequest request)
 	{
 		List<Feedback> feedbacktList = feedbackService.getAllFeedbacks();
 		m.addAttribute("fdList", feedbacktList);
 		return "admin/getFeedback";
 	}
-
 }
