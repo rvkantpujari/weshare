@@ -70,18 +70,17 @@
 
 											<span
 												th:with="isPostSaved=${savePostService.findByPostAndUser(post,user)}">
-												<span th:unless="${isPostSaved}"> <a
-													class="following ion-ios-plus"
-													style="font-size: 1.5rem; cursor: pointer; text-decoration: none;"
-													th:href="@{'/user/community/'+${post.community.communityName}+'/'+${post.postId}+'/save'}">Save
-												</a>
-											</span> <span th:if="${isPostSaved}"> <a
-													class="following ion-ios-plus"
-													style="font-size: 1.5rem; cursor: pointer; text-decoration: none;"
-													th:href="@{'/user/community/'+${post.community.communityName}+'/'+${post.postId}+'/unsave'}">
-														Unsave </a>
+
+												<span th:unless="${isPostSaved}">
+													<button class="fa fa-bookmark-o save-post"
+														style="font-size: 1.5rem; cursor: pointer; text-decoration: none; color: #00ab44; border: none;"
+														th:value="${post.postId}">Save</button>
+											</span> <span th:if="${isPostSaved}">
+													<button class="fa fa-bookmark unsave-post"
+														style="font-size: 1.5rem; cursor: pointer; text-decoration: none; color: #00ab44; border: none;"
+														th:value="${post.postId}">Unsave</button>
 											</span>
-											</span>
+											</span> </span>
 
 										</div>
 
@@ -165,7 +164,9 @@
 									Community</h3>
 								<hr style="border: 0.5px solid black;">
 								<ul th:each="community: ${topCommunities}">
-									<li><a th:href=" '/user/community/' + ${community.communityName}" th:text="${community.communityName}"></a></li>
+									<li><a
+										th:href=" '/user/community/' + ${community.communityName}"
+										th:text="${community.communityName}"></a></li>
 								</ul>
 							</div>
 						</div>
@@ -175,9 +176,11 @@
 								style="margin-top: 40px; border: 2px solid grey; padding: 20px;">
 								<h3 style="text-align: center;" class="grey">Joined
 									Community</h3>
-								
+
 								<ul th:each="community: ${joinedCommunities}">
-									<li><a th:href=" '/user/community/' + ${community.communityName}" th:text="${community.communityName}"></a></li>
+									<li><a
+										th:href=" '/user/community/' + ${community.communityName}"
+										th:text="${community.communityName}"></a></li>
 								</ul>
 
 							</div>
@@ -209,6 +212,8 @@
 	<script th:src="@{/js/script.js}"></script>
 	<script th:src="@{/js/upvote.js}"></script>
 	<script th:src="@{/js/downvote.js}"></script>
+	<script th:src="@{/js/savePost.js}"></script>
+	<script th:src="@{/js/unsavePost.js}"></script>
 
 </body>
 </html>
