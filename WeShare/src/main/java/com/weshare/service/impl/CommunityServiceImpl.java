@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.weshare.model.Category;
 import com.weshare.model.Community;
-import com.weshare.model.Post;
 import com.weshare.repository.CommunityRepository;
 import com.weshare.service.CommunityService;
 

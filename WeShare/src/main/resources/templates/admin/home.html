@@ -20,8 +20,11 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i"
 	rel="stylesheet">
-<style>
-</style>
+	<style>
+		ul > li {
+			font-size: 1.3em;
+		}
+	</style>
 <!--Favicon-->
 <link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}" />
 </head>
@@ -41,6 +44,8 @@
 				<div class="col">
 					<div class="col-md-10">
 						<div style="padding: 20px;">
+							<h3 style="color: black;">All Posts</h3>
+							<hr />
 
 							<div class="post-content" th:each="post: ${posts}">
 								<div class="post-container">
@@ -54,10 +59,14 @@
 											<p class="text-muted"
 												th:text="'posted by ' + ${post.user.userName} + ' on ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></p>
 											<span
-												th:text=" '&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments '"
+												th:text=" '&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments&nbsp;&nbsp; '"
 												class="following ion-compose"
 												style="font-size: 1.5rem; margin: 0px; padding: 0px;"></span>
-
+					
+												<a th:href="@{'/admin/community/'+${post.community.communityName}+'/'+${post.postId}+'/delete'}"
+													class="float-right btn btn-danger btn-md">
+														<i class="fa fa-trash-o" aria-hidden="true"></i>
+												</a>
 
 										</div>
 
@@ -105,7 +114,7 @@
 									</div>
 								</div>
 							</div>
-
+						<br>
 
 						</div>
 					</div>
@@ -118,7 +127,9 @@
 									Communities</h3>
 								<hr style="border: 0.5px solid black;">
 								<ul th:each="community: ${topCommunities}">
-									<li><a th:href=" '/admin/community/' + ${community.communityName}" th:text="${community.communityName}"></a></li>
+									<li><a
+										th:href=" '/admin/community/' + ${community.communityName}"
+										th:text="${community.communityName}"></a></li>
 								</ul>
 							</div>
 						</div>
@@ -133,7 +144,7 @@
 
 	<!-- Footer
     ================================================= -->
-	<footer id="footer" th:replace="footer::footer"></footer>
+		<footer class="navbar navbar-fixed-bottom" th:include="footer::footer"></footer>
 
 	<!--preloader-->
 	<div id="spinner-wrapper">

@@ -50,12 +50,19 @@
     	
     	<div class="row" style="margin-top:10px;">
 
-          <!-- About Community Side Bar Left
+           <!-- About Community Side Bar Left
           ================================================= -->
     	  <div class="col-md-3 static">
             <div class="suggestions" id="sticky-sidebar" style="margin-top:2px;border:1px solid lightgrey; border-radius: 5px; padding: 20px; min-height:200px;">
-              <h4 class="grey" style="font-size:2.2rem;">About Community</h4>  
-              <p class="text-muted" th:utext=${com.communityDescription}>Description</p>
+              <h4 class="grey" style="font-size:2.2rem;">About Community</h4><hr style="border: 0.5px solid black;">  
+              Description: <span class="text-muted" th:utext=${com.communityDescription}>Description</span>
+              <hr>
+              Created on: <span th:text="${#dates.format(com.creationDate, 'dd-MMM-yyyy')}">Created On</span><br>
+               Created By: <span th:text=${com.user.userName}>Created By</span><br>
+              Category: <span th:text=${com.category.categoryName}>Category</span><br>
+              Total Members Joined: <span th:text=${com.membersCount}>Members</span><br>
+              Total Posts: <span th:text="${#lists.size(com.posts)}">Total Posts</span>
+              
             </div>
           </div>
           

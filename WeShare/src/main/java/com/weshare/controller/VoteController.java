@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.weshare.model.Post;
 import com.weshare.model.User;
 import com.weshare.model.Vote;
-import com.weshare.repository.PostRepository;
 import com.weshare.service.PostService;
 import com.weshare.service.UserService;
 import com.weshare.service.VoteService;

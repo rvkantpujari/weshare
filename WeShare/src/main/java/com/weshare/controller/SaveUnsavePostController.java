@@ -7,14 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.weshare.model.Post;
 import com.weshare.model.User;
-import com.weshare.service.CommunityService;
 import com.weshare.service.PostService;
 import com.weshare.service.UserService;
 
@@ -26,8 +24,6 @@ public class SaveUnsavePostController
 	private UserService userService;
 	@Autowired
 	private PostService postService;
-	@Autowired
-	private CommunityService communityService;
 	
 	
 	@PostMapping("/{postId}/save")

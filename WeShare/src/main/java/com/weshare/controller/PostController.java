@@ -184,6 +184,12 @@ public class PostController
 //		String communityName = comment.getPost().getCommunity().getCommunityName();
 		if(post.getUser()==user)
 		{
+			
+			List<User> users=userService.getAllUsers();
+			for (User u : users) {
+			     u.getSavedPostList().remove(post);
+			     userService.updateUser(u);
+			}
 			postService.deletePost(post);
 			System.out.println("\n\nsuccessfully deleted post " + ' ' + postId);
 		}

@@ -30,7 +30,7 @@
 	<!-- Header
     ================================================= navbar-fixed-top -->
 	<header id="header">
-		<nav th:replace="header::navbar"></nav>
+		<nav th:replace="header::adminNavbar"></nav>
 	</header>
 
 	<!--Header End-->
@@ -46,7 +46,7 @@
 							<h3 style="color: black;">No Post found for <span style="font-style: italic; color: blue;" th:text="${query}"></span>.</h3>
 							<hr />
 							<div>
-								<a th:href="@{'/user/category/all/communities'}"
+								<a th:href="@{'/admin/category/all/communities'}"
 									class="btn btn-primary">Go to all communities</a>
 							</div><br><br><br><br><br><br><br><br><br><br><br><br><br>
 						</div>
@@ -56,7 +56,7 @@
 									<div class="post-detail" style="margin-left: 0px;">
 										<div class="user-info">
 											<a
-												th:href="@{'/user/community/'+${post.community.communityName}+'/'+${post.postId}}"
+												th:href="@{'/admin/community/'+${post.community.communityName}+'/'+${post.postId}}"
 												class="profile-link">
 												<h2 th:text="${post.title}"></h2>
 											</a>
@@ -67,60 +67,23 @@
 												class="following ion-compose"
 												style="font-size: 1.5rem; margin: 0px; padding: 0px;"></span>
 
-											<span
-												th:with="isPostSaved=${savePostService.findByPostAndUser(post,user)}">
-
-												<span th:unless="${isPostSaved}">
-													<button class="fa fa-bookmark-o save-post"
-														style="font-size: 1.5rem; cursor: pointer; text-decoration: none; color: #00ab44; border: none;"
-														th:value="${post.postId}">Save</button>
-											</span> <span th:if="${isPostSaved}">
-													<button class="fa fa-bookmark unsave-post"
-														style="font-size: 1.5rem; cursor: pointer; text-decoration: none; color: #00ab44; border: none;"
-														th:value="${post.postId}">Unsave</button>
-											</span>
-											</span> </span>
-
 										</div>
 
-										<div class="reaction"
-											th:with="vote=${voteService.findByPostAndUser(post, user)}">
+										<div class="reaction">
 
 											<span th:if="${user == null}">
 												<button onclick="votePostNotSignIn()"
 													class="upvoteBtn btn text-muted icon ion-thumbsup"
-													style="font-size: 2.5rem; background-color: white"></button>
-											</span> <span th:if="${user != null}"> <span
-												th:if="${vote == null or vote.vote == -1}">
-													<button th:id="'upvote' + ${post.postId}"
-														th:onclick=" 'upvote(' + ${post.postId} + ', this)' "
-														class="upvoteBtn btn text-muted icon ion-thumbsup"
-														style="font-size: 2.5rem; background-color: white"></button>
-											</span> <span th:if="${vote != null and vote.vote == 1}">
-													<button th:id="'upvote' + ${post.postId}"
-														th:onclick=" 'upvote(' + ${post.postId} + ', this)' "
-														class="upvoteBtn btn text-green icon ion-thumbsup"
-														style="font-size: 2.5rem; background-color: white"></button>
-											</span>
-											</span> <span th:id="'score' + ${post.postId}"
+													style="font-size: 2.5rem; background-color: white" disabled></button>
+											</span> 
+											
+											 <span th:id="'score' + ${post.postId}"
 												th:text=" ${post.score}"
 												style="font-size: 2.0rem; padding: 15px"></span> <span
 												th:if="${user == null}">
 												<button onclick="votePostNotSignIn()"
 													class="downvoteBtn btn text-muted fa fa-thumbs-down"
-													style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
-											</span> <span th:if="${user != null}"> <span
-												th:if="${vote == null or vote.vote == 1}">
-													<button th:id="'downvote' + ${post.postId}"
-														th:onclick=" 'downvote(' + ${post.postId} + ', this)' "
-														class="downvoteBtn btn text-muted fa fa-thumbs-down"
-														style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
-											</span> <span th:if="${vote != null and vote.vote == -1}">
-													<button th:id="'downvote' + ${post.postId}"
-														th:onclick=" 'downvote(' + ${post.postId} + ', this)' "
-														class="downvoteBtn btn text-red fa fa-thumbs-down"
-														style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
-											</span>
+													style="font-size: 2.5rem; padding: 10px; background-color: white" disabled></button>
 											</span>
 
 										</div>
