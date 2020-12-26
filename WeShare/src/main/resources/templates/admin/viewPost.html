@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="This is social network platform." />
+	<meta name="keywords" content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
+	<meta name="robots" content="index, follow" />
+	<title>View Post | WeShare</title>
+
+    <!-- Stylesheets
+    ================================================= -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/ionicons.min.css}" />
+   	<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+    
+    <!--Google Font-->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i" rel="stylesheet">
+    
+    <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+    
+    <!--Favicon-->
+    <link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}"/>
+    
+    <style>
+    	.icon, .fa {
+    		margin: 0px;
+    	}
+    	.vertical-line-divider {
+    		display:inline;
+    		border: 1px solid lightgrey; margin:0 10px 0 10px;
+    	}
+    	
+    	/* 3-dots icon*/
+    	.test:after {
+	        content: '\2807';
+	        font-size: 25px;
+	        color: black;
+	    }
+	    .dropdown-menu li {
+	    	list-style: none;
+	    }
+	    .btn-danger {
+	    	margin:0 5px;
+	    	border-radius: 20px;
+	    	padding:6px 20px;
+	    }
+    </style>
+  </head>
+  <body>
+
+    <!-- Header
+    ================================================= navbar-fixed-top -->
+	<header id="header">
+      <nav th:replace="header::adminNavbar"></nav>
+    </header>
+    
+    <!--Header End-->	
+    <div id="page-contents">
+      <div class="container">
+    	<div class="row">
+    	  <div class="col-md-1"></div>
+    	  <div class="col-md-10">
+              <a th:href=" '/admin/community/' + ${post.community.communityName}"><h2 th:text="${post.community.communityName}"></h2></a>
+              <div class="line"></div>
+    	  </div>
+    	  <div class="col-md-1"></div>
+    	</div>
+    	
+    	<div class="row">
+
+          <!-- About Community Side Bar Left
+          ================================================= --
+    	  <div class="col-md-3 static" style="margin-top:10px;">
+            <div class="suggestions" id="sticky-sidebar" style="margin-top:2px;border:1px solid lightgrey; border-radius: 5px; padding: 20px; min-height:200px;">
+              <h3 style="font-size: 2.2rem; margin:0;">communityName</h3>
+              <h4 class="grey" style="font-size:1.8rem; margin:10px 0px;">About Community</h4>
+              <p class="text-muted">communityDescription</p>
+            </div>
+          </div>-->
+          <div class="col-md-1"></div>
+          <!-- Post Content
+          ================================================= -->
+    	  <div class="col-md-10" style="margin-top:10px;">
+			
+			<div class="row" style="margin:10px;">
+			  <div class="post-content">
+                <div class="post-container">
+                  
+                  <div class="post-detail" style="margin:-10px 0 0 0;">
+                    <div class="user-info">
+                      <h2 th:text="${post.title}"></h2>
+                      <p class="text-muted" th:utext="'posted by ' + ${post.user.userName} + ' on ' + ${post.creationDate}"></p>
+                      <span th:text="'&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments '" class="following icon ion-compose" style="font-size:1.5rem; margin:0px; padding:0px;"></span>
+                      <div class=" vertical-line-divider"></div>
+                      
+                      <div class=" vertical-line-divider"></div>
+
+	                  <div class="reaction">
+	
+	                  	<span th:if="${user == null}">
+                  		<button class="upvoteBtn btn text-muted icon ion-thumbsup" style="font-size:2.5rem; background-color:white" disabled></button>
+                    </span>
+                    
+                    	<span th:id="'score' + ${post.postId}" th:text=" ${post.score}" style="font-size:2.0rem; padding:15px"></span>
+                    	
+                    <span th:if="${user == null}">
+                  		<button class="downvoteBtn btn text-muted fa fa-thumbs-down" style="font-size:2.5rem; padding:10px; background-color:white" disabled></button>
+                    </span>
+	                    
+	                  </div>
+
+                    </div>
+                 
+                    <div class="post_with_content" th:if="${post.content}">
+                  	<div class="line-divider"></div>
+	                  <div class="post-text text-justify">
+	                    <span th:utext="${post.content}" class="short-description" style="font-size:1.8rem; color: black"></span>
+	                  </div>
+	                  </div>
+	                  
+	                  <div class="post_with_link" th:if="${post.link}">
+	                  <div class="line-divider" ></div>
+	                  <div class="post-text text-justify">
+	                    <a th:href="${post.link}" th:text="${post.link}" style="font-size:1.8rem" target="_blank"></a>
+	                  </div>
+	                  </div>
+	                  
+	                  <div class="post_with_media" th:if="${post.imageUrl}">
+	                  <div class="line-divider"></div>
+	                  <img th:src="'/postImages/' + ${post.postId} + '.png'" alt="post-image" class="img-responsive post-image" />
+	                  </div>
+	                </div>
+	                
+                    <div class="line-divider" style="margin: 30px 0px;"></div>
+                    
+                    <div class="row">
+                    	<div class="col-sm-1"></div>
+                    	<div class="col-sm-10">
+                    		<form th:action="@{/user/comment/save}" method="POST" id="addNewComment">
+                
+                    			<input type="hidden" name="postId" th:value="${post.postId}"/>
+			                    <textarea type="text" name="commentDescription" class="form-control control-input" placeholder="Add New Comment" style="resize: vertical; height: 60px;" required></textarea><br>
+			                    <button type="submit" class="btn btn-primary pull-left"><span class="fa fa-paper-plane"></span></button>
+			                </form>
+						</div>
+                    	<div class="col-sm-1"></div>
+                    </div>
+                    
+                    <div class="line-divider" style="margin: 30px 0px;"></div>
+                    
+					<h3>Comments</h3>
+					 <hr color="red" style=" height: 1px;background-color: #149AC9;border: none;">
+                    <div class="accordion" id="accordionExample" style="margin-bottom: 10vh; ">
+					  <div class="card" th:each="comment:${comments}" th:id="'card-'+${comment.commentId}">
+					    <div class="card-header" th:id="'heading-'+${comment.commentId}">
+					      <h6 class="row" style="background-color:white; border-radius: 5px; padding:5px;" data-toggle="collapse" th:data-target="'#'+${comment.commentId}" aria-expanded="true" th:aria-controls="'#'+${comment.commentId}">
+					        <span class="btn collapsed" th:text="${comment.user.userName}">
+					        </span>
+					        <span th:text="${comment.creationDate}" class="h6 pull-right" style="padding: 5px 20px 0px 0px;"></span>
+					      </h6>
+					    </div>
+					    <div th:id="${comment.commentId}" class="collapse in" aria-labelledby="headingOne" data-parent="#accordionExample" style="margin-bottom:10px;">
+					      <span class="pull-right" th:id="'3-dots-btn-' + ${comment.commentId}">
+                            <div class="dropdown" style="cursor:pointer;">
+                              <div class="test dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              </div>
+                              <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                  <a th:href="'editCommentForm-'+${comment.commentId}" class="link-page edit-comment-link" data-toggle="modal" th:data-commentid="${comment.commentId}" style="margin-left: 6px">
+                                  Edit</a>
+                                </li>
+                                <li>
+                                  <a><button type="submit" class="delete-comment" th:value="${comment.commentId}" style="border: none;background-color: transparent;">Delete</button></a>
+                                </li>
+                              </ul>
+                            </div>
+                          </span>
+					      <div class="card-body text-justify" style="padding:0px 30px 0 0;" th:id="'viewCommentId-' + ${comment.commentId}">
+					      	<span style="font-size: 2.0rem" th:id="'showCommentContent-'+${comment.commentId}" th:text="${comment.content}"></span>
+					      </div>
+					      <form method="post" th:id="'editCommentForm-'+${comment.commentId}">
+
+                            <textarea name="commentDescription" th:id="'editCommentTextArea-'+${comment.commentId}" class="form-control control-input" placeholder="Edit Comment" style="resize: vertical; min-height: 150px;"></textarea>
+                            
+                            <input type="hidden" name="commentId" th:value="${comment.commentId}"/>
+
+                            <button type="submit" th:value="${comment.commentId}"  class="btn btn-primary editCommentBtn" th:id="'saveCommentBtn'+${comment.commentId}" style="margin-top:10px;">Save</button>
+                            <a class="btn btn-danger btn-cancel" th:data-commentid="${comment.commentId}" style="margin-top:10px;">Cancel</a>
+                          </form>
+					    </div>
+					    <hr color="red" style=" height: 1px;background-color: #149AC9;border: none;width: 95%">
+					  </div>
+					  
+					</div>
+	                
+                  </div>
+                  <!-- post-details ends here -->
+                
+                </div>
+              </div>
+			</div>
+           	
+          </div>
+          <div class="col-md-1"></div>
+    	</div>
+      </div>
+    </div>
+
+
+    <!-- Footer
+    ================================================= -->
+    <footer class="navbar navbar-fixed-bottom" th:include="footer::footer"></footer>
+    
+    <!--preloader-->
+    <div id="spinner-wrapper">
+      <div class="spinner"></div>
+    </div>
+    
+    <!-- Scripts
+    ================================================= -->
+    <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
+    <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+	<script th:src="@{/js/upvote.js}"></script>
+	<script th:src="@{/js/downvote.js}"></script>
+    <script th:src="@{/js/editComment.js}"></script>
+    <script th:src="@{/js/deleteComment.js}"></script>
+	<script>
+	    
+	    $(document).ready(function(){
+	        $('form').hide();
+	        $('#addNewComment').show();
+	    })
+	    
+	    // Edit Comment Button
+	    $(".edit-comment-link").click(function(){
+	        let commentId = $(this).data('commentid');
+	        $('#viewCommentId-'+commentId).hide();
+	        $('#3-dots-btn-'+commentId).hide();
+	        $('#editCommentForm-'+commentId).show();
+	        $('#editCommentTextArea-'+commentId).val($('#viewCommentId-'+commentId).text().trim());
+	    });
+		// Cancel Button 
+	    $(".btn-cancel").click(function(){
+	        let commentId = $(this).data('commentid');
+	        $('#editCommentForm-'+commentId).hide();
+	        $('#viewCommentId-'+commentId).show();
+	        $('#3-dots-btn-'+commentId).show(100);
+	    });
+	</script>
+    
+  </body>
+</html>

@@ -1,41 +1,62 @@
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
-     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="This is social network platform." />
+<meta name="keywords"
+	content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
+<meta name="robots" content="index, follow" />
+	<title>All Categories</title>
 
-    <!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<title>Admin-Category List</title>
+<!-- Stylesheets
+    ================================================= -->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+<link rel="stylesheet" th:href="@{/css/ionicons.min.css}" />
+<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
+
+<!--Google Font-->
+<link
+	href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i"
+	rel="stylesheet">
+<style>
+</style>
+<!--Favicon-->
+<link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}" />
 </head>
-
 <body>
 
-<div align="center">
+	<!-- Header
+    ================================================= navbar-fixed-top -->
+	<header id="header">
+		<nav th:replace="header::adminNavbar"></nav>
+	</header>
 
-	<hr/><h2>All Categories</h2><hr/>
+	<!--Header End-->
 	<div class="container">
+	
+	<div class="col-md-1"></div>
+	 <div class="col-md-10">
+		<h2 class="text-center">All Categories</h2>
 	<!-- Add Category Button -->
-	<a th:href="@{/admin/category/insert}" class="btn btn-primary float-left btn-md mb-3">
+	<a th:href="@{/admin/category/insert}" class="btn btn-success float-left btn-md mb-3">
 		Add New Category
 	</a>
-
+	<br><br>
+			<table class="table table-bordered table-responsive-md">
+				<thead class="thead-dark">
+					<tr>
+						<th class="h4 bg-primary col-md-2">Category ID</th>
+						<th class="h4 bg-primary col-md-8">Category Name</th>
+						<th class="h4 bg-primary col-md-2">Edit</th>
+					</tr>
+				</thead>
 			
-		<table class="table table-bordered table-responsive-md">
-		<thead class="thead-dark">
-			<tr>
-				<th>Comment ID</th>
-				<th>Comment Description</th>
-				<th>Edit</th>
-			</tr>
-		</thead>
-		
 		<tbody>
-			<tr th:each="c : ${catList}">
+			<tr style="font-size:16px;" class="bg-info text-dark"  th:each="c : ${catList}">
 				
-				<td th:text="${c.categorytId}" />	
+				<td th:text="${c.categoryId}" />	
 				<td th:text="${c.categoryName}" />
 					
 				<!-- Update button/link -->
@@ -48,11 +69,29 @@
 				</td>
 			</tr>
 		</tbody>	
-		
-			
 	</table>
-</div>
-</div>
-	
+	</div>	
+	<div class="col-md-1"></div>	
+
+    </div>
+
+	<!-- Footer
+    ================================================= -->
+	<footer id="footer" th:replace="footer::footer"></footer>
+
+	<!--preloader-->
+	<div id="spinner-wrapper">
+		<div class="spinner"></div>
+	</div>
+
+	<!-- Scripts
+    ================================================= -->
+
+	<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
+	<script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
+	<script th:src="@{/js/jquery.scrollbar.min.js}"></script>
+	<script th:src="@{/js/script.js}"></script>
+
 </body>
 </html>

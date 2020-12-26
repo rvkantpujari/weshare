@@ -10,18 +10,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.weshare.model.Category;
 import com.weshare.model.Community;
 import com.weshare.model.Post;
 import com.weshare.model.User;
+import com.weshare.service.CategoryService;
+import com.weshare.service.CommunityService;
 import com.weshare.service.PostService;
+import com.weshare.service.SavePostService;
 import com.weshare.service.UserService;
-import com.weshare.service.impl.CommunityServiceImpl;
-import com.weshare.service.impl.SavePostServiceImpl;
-import com.weshare.service.impl.VoteServiceImpl;
+import com.weshare.service.VoteService;
 
 @Controller
 @RequestMapping("/search")
-public class SearchConttroller
+public class SearchController
 {
 	@Autowired
 	private UserService userService;
@@ -30,13 +32,16 @@ public class SearchConttroller
 	private PostService postService;
 	
 	@Autowired
-	private SavePostServiceImpl savePostService;
+	private SavePostService savePostService;
 	
 	@Autowired
-	private VoteServiceImpl voteService;
+	private VoteService voteService;
 	
 	@Autowired
-	private CommunityServiceImpl communityServiceImpl;
+	private CommunityService communityServiceImpl;
+	
+	@Autowired
+	private CategoryService categoryService;
 	
 	
 	@PostMapping("")
@@ -56,13 +61,28 @@ public class SearchConttroller
 		if(queryType.equals("post"))
 		{
 			List<Post> posts = postService.blurrySearch(query);
+			if(posts.isEmpty())
+			{
+				model.addAttribute("noPosts", true);
+				model.addAttribute("query", query);
+			}
 			model.addAttribute("posts", posts);
 			return "user/searchResultPost";
 		}
 		else
 		{
+			List<Category> categoryList = categoryService.getAllCategories();
+			model.addAttribute("catList", categoryList);
+			
 			List<Community> communities = communityServiceImpl.blurrySearch(query);
 			model.addAttribute("communities", communities);
+			
+			if(communities.isEmpty())
+			{
+				model.addAttribute("noCommunities", true);
+				model.addAttribute("query", query);
+			}
+			
 			return "user/searchResultCommunity";
 		}
 	}

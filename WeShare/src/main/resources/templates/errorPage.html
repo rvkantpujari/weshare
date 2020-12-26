@@ -36,7 +36,16 @@
     <!-- Header
     ================================================= navbar-fixed-top -->
 	<header id="header">
-      <nav th:replace="header::navbar"></nav>
+		<div th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+			<nav th:replace="header::adminNavbar"></nav>
+		</div>
+		
+		<div th:if="${#authorization.expression('hasAuthority(''USER'')')}">
+			<nav th:replace="header::navbar"></nav>
+		</div>
+	
+	
+      
     </header>
     
     <!--Header End-->
@@ -48,7 +57,14 @@
 				<div class="col-lg-12 col-md-12 col-sm-12">
 					<div class="text-center" style="font-size:xx-large;">
 						<p th:text="${errorMsg}"></p><br/>
-						<u><a th:href="@{/user/home}">BACK TO HOME PAGE</a></u>
+							<div th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+								<u><a th:href="@{/admin/home}">BACK TO HOME PAGE</a></u>
+							</div>
+							
+							<div th:if="${#authorization.expression('hasAuthority(''USER'')')}">
+								<u><a th:href="@{/user/home}">BACK TO HOME PAGE</a></u>
+							</div>
+						
 					</div>
 				</div>
 				

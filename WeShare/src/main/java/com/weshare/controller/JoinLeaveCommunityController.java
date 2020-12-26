@@ -52,9 +52,15 @@ public class JoinLeaveCommunityController {
 //		{
 //			System.out.println("\n\npost title: "+post.getTitle());
 //		}
+		
+		if(comunityPosts.isEmpty())
+		{
+			m.addAttribute("noPosts", true);
+		}
+		
 		m.addAttribute("comunityPosts", comunityPosts);
 		m.addAttribute("voteService", voteService);
-	
+		
 		if(principal!=null) 
 		{
 			User user = userService.findUserByUserName(principal.getName());

@@ -2,6 +2,7 @@ package com.weshare.service.impl;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -46,6 +47,11 @@ public class UserServiceImpl implements UserService
 	@Override
 	public User updateUser(User user) {
 		return userRepository.save(user);
+	}
+
+	@Override
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
 	}
 
 

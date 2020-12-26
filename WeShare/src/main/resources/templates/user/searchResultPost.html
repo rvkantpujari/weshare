@@ -41,6 +41,15 @@
 				<div class="col">
 					<div class="col-md-10">
 						<div style="padding: 20px;">
+				
+						<div th:if="${noPosts}">
+							<h3 style="color: black;">No Post found for <span style="font-style: italic; color: blue;" th:text="${query}"></span>.</h3>
+							<hr />
+							<div>
+								<a th:href="@{'/user/category/all/communities'}"
+									class="btn btn-primary">Go to all communities</a>
+							</div><br><br><br><br><br><br><br><br><br><br><br><br><br>
+						</div>
 
 							<div class="post-content" th:each="post: ${posts}">
 								<div class="post-container">
@@ -154,7 +163,8 @@
 
 	<!-- Footer
     ================================================= -->
-	<footer id="footer" th:replace="footer::footer"></footer>
+	<!-- <footer id="footer" th:replace="footer::footer"></footer> -->
+		<footer class="navbar navbar-fixed-bottom" th:include="footer::footer"></footer>
 
 	<!--preloader-->
 	<div id="spinner-wrapper">

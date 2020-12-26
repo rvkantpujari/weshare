@@ -8,8 +8,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,7 +40,7 @@ public class HomeController {
 	private CommunityServiceImpl communityService;
 
 	@GetMapping(value = { "/", "/login" })
-	public String home(Model model) {
+	public String index(Model model) {
 		User user = new User();
 		model.addAttribute("user", user);
 		model.addAttribute("classActiveLogin", true);
@@ -51,17 +49,34 @@ public class HomeController {
 
 	@GetMapping("/admin/home")
 	public String adminHome(Model model) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByUserName(auth.getName());
-		model.addAttribute("userName", "Welcome " + user.getUserName() + "/" + user.getFirstName() + " "
-				+ user.getLastName() + " (" + user.getEmail() + ")");
-		model.addAttribute("adminMessage", "Content Available Only for Admin Role");
+		
+		List<Post> posts = postService.getAllPosts().stream()
+				  .sorted(Comparator.comparing(Post::getCreationDate).reversed())
+				  .collect(Collectors.toList());
+		List<Community> topCommunities = communityService.findTopCommunities(5);
+		
+		model.addAttribute("posts", posts);
+		model.addAttribute("topCommunities", topCommunities);
+		
 		return "admin/home";
+	}
+	
+	@GetMapping("/home")
+	public String visitorHome(Model model) {
+		
+		List<Post> posts = postService.getAllPosts().stream()
+				  .sorted(Comparator.comparing(Post::getCreationDate).reversed())
+				  .collect(Collectors.toList());
+		List<Community> topCommunities = communityService.findTopCommunities(5);
+		
+		model.addAttribute("posts", posts);
+		model.addAttribute("topCommunities", topCommunities);
+		
+		return "/home";
 	}
 
 	@GetMapping("/user/home")
 	public String userHome(Model model, Principal principal) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user=this.userService.findUserByUserName(principal.getName());
 //	     model.addAttribute("userName", "Welcome " + user.getUserName() + "/" + user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
 //	     model.addAttribute("userMessage","Content Available Only for User Role");
@@ -80,6 +95,16 @@ public class HomeController {
 				  .collect(Collectors.toList());
 		
 		Set<Community> joinedCommunities = user.getJoinedCommunityList();
+		
+		if(posts.isEmpty() || joinedCommunities.isEmpty())
+		{
+			model.addAttribute("noPosts",true);
+		}
+		
+		if(joinedCommunities.isEmpty())
+		{
+			model.addAttribute("notJoined",true);
+		}		
 		
 		List<Community> topCommunities = communityService.findTopCommunities(5);
 		
