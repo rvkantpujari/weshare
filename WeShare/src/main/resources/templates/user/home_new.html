@@ -1,29 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="This is social network platform." />
-<meta name="keywords"
-	content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
-<meta name="robots" content="index, follow" />
-<title>Home | WeShare</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="This is social network platform." />
+	<meta name="keywords"
+		content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
+	<meta name="robots" content="index, follow" />
+	<title>Home | WeShare</title>
+	
+	<!-- Stylesheets
+	    ================================================= -->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
+	<link rel="stylesheet" th:href="@{/css/ionicons.min.css}" />
+	<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
 
-<!-- Stylesheets
-    ================================================= -->
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-<link rel="stylesheet" th:href="@{/css/style.css}" />
-<link rel="stylesheet" th:href="@{/css/ionicons.min.css}" />
-<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
-
-<!--Google Font-->
-<link
-	href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i"
-	rel="stylesheet">
-<style>
-</style>
-<!--Favicon-->
-<link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}" />
+	<!--Google Font-->
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i" rel="stylesheet">
+	
+	<style>
+		ul > li {
+			font-size: 1.3em;
+		}
+	</style>
+	
+	<!--Favicon-->
+	<link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}" />
 </head>
 <body>
 
@@ -155,13 +158,17 @@
 
 						</div>
 					</div>
+					
 					<aside>
 
-						<div class="md-3 col-md-offset-10">
+						<div class="m-3 col-md-offset-9">
+							<div style="margin-top: 0px;padding: 20px;"></div>
+						</div>
+
+						<div class="md-3 col-md-offset-9">
 							<div
 								style="margin-top: 40px; border: 2px solid grey; padding: 20px;">
-								<h3 style="text-align: center;" class="grey">Popular
-									Community</h3>
+								<h3 class="grey">Popular Community</h3>
 								<hr style="border: 0.5px solid black;">
 								<ul th:each="community: ${topCommunities}">
 									<li><a
@@ -171,12 +178,11 @@
 							</div>
 						</div>
 
-						<div class="md-3 col-md-offset-10">
+						<div class="md-3 col-md-offset-9">
 							<div
 								style="margin-top: 40px; border: 2px solid grey; padding: 20px;">
-								<h3 style="text-align: center;" class="grey">Joined
-									Community</h3>
-
+								<h3 class="grey">Joined Community</h3>
+								<hr style="border: 0.5px solid black;">
 								<ul th:each="community: ${joinedCommunities}">
 									<li><a
 										th:href=" '/user/community/' + ${community.communityName}"
@@ -194,8 +200,9 @@
 
 
 	<!-- Footer
-    ================================================= -->
-	<footer id="footer" th:replace="footer::footer"></footer>
+    ================================================= --
+	<footer id="footer" th:replace="footer::footer"></footer>-->
+	<footer class="navbar navbar-fixed-bottom" th:include="footer::footer"></footer>
 
 	<!--preloader-->
 	<div id="spinner-wrapper">

@@ -148,5 +148,13 @@
     <script th:src="@{/js/script.js}"></script>
     <script th:src="@{/js/upvote.js}"></script>
 	<script th:src="@{/js/downvote.js}"></script>
+	
+	<script>
+		let timelineCover = document.getElementById("timelineCover");
+		let num = Math.floor(Math.random() * 5) + 1;
+		timelineCover.classList.add("timeline-cover-image-"+(num));
+		console.log(num);
+    </script>
+	
   </body>
 </html>
