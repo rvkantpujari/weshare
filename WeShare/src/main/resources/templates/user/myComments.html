@@ -61,57 +61,57 @@
 		<div class="timeline">
       		<div th:replace="user/fragments::timeline-cover"></div>
         
-        <div id="page-contents">
-    		<div class="row">
+        	<div id="page-contents">
+    			<div class="row">
 		  
-          	<!--  Side Bar Left  ================================================= -->
-      		<div th:replace="user/fragments::sideBarLeft"></div>
+		          	<!--  Side Bar Left  ================================================= -->
+					<div th:replace="user/fragments::sideBarLeft"></div>
 
-	          <!-- Side Bar Right
-	          ================================================= -->
-	    	  <div class="col-md-9">
-	              
-	              <div class="post-container" th:each="comment: ${myCommentList}">
-	                <div class="post-detail">
-	                  <div class="user-info" style="margin-left:10px;">
-	                  	<div class="row" style="word-spacing: 2px;">
-	                  		
-	                  		<a th:href="@{'/user/community/'+${comment.post.community.communityName}+'/'+${comment.post.postId}}" class="profile-link">
-	                    		<span class="h4 col-md-*" th:text="${comment.post.title}"></span>
-	                    	</a>
-							
-	                    	<span class="h5 col-md-*"> posted by <i class="icon ion-ios-person"></i><span class="h4 col-md-*" th:text="${comment.post.user.userName}"></span></span>
-		                    	
-	                    	<span> in </span>
-	                    	<a th:href="@{'/user/community/'+${comment.post.community.communityName}}" class="profile-link">
-	                    		<span class="h5 col-md-*" th:text="${comment.post.community.communityName}"></span>
-	                    	</a>
-	                    	<span> community </span>
+			        <!-- Side Bar Right
+			          ================================================= -->
+			    	<div class="col-md-9">
+              
+		              <div class="post-container" th:each="comment: ${myCommentList}">
+		                <div class="post-detail">
+		                  <div class="user-info" style="margin-left:10px;">
+		                  	<div class="row" style="word-spacing: 2px;">
+                  		
+		                  		<a th:href="@{'/user/community/'+${comment.post.community.communityName}+'/'+${comment.post.postId}}" class="profile-link">
+		                    		<span class="h4 col-md-*" th:text="${comment.post.title}"></span>
+		                    	</a>
+						
+                    			<span class="h5 col-md-*"> posted by <i class="icon ion-ios-person"></i><span class="h4 col-md-*" th:text="${comment.post.user.userName}"></span></span>
 	                    	
-	                    </div>
-	                    
-	                    <h2 class="text-muted comment-description short-description" style="color: black;" th:text="${#strings.abbreviate(comment.content, 300)}"></h2>
-	                    
-                    	<div class="icon ion-ios-list-outline comment-date-time">
-                    		Commented On: <span th:text="${#dates.format(comment.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></span>
-                    	</div>
-	                    
-	                  </div>
-	                </div>
-	              </div>
-	              
-			 <div th:if="${emptyList}">
-					<h3 style="font-style: italic; color:black;">You haven't commented on any post!</h3><hr/>
-					<div>
-                			<a th:href="@{'/user/category/all/communities'}" class="btn btn-primary">Go to all communities</a>
-              		</div>
-	              
-	          </div>
-	          
-    		</div>
-    	  </div>
-        </div>
+                    			<span> in </span>
+		                    	<a th:href="@{'/user/community/'+${comment.post.community.communityName}}" class="profile-link">
+		                    		<span class="h5 col-md-*" th:text="${comment.post.community.communityName}"></span>
+		                    	</a>
+		                    	<span> community </span>
+                    	
+                    		</div>
+                    
+                    		<h2 class="text-muted comment-description short-description" style="color: black;" th:text="${#strings.abbreviate(comment.content, 300)}"></h2>
+                    
+	                    	<div class="icon ion-ios-list-outline comment-date-time">
+	                    		Commented On: <span th:text="${#dates.format(comment.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></span>
+	                    	</div>
+                    
+                  		  </div>
+		                </div>
+		              </div>
+              
+					  <div th:if="${emptyList}">
+						<h3 style="font-style: italic; color:black;">You haven't commented on any post!</h3><hr/>
+						  <div>
+		                	<a th:href="@{'/user/category/all/communities'}" class="btn btn-primary">Go to all communities</a>
+		              	  </div>
+			          </div>
+          
+    				</div>
+    	  		</div>
+        	</div>
         
+    	</div>
     </div>
 
 
@@ -131,6 +131,14 @@
     <script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
     <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
     <script th:src="@{/js/script.js}"></script>
+    
+    <script>
+		let timelineCover = document.getElementById("timelineCover");
+		let num = Math.floor(Math.random() * 5) + 1;
+		timelineCover.classList.add("timeline-cover-image-"+(num));
+		console.log(num);
+    </script>
+    
 <!--     <script>
 	 	// Limit Board Description
 	    function truncateText(element, maxLength) {

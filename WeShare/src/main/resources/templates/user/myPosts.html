@@ -195,5 +195,12 @@ i.icon {
 	<script th:src="@{/js/jquery.scrollbar.min.js}"></script>
 	<script th:src="@{/js/script.js}"></script>
 	<script th:src="@{/js/deletePost.js}"></script>
+	
+	<script>
+		let timelineCover = document.getElementById("timelineCover");
+		let num = Math.floor(Math.random() * 5) + 1;
+		timelineCover.classList.add("timeline-cover-image-"+(num));
+		console.log(num);
+    </script>
 </body>
 </html>
