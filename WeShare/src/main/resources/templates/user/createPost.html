@@ -56,9 +56,15 @@
           ================================================= -->
     	  <div class="col-md-3 static">
             <div class="suggestions" id="sticky-sidebar" style="margin-top:2px;border:1px solid lightgrey; border-radius: 5px; padding: 20px; min-height:200px;">
-              <h3 style="font-size: 2.2rem; margin:0;" th:text=${community.communityName}></h3>
-              <h4 class="grey" style="font-size:1.8rem; margin:10px 0px;">About Community</h4>
-              <p class="text-muted" th:text=${community.communityDescription}></p>
+              <h4 class="grey" style="font-size:2.2rem;">About Community</h4><hr style="border: 0.5px solid black;">  
+              Description: <span class="text-muted" th:utext=${community.communityDescription}>Description</span>
+              <hr>
+              Created on: <span th:text="${#dates.format(community.creationDate, 'dd-MMM-yyyy')}">Created On</span><br>
+               Created By: <span th:text=${community.user.userName}>Created By</span><br>
+              Category: <span th:text=${community.category.categoryName}>Category</span><br>
+              Total Members Joined: <span th:text=${community.membersCount}>Members</span><br>
+              Total Posts: <span th:text="${#lists.size(community.posts)}">Total Posts</span>
+              
             </div>
           </div>
           

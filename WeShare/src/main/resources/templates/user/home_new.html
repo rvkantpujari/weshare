@@ -52,6 +52,15 @@
 					<div class="col-md-10">
 						<div style="padding: 20px;">
 
+						<div th:if="${noPosts}">
+							<h3 style="font-style: italic; color: black;">Join any community or Post something.</h3>
+							<hr />
+							<div>
+								<a th:href="@{'/user/category/all/communities'}"
+									class="btn btn-primary">Go to all communities</a>
+							</div>
+						</div>
+		
 							<div class="post-content" th:each="post: ${posts}">
 								<div class="post-container">
 									<div class="post-detail" style="margin-left: 0px;">
@@ -161,7 +170,7 @@
 							<div
 								style="margin-top: 40px; border: 2px solid grey; padding: 20px;">
 								<h3 style="text-align: center;" class="grey">Popular
-									Community</h3>
+									Communities</h3>
 								<hr style="border: 0.5px solid black;">
 								<ul th:each="community: ${topCommunities}">
 									<li><a
@@ -170,13 +179,13 @@
 								</ul>
 							</div>
 						</div>
-
-						<div class="md-3 col-md-offset-10">
+						<div th:if="${notJoined}"><br><br><br><br><br></div>
+						<div th:unless="${notJoined}" class="md-3 col-md-offset-10">
 							<div
 								style="margin-top: 40px; border: 2px solid grey; padding: 20px;">
 								<h3 style="text-align: center;" class="grey">Joined
-									Community</h3>
-
+									Communities</h3>
+								<hr style="border: 0.5px solid black;">
 								<ul th:each="community: ${joinedCommunities}">
 									<li><a
 										th:href=" '/user/community/' + ${community.communityName}"
@@ -187,12 +196,12 @@
 						</div>
 					</aside>
 				</div>
-
+				<br>
 			</div>
 		</div>
 	</div>
 
-
+	
 	<!-- Footer
     ================================================= -->
 	<footer id="footer" th:replace="footer::footer"></footer>

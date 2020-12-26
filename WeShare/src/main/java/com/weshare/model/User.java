@@ -46,7 +46,6 @@ public class User {
     private int id;
     
     @Column(name = "user_name")
-    @Length(min = 4, message = "*Username must have atleast 4 characters.")
     @NotEmpty(message = "*Username should not be empty.")
     private String userName;
     

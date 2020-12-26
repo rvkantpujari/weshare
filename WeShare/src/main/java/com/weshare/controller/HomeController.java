@@ -96,6 +96,16 @@ public class HomeController {
 		
 		Set<Community> joinedCommunities = user.getJoinedCommunityList();
 		
+		if(posts.isEmpty() || joinedCommunities.isEmpty())
+		{
+			model.addAttribute("noPosts",true);
+		}
+		
+		if(joinedCommunities.isEmpty())
+		{
+			model.addAttribute("notJoined",true);
+		}		
+		
 		List<Community> topCommunities = communityService.findTopCommunities(5);
 		
 		model.addAttribute("posts", posts);

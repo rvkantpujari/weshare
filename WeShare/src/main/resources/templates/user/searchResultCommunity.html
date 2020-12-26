@@ -82,9 +82,19 @@
           <!-- Newsfeed Common Side Bar Left
           ================================================= -->
     	  <div class="col-md-9" style="margin-top:20px;">
-
+			
+			<h2>Search results for "<span style="font-style: italic; color: blue;" th:text="${query}"></span>"</h2>
+			<hr/>
             <!-- Post Content
             ================================================= -->
+            	<div th:if="${noCommunities}">
+					<h3 style="color: black;">No Communities found.</h3>
+					<div><br>
+						<a th:href="@{'/user/category/all/communities'}"
+							class="btn btn-primary">Go to all communities</a>
+					</div><br><br><br><br><br><br><br><br><br><br><br><br><br>
+				</div>
+            
             <div th:each="com : ${communities}" class="post-content" th:title="${com.category.categoryName}">
               <div class="post-container">
               
