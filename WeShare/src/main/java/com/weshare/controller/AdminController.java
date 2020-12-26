@@ -1,5 +1,6 @@
 package com.weshare.controller;
 
+import java.security.Principal;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,15 +19,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.weshare.model.Category;
 import com.weshare.model.Comment;
 import com.weshare.model.Community;
+import com.weshare.model.Feedback;
 import com.weshare.model.Post;
+import com.weshare.model.User;
 import com.weshare.service.CategoryService;
 import com.weshare.service.CommentService;
 import com.weshare.service.CommunityService;
+import com.weshare.service.FeedbackService;
 import com.weshare.service.PostService;
+import com.weshare.service.UserService;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminCategoryController {
+public class AdminController {
 
 	@Autowired
 	private CategoryService categoryService;
@@ -39,6 +44,20 @@ public class AdminCategoryController {
 	
 	@Autowired
 	private CommentService commentService;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private FeedbackService feedbackService;
+	
+	@GetMapping("/feedbacks")
+	public String feedbackList(Model m,HttpServletRequest request)
+	{
+		List<Feedback> feedbacktList = feedbackService.getAllFeedbacks();
+		m.addAttribute("fdList", feedbacktList);
+		return "admin/getFeedback";
+	}
 	
 	@GetMapping("/category/all")
 	public String categoryList(Model m)
@@ -132,5 +151,55 @@ public class AdminCategoryController {
 		model.addAttribute("comments",comments);
 		return "admin/viewPost";
 	}
+	
+	@GetMapping("/manageUsers")
+	public String manageUsers(Model m)
+	{
+		
+		List<User> userList = userService.getAllUsers();
+		userList=userList.subList(1, userList.size());
+		m.addAttribute("userList", userList);
+		return "admin/manageUsers";
+	}
+
+	@GetMapping("/manageUsers/{userName}/block")
+	public String blockUser(@PathVariable("userName")String userName,
+    								Principal principal, Model m)
+	{
+		User user=userService.findUserByUserName(userName);
+		if(user.getActive()==true)
+		{
+			user.setActive(false);
+			userService.updateUser(user);
+		}
+		return "redirect:/admin/manageUsers";
+	}
+	
+	@GetMapping("/manageUsers/{userName}/unblock")
+	public String unblockUser(@PathVariable("userName")String userName,
+    								Principal principal, Model m)
+	{
+		User user=userService.findUserByUserName(userName);
+		if(user.getActive()==false)
+		{
+			user.setActive(true);
+			userService.updateUser(user);
+		}
+		return "redirect:/admin/manageUsers";
+	}
+	
+	@GetMapping("/community/{communityName}/{postId}/delete")
+	public String delete(@PathVariable(value = "postId") int postId) {
+		Post post = postService.getPostById(postId);
+		List<User> users=userService.getAllUsers();
+		for (User user : users) {
+		     user.getSavedPostList().remove(post);
+		     userService.updateUser(user);
+		}
+        
+		this.postService.deletePost(post);
+		return "redirect:/admin/home";
+	}
+	
 	
 }

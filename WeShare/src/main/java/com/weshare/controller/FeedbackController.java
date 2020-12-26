@@ -1,9 +1,6 @@
 package com.weshare.controller;
 
 import java.security.Principal;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,11 +46,4 @@ public class FeedbackController {
 		return "user/contact";
 	}
 	
-	@GetMapping("/admin/feedbacks")
-	public String feedbackList(Model m,HttpServletRequest request)
-	{
-		List<Feedback> feedbacktList = feedbackService.getAllFeedbacks();
-		m.addAttribute("fdList", feedbacktList);
-		return "admin/getFeedback";
-	}
 }
