@@ -50,5 +50,12 @@ public class CommunityServiceImpl implements CommunityService {
 				  .sorted(Comparator.comparing(Community::getMembersCount).reversed())
 				  .collect(Collectors.toList()).subList(0, limit);
 	}
+	
+	@Override
+	public List<Community> blurrySearch(String query)
+	{
+		List<Community> postList = communityRepository.findByCommunityNameContaining(query);
+		return postList;
+	}
 
 }

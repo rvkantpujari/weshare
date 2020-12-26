@@ -19,4 +19,6 @@ public interface PostService
 	void setCommentsNumById(int postId, int commentNum);
 
 	void deletePost(Post post);
+
+	List<Post> blurrySearch(String query);
 }
