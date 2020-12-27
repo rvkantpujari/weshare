@@ -22,7 +22,7 @@ import com.weshare.service.UserService;
 import com.weshare.service.VoteService;
 
 @Controller
-@RequestMapping("/search")
+@RequestMapping("/user")
 public class SearchController
 {
 	@Autowired
@@ -38,14 +38,14 @@ public class SearchController
 	private VoteService voteService;
 	
 	@Autowired
-	private CommunityService communityServiceImpl;
+	private CommunityService communityService;
 	
 	@Autowired
 	private CategoryService categoryService;
 	
 	
-	@PostMapping("")
-    public String seach(Model model, Principal principal,
+	@PostMapping("/search")
+    public String userSearch(Model model, Principal principal,
     		@ModelAttribute("query") String query, @ModelAttribute("queryType") String queryType)
 	{
 		System.out.println("inside search: " + queryType + " " + query);
@@ -74,7 +74,7 @@ public class SearchController
 			List<Category> categoryList = categoryService.getAllCategories();
 			model.addAttribute("catList", categoryList);
 			
-			List<Community> communities = communityServiceImpl.blurrySearch(query);
+			List<Community> communities = communityService.blurrySearch(query);
 			model.addAttribute("communities", communities);
 			
 			if(communities.isEmpty())

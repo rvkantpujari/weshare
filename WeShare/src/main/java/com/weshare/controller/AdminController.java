@@ -223,4 +223,39 @@ public class AdminController {
 	}
 	
 	
+	@PostMapping("/search")
+    public String adminSearch(Model model, Principal principal,
+    		@ModelAttribute("query") String query, @ModelAttribute("queryType") String queryType)
+	{
+		System.out.println("inside admin search: " + queryType + " " + query);
+		if(queryType.equals("post"))
+		{
+			List<Post> posts = postService.blurrySearch(query);
+			if(posts.isEmpty())
+			{
+				model.addAttribute("noPosts", true);
+				model.addAttribute("query", query);
+			}
+			model.addAttribute("posts", posts);
+			return "admin/searchResultPost";
+		}
+		else
+		{
+			List<Category> categoryList = categoryService.getAllCategories();
+			model.addAttribute("catList", categoryList);
+			
+			List<Community> communities = communityService.blurrySearch(query);
+			model.addAttribute("communities", communities);
+			
+			if(communities.isEmpty())
+			{
+				model.addAttribute("noCommunities", true);
+				model.addAttribute("query", query);
+			}
+			
+			return "admin/searchResultCommunity";
+		}
+	}
+	
+	
 }
