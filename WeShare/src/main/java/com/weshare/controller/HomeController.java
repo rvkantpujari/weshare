@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.weshare.model.Community;
 import com.weshare.model.Post;
@@ -23,6 +25,11 @@ import com.weshare.service.impl.PostServiceImpl;
 
 @Controller
 public class HomeController {
+	
+	private static final int NUM_OF_BUTTONS = 5;
+    private static final int INITIAL_PAGE = 0;
+    private static final int INITIAL_PAGE_SIZE = 10;
+    private static final int[] PAGE_SIZES = {5, 10, 15};
 
 	@Autowired
 	private UserService userService;
@@ -76,12 +83,19 @@ public class HomeController {
 	}
 
 	@GetMapping("/user/home")
-	public String userHome(Model model, Principal principal) {
+	public String userHome(Model model, Principal principal,
+			@RequestParam("pageSize") Optional<Integer> pageSize,
+            @RequestParam("page") Optional<Integer> page)
+	{
 		User user=this.userService.findUserByUserName(principal.getName());
 //	     model.addAttribute("userName", "Welcome " + user.getUserName() + "/" + user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
 //	     model.addAttribute("userMessage","Content Available Only for User Role");
 
 		List<Post> posts = new ArrayList<Post>();
+		
+		int setPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        int setPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+
 		
 		for (Community community : user.getJoinedCommunityList())
 		{
@@ -90,6 +104,7 @@ public class HomeController {
 				posts.add(post);
 			}
 		}
+		
 		posts = posts.stream()
 				  .sorted(Comparator.comparing(Post::getCreationDate).reversed())
 				  .collect(Collectors.toList());

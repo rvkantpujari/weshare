@@ -2,6 +2,8 @@ package com.weshare.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.weshare.model.Post;
@@ -21,4 +23,6 @@ public interface PostService
 	void deletePost(Post post);
 
 	List<Post> blurrySearch(String query);
+	
+	Page<Post> findByPage(Pageable pageable);
 }
