@@ -141,6 +141,11 @@
 					<h3>Comments</h3>
 					 <hr color="red" style=" height: 1px;background-color: #149AC9;border: none;">
                     <div class="accordion" id="accordionExample" style="margin-bottom: 10vh; ">
+                    	
+                    	<div th:if="${noComments}">
+							<h3 style="font-style: italic; color: black;">No Comments.</h3>
+						</div>
+                    
 					  <div class="card" th:each="comment:${comments}" th:id="'card-'+${comment.commentId}">
 					    <div class="card-header" th:id="'heading-'+${comment.commentId}">
 					      <h6 class="row" style="background-color:white; border-radius: 5px; padding:5px;" data-toggle="collapse" th:data-target="'#'+${comment.commentId}" aria-expanded="true" th:aria-controls="'#'+${comment.commentId}">
@@ -156,7 +161,10 @@
                               </div>
                               <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
-                                  <a><button type="submit" class="delete-comment" th:value="${comment.commentId}" style="border: none;background-color: transparent;">Delete</button></a>
+                                  <a th:href="@{'/admin/community/'+${post.community.communityName}+'/'+${post.postId}+'/comment/'+${comment.commentId}+'/delete'}"
+													class="float-right btn btn-danger btn-md">
+														<i class="fa fa-trash-o" aria-hidden="true"></i>
+									</a>
                                 </li>
                                 
                               </ul>
@@ -165,15 +173,6 @@
 					      <div class="card-body text-justify" style="padding:0px 30px 0 0;" th:id="'viewCommentId-' + ${comment.commentId}">
 					      	<span style="font-size: 2.0rem" th:id="'showCommentContent-'+${comment.commentId}" th:text="${comment.content}"></span>
 					      </div>
-					      <form method="post" th:id="'editCommentForm-'+${comment.commentId}">
-
-                            <textarea name="commentDescription" th:id="'editCommentTextArea-'+${comment.commentId}" class="form-control control-input" placeholder="Edit Comment" style="resize: vertical; min-height: 150px;"></textarea>
-                            
-                            <input type="hidden" name="commentId" th:value="${comment.commentId}"/>
-
-                            <button type="submit" th:value="${comment.commentId}"  class="btn btn-primary editCommentBtn" th:id="'saveCommentBtn'+${comment.commentId}" style="margin-top:10px;">Save</button>
-                            <a class="btn btn-danger btn-cancel" th:data-commentid="${comment.commentId}" style="margin-top:10px;">Cancel</a>
-                          </form>
 					    </div>
 					    <hr color="red" style=" height: 1px;background-color: #149AC9;border: none;width: 95%">
 					  </div>

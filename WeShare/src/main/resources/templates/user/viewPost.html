@@ -181,6 +181,11 @@
 					<h3>Comments</h3>
 					 <hr color="red" style=" height: 1px;background-color: #149AC9;border: none;">
                     <div class="accordion" id="accordionExample" style="margin-bottom: 10vh; ">
+                    	
+                    <div th:if="${noComments}">
+							<h3 style="font-style: italic; color: black;">No Comments.</h3>
+					</div>	
+                    
 					  <div class="card" th:each="comment:${comments}" th:id="'card-'+${comment.commentId}">
 					    <div class="card-header" th:id="'heading-'+${comment.commentId}">
 					      <h6 class="row" style="background-color:white; border-radius: 5px; padding:5px;" data-toggle="collapse" th:data-target="'#'+${comment.commentId}" aria-expanded="true" th:aria-controls="'#'+${comment.commentId}">
