@@ -40,8 +40,6 @@ public class Post {
     
     private String link;
     private String imageUrl;
-    private String videoUrl;
-    private String videoThumbnail;
     private int score;
     private int commentsNum;
     
