@@ -47,6 +47,7 @@ public class HomeController {
 	@Autowired
 	private VoteService voteService;
 	
+	@Autowired
 	private CommunityService communityService;
 
 	@GetMapping(value = { "/", "/login" })
