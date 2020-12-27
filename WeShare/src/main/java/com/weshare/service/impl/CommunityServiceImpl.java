@@ -41,11 +41,13 @@ public class CommunityServiceImpl implements CommunityService {
 	public List<Community> findCommunitiesByCategory(Category c) {
 		return communityRepository.findByCategory(c);
 	}
-
+	
+	@Override
 	public Community getCommunityByName(String communityName) {
 		return communityRepository.findByCommunityName(communityName);
 	}
 	
+	@Override
 	public List<Community> findTopCommunities(int limit)
 	{
 		return communityRepository.findAll().stream()

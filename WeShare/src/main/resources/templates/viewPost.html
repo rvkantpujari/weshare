@@ -53,7 +53,7 @@
     <!-- Header
     ================================================= navbar-fixed-top -->
 	<header id="header">
-      <nav th:replace="header::adminNavbar"></nav>
+      <nav th:replace="header::navbar"></nav>
     </header>
     
     <!--Header End-->	
@@ -62,7 +62,7 @@
     	<div class="row">
     	  <div class="col-md-1"></div>
     	  <div class="col-md-10">
-              <a th:href=" '/admin/community/' + ${post.community.communityName}"><h2 th:text="${post.community.communityName}"></h2></a>
+              <a th:href=" '/community/' + ${post.community.communityName}"><h2 th:text="${post.community.communityName}"></h2></a>
               <div class="line"></div>
     	  </div>
     	  <div class="col-md-1"></div>
@@ -93,23 +93,17 @@
                       <h2 th:text="${post.title}"></h2>
                       <p class="text-muted" th:utext="'posted by ' + ${post.user.userName} + ' on ' + ${post.creationDate}"></p>
                       <span th:text="'&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments '" class="following icon ion-compose" style="font-size:1.5rem; margin:0px; padding:0px;"></span>
-                      <div class=" vertical-line-divider"></div>
-                      <a th:href="@{'/admin/community/'+${post.community.communityName}+'/'+${post.postId}+'/delete'}"
-													class="float-right btn btn-danger btn-md">
-														<i class="fa fa-trash-o" aria-hidden="true"></i>
-					</a>
-                      <div class=" vertical-line-divider"></div>
 
 	                  <div class="reaction">
 	
 	                  	<span th:if="${user == null}">
-                  		<button class="upvoteBtn btn text-muted icon ion-thumbsup" style="font-size:2.5rem; background-color:white" disabled></button>
+                  		<button onclick="votePostNotSignIn()" class="upvoteBtn btn text-muted icon ion-thumbsup" style="font-size:2.5rem; background-color:white"></button>
                     </span>
                     
                     	<span th:id="'score' + ${post.postId}" th:text=" ${post.score}" style="font-size:2.0rem; padding:15px"></span>
                     	
                     <span th:if="${user == null}">
-                  		<button class="downvoteBtn btn text-muted fa fa-thumbs-down" style="font-size:2.5rem; padding:10px; background-color:white" disabled></button>
+                  		<button onclick="votePostNotSignIn()" class="downvoteBtn btn text-muted fa fa-thumbs-down" style="font-size:2.5rem; padding:10px; background-color:white"></button>
                     </span>
 	                    
 	                  </div>
@@ -155,20 +149,6 @@
 					      </h6>
 					    </div>
 					    <div th:id="${comment.commentId}" class="collapse in" aria-labelledby="headingOne" data-parent="#accordionExample" style="margin-bottom:10px;">
-					      <span class="pull-right" th:id="'3-dots-btn-' + ${comment.commentId}">
-                            <div class="dropdown" style="cursor:pointer;">
-                              <div class="test dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              </div>
-                              <ul class="dropdown-menu dropdown-menu-right">
-                                <li>
-									<a><button type="submit" class="delete-comment" th:value="${comment.commentId}" style="border: none;background-color: transparent;">
-										Delete
-									</button></a>
-                                </li>
-                                
-                              </ul>
-                            </div>
-                          </span>
 					      <div class="card-body text-justify" style="padding:0px 30px 0 0;" th:id="'viewCommentId-' + ${comment.commentId}">
 					      	<span style="font-size: 2.0rem" th:id="'showCommentContent-'+${comment.commentId}" th:text="${comment.content}"></span>
 					      </div>
@@ -208,30 +188,11 @@
     <script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
     <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
     <script th:src="@{/js/script.js}"></script>
-    <script th:src="@{/js/deleteCommentAdmin.js}"></script>
-	<script>
-	    
-	    $(document).ready(function(){
-	        $('form').hide();
-	        $('#addNewComment').show();
-	    })
-	    
-	    // Edit Comment Button
-	    $(".edit-comment-link").click(function(){
-	        let commentId = $(this).data('commentid');
-	        $('#viewCommentId-'+commentId).hide();
-	        $('#3-dots-btn-'+commentId).hide();
-	        $('#editCommentForm-'+commentId).show();
-	        $('#editCommentTextArea-'+commentId).val($('#viewCommentId-'+commentId).text().trim());
-	    });
-		// Cancel Button 
-	    $(".btn-cancel").click(function(){
-	        let commentId = $(this).data('commentid');
-	        $('#editCommentForm-'+commentId).hide();
-	        $('#viewCommentId-'+commentId).show();
-	        $('#3-dots-btn-'+commentId).show(100);
-	    });
-	</script>
     
+    <script th:inline="javascript">
+    	function votePostNotSignIn() {
+            alert("Please login or register to vote!");
+        }
+    </script>  
   </body>
 </html>

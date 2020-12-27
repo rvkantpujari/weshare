@@ -1,7 +1,6 @@
 package com.weshare.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +20,7 @@ import com.weshare.model.Community;
 import com.weshare.model.Pager;
 import com.weshare.model.Post;
 import com.weshare.model.User;
+import com.weshare.service.CommunityService;
 import com.weshare.service.PostService;
 import com.weshare.service.SavePostService;
 import com.weshare.service.UserService;
@@ -46,10 +46,8 @@ public class HomeController {
 	
 	@Autowired
 	private VoteService voteService;
-
-	@Autowired
-	private CommunityServiceImpl communityService;
 	
+	private CommunityService communityService;
 
 	@GetMapping(value = { "/", "/login" })
 	public String index(Model model) {
@@ -73,20 +71,6 @@ public class HomeController {
 		return "admin/home";
 	}
 	
-	@GetMapping("/home")
-	public String visitorHome(Model model) {
-		
-		List<Post> posts = postService.getAllPosts().stream()
-				  .sorted(Comparator.comparing(Post::getCreationDate).reversed())
-				  .collect(Collectors.toList());
-		List<Community> topCommunities = communityService.findTopCommunities(5);
-		
-		model.addAttribute("posts", posts);
-		model.addAttribute("topCommunities", topCommunities);
-		
-		return "/home";
-	}
-
 	@GetMapping("/user/home")
 	public String userHome(Model model, Principal principal,
 			@RequestParam("pageSize") Optional<Integer> pageSize,

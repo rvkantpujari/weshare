@@ -4,7 +4,9 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.security.Principal;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -168,7 +170,14 @@ public class PostController
 		model.addAttribute("post",post);
 		model.addAttribute("user", user);
 		model.addAttribute("voteService", voteService);
-		List<Comment> comments=commentService.getCommentsByPost(post);
+		
+		List<Comment> comments=commentService.getCommentsByPost(post).stream()
+				  				.sorted(Comparator.comparing(Comment::getCreationDate).reversed())
+				  				.collect(Collectors.toList());
+		if(comments.isEmpty())
+		{
+			model.addAttribute("noComments", true);
+		}
 		model.addAttribute("comments",comments);
 		model.addAttribute("savePostService",savePostService);
 		return "user/viewPost";

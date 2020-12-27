@@ -21,6 +21,8 @@ public interface CommunityService {
 	public Community getCommunityByName(String communityName);
 
 	List<Community> blurrySearch(String query);
+
+	List<Community> findTopCommunities(int limit);
 	
 //	public List<Community> getCommunityByCategory(String category);
 }
