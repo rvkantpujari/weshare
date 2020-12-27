@@ -134,6 +134,10 @@ public class AdminController {
 		List<Post> comunityPosts = c.getPosts().stream()
 				  								.sorted(Comparator.comparing(Post::getCreationDate).reversed())
 				  								.collect(Collectors.toList());
+		if(comunityPosts.isEmpty())
+		{
+			m.addAttribute("noPosts", true);
+		}
 		m.addAttribute("comunityPosts", comunityPosts);
 	
 		return "admin/ViewCommunity";
@@ -147,7 +151,13 @@ public class AdminController {
 		
 		Post post=postService.getPostById(postId);
 		model.addAttribute("post",post);
-		List<Comment> comments=commentService.getCommentsByPost(post);
+		List<Comment> comments=commentService.getCommentsByPost(post).stream()
+  								.sorted(Comparator.comparing(Comment::getCreationDate).reversed())
+  								.collect(Collectors.toList());
+		if(comments.isEmpty())
+		{
+			model.addAttribute("noComments", true);
+		}
 		model.addAttribute("comments",comments);
 		return "admin/viewPost";
 	}
@@ -189,7 +199,7 @@ public class AdminController {
 	}
 	
 	@GetMapping("/community/{communityName}/{postId}/delete")
-	public String delete(@PathVariable(value = "postId") int postId) {
+	public String deletePost(@PathVariable(value = "postId") int postId) {
 		Post post = postService.getPostById(postId);
 		List<User> users=userService.getAllUsers();
 		for (User user : users) {
@@ -199,6 +209,52 @@ public class AdminController {
         
 		this.postService.deletePost(post);
 		return "redirect:/admin/home";
+	}
+	
+	@GetMapping("/community/{communityName}/{postId}/comment/{commentId}/delete")
+	public String deleteComment(@PathVariable(value = "commentId") int commentId) {
+		Comment comment = commentService.findCommentById(commentId);
+		Post post = comment.getPost();
+		commentService.deleteComment(comment);
+		postService.setCommentsNumById(post.getPostId(), post.getCommentsNum()-1);
+		postService.savePost(post);
+		System.out.println("\n\nsuccessfully deleted comment " + ' ' + commentId);
+		return "redirect:/admin/community/{communityName}/{postId}";
+	}
+	
+	
+	@PostMapping("/search")
+    public String adminSearch(Model model, Principal principal,
+    		@ModelAttribute("query") String query, @ModelAttribute("queryType") String queryType)
+	{
+		System.out.println("inside admin search: " + queryType + " " + query);
+		if(queryType.equals("post"))
+		{
+			List<Post> posts = postService.blurrySearch(query);
+			if(posts.isEmpty())
+			{
+				model.addAttribute("noPosts", true);
+				model.addAttribute("query", query);
+			}
+			model.addAttribute("posts", posts);
+			return "admin/searchResultPost";
+		}
+		else
+		{
+			List<Category> categoryList = categoryService.getAllCategories();
+			model.addAttribute("catList", categoryList);
+			
+			List<Community> communities = communityService.blurrySearch(query);
+			model.addAttribute("communities", communities);
+			
+			if(communities.isEmpty())
+			{
+				model.addAttribute("noCommunities", true);
+				model.addAttribute("query", query);
+			}
+			
+			return "admin/searchResultCommunity";
+		}
 	}
 	
 	
