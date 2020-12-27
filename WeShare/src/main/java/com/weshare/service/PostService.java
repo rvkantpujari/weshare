@@ -28,4 +28,6 @@ public interface PostService
 	Page<Post> findByPage(Pageable pageable);
 
 	Page<Post> findAllPostsByPage(Community community, Pageable pageable);
+
+	Page<Post> findByJoinedCommunitiesByPage(int userId, Pageable pageable);
 }

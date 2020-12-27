@@ -67,4 +67,9 @@ public class PostServiceImpl implements PostService {
 		return postRepository.findByCommunity(community, pageable);
 	}
 
+	@Override
+	public Page<Post> findByJoinedCommunitiesByPage(int userId, Pageable pageable)
+	{
+		return postRepository.findByJoinedCommunitiesByPage(userId, pageable);
+	}
 }

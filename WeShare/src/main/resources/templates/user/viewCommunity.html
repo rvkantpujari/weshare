@@ -267,6 +267,16 @@
     	function votePostNotSignIn() {
             alert("Please login or register to vote!");
         }
+    	
+		$("#pageSizeSelect").change(function() {
+			var pageSize = $('option:selected', $(this)).text();
+			var curr_url = window.location.href;
+			var beforeQueMark = curr_url.split('?')[0];
+			var afterQueMark = curr_url.split('?')[1];
+			
+			var fina_url = beforeQueMark + '?pageSize=' + pageSize;
+	        window.location = fina_url;
+	    });
 		
 /*     	// Limit Description
 	    function truncateText(element, maxLength) {

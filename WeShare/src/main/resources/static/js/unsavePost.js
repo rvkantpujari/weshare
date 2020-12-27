@@ -18,7 +18,7 @@ $(document).on('click', '.unsave-post', function(event) {
 				event.target.classList.add("save-post");
 				event.target.classList.remove("fa-bookmark");
 				event.target.classList.add("fa-bookmark-o");
-				event.target.innerHTML = "Save";
+				event.target.innerHTML = "  Save";
 			} else
 			{
 				console.log("something went wrong!!!");

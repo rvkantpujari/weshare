@@ -29,4 +29,11 @@ public interface PostRepository extends JpaRepository<Post,Integer>
 	 List<Post> findByTitleContaining(String query);
 	 
 	 Page<Post> findByCommunity(Community community, Pageable  pageable);
+	 
+	 @Query(value = "select * from post p inner join community c on c.community_id = p.community_id AND"
+	 		+ " c.community_id in (select cm.community_id from community_members cm inner join users u "
+	 		+ "on cm.user_id = u.user_id AND u.user_id = :userId)",
+			 nativeQuery = true)
+	 Page<Post> findByJoinedCommunitiesByPage(int userId,  Pageable  pageable);
+
 }
