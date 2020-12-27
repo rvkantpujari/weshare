@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.weshare.model.Comment;
 import com.weshare.model.Post;
+import com.weshare.model.Role;
 import com.weshare.model.User;
+import com.weshare.repository.RoleRepository;
 import com.weshare.service.CommentService;
 import com.weshare.service.PostService;
 import com.weshare.service.UserService;
@@ -34,6 +36,8 @@ public class CommentController {
 	private PostService postService;
 	
 	@Autowired UserService userService;
+	
+	@Autowired RoleRepository roleRepository;
 	
 	@PostMapping("/update")
 	public ResponseEntity<String> updateComment(Model model,Principal principal,
@@ -69,6 +73,7 @@ public class CommentController {
 		Post post = comment.getPost();
 //		int postId = comment.getPost().getPostId();
 //		String communityName = comment.getPost().getCommunity().getCommunityName();
+		
 		if(comment.getUser()==user)
 		{
 			commentService.deleteComment(comment);
