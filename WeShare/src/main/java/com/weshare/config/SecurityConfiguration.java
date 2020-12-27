@@ -33,15 +33,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
     
     private static final String[] PUBLIC_MATCHERS = {
-    		"/user/category/all/communities",
-    		"/user/contact",
+    		"/error",
+    		"/search",
     		"/home",
     		"/",
     		"/registration",
-    		"/user/community/{communityName}",
-    		"/user/category/{communityName}/communities",
-    		"/error",
-    		"/search"
+    		"/category/all/communities",
+    		"/category/{categoryName}/communities",
+    		"/community/{communityName}",
+    		"/community/{communityName}/{postId}",   		
+    		"/user/contact",
+    		"/"
     };
     
 

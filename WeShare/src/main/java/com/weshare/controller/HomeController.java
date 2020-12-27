@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.weshare.model.Community;
 import com.weshare.model.Post;
 import com.weshare.model.User;
+import com.weshare.service.CommunityService;
 import com.weshare.service.SavePostService;
 import com.weshare.service.UserService;
 import com.weshare.service.VoteService;
-import com.weshare.service.impl.CommunityServiceImpl;
 import com.weshare.service.impl.PostServiceImpl;
 
 @Controller
@@ -37,7 +37,7 @@ public class HomeController {
 	private VoteService voteService;
 
 	@Autowired
-	private CommunityServiceImpl communityService;
+	private CommunityService communityService;
 
 	@GetMapping(value = { "/", "/login" })
 	public String index(Model model) {
@@ -61,20 +61,6 @@ public class HomeController {
 		return "admin/home";
 	}
 	
-	@GetMapping("/home")
-	public String visitorHome(Model model) {
-		
-		List<Post> posts = postService.getAllPosts().stream()
-				  .sorted(Comparator.comparing(Post::getCreationDate).reversed())
-				  .collect(Collectors.toList());
-		List<Community> topCommunities = communityService.findTopCommunities(5);
-		
-		model.addAttribute("posts", posts);
-		model.addAttribute("topCommunities", topCommunities);
-		
-		return "/home";
-	}
-
 	@GetMapping("/user/home")
 	public String userHome(Model model, Principal principal) {
 		User user=this.userService.findUserByUserName(principal.getName());

@@ -6,7 +6,7 @@
 	<meta name="description" content="This is social network platform." />
 	<meta name="keywords" content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
 	<meta name="robots" content="index, follow" />
-	<title>Search Communities | WeShare</title>
+	<title>All Communities | WeShare</title>
 
     <!-- Stylesheets
     ================================================= -->
@@ -37,10 +37,11 @@
     <!-- Header
     ================================================= navbar-fixed-top -->
 	<header id="header">
-      <nav th:replace="header::adminNavbar"></nav>
+      <nav th:replace="header::navbar"></nav>
     </header>
     
     <!--Header End-->
+
     <div id="page-contents">
     	<div class="container">
     		<div class="row">
@@ -57,14 +58,14 @@
               <hr style="border: 1px solid black;">
                 <ul>
                 	<li style="font-size:16px;margin:7px;">
-                		<a th:href="@{'/admin/category/all/communities'}">
+                		<a th:href="@{'/category/all/communities'}">
 							<span>ALL Communities</span>
 						</a>
 					</li>
 					
 					
 					<li style="font-size:16px;margin:7px;" th:each="c : ${catList}">
-						<a th:href="@{'/admin/category/'+${c.categoryName}+'/communities'}">
+						<a th:href="@{'/category/'+${c.categoryName}+'/communities'}">
 							<span th:text="${c.categoryName}"></span>
 						</a>
 					</li>
@@ -75,26 +76,19 @@
           <!-- Newsfeed Common Side Bar Left
           ================================================= -->
     	  <div class="col-md-9" style="margin-top:20px;">
-			
-			<h2>Search results for "<span style="font-style: italic; color: blue;" th:text="${query}"></span>"</h2>
+
+			<h2 th:if="${allCom}">ALL Communities</h2>    	  
+    	  	<h2 th:unless="${allCom}">Communities from <span th:text="${categoryName}"></span> Category </h2>
 			<hr/>
             <!-- Post Content
             ================================================= -->
-            	<div th:if="${noCommunities}">
-					<h3 style="color: black;">No Communities found.</h3>
-					<div><br>
-						<a th:href="@{'/admin/category/all/communities'}"
-							class="btn btn-primary">Go to all communities</a>
-					</div><br><br><br><br><br><br><br><br><br><br><br><br><br>
-				</div>
-            
-            <div th:each="com : ${communities}" class="post-content" th:title="${com.category.categoryName}">
+            <div th:each="com : ${comList}" class="post-content" th:title="${com.category.categoryName}">
               <div class="post-container">
               
                 <img th:src="@{'https://ui-avatars.com/api/?name='+${com.communityName}+'&rounded=true&background=random'}" alt="user" class="profile-photo-md pull-left" />
                 <div class="post-detail">
                   <div class="user-info">
-                    <h4><a class="profile-link" th:href="@{/admin/community/{communityName}(communityName=${com.communityName})}" th:text="${com.communityName}">Community Name</a></h4>
+                    <h4><a class="profile-link" th:href="@{/community/{communityName}(communityName=${com.communityName})}" th:text="${com.communityName}">Community Name</a></h4>
                     <span th:text="'Created By: '+${com.user.userName}"> Created By</span>
                     <!-- <p class="text-muted" th:text="'Created on: '+${com.creationDate}"> Creation Date</p> -->
                     <p class="text-muted post-description short-description" th:text="'Description: '+${#strings.abbreviate(com.communityDescription, 400)}">Community Description</p>
@@ -131,6 +125,24 @@
     <script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
     <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
     <script th:src="@{/js/script.js}"></script>
+    
+        <!-- <script>
+	 	// Limit Board Description
+	    function truncateText(element, maxLength) {
+	        let truncated = element.innerText;
+	        if (truncated.length > maxLength) {
+	            truncated = truncated.substr(0, maxLength) + '...';
+	        }
+	        //return truncated;
+	        element.innerText = truncated;
+	    }
+	    let countBDesc = document.querySelectorAll('.short-description');
+	    for(let i=0; i<countBDesc.length; i++)
+	    {
+	        truncateText(countBDesc[i], 340);
+	    }
+    </script> -->
+    
     
   </body>
 </html>

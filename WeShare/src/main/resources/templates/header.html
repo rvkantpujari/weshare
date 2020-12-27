@@ -12,12 +12,13 @@
 		        <span class="icon-bar"></span>
 		        <span class="icon-bar"></span>
 		      </button>
-		      <a class="navbar-brand" th:href="@{/user/home}" style="margin-top: -15px;"><img src="/images/logo.png" alt="WeShare logo" style="width: 50px; height: 50px;"></a>
+		      <a sec:authorize="isAuthenticated()" class="navbar-brand" th:href="@{/user/home}" style="margin-top: -15px;"><img src="/images/logo.png" alt="WeShare logo" style="width: 50px; height: 50px;"></a>
+		      <a sec:authorize="isAnonymous()" class="navbar-brand" th:href="@{/home}" style="margin-top: -15px;"><img src="/images/logo.png" alt="WeShare logo" style="width: 50px; height: 50px;"></a>
 		    </div>
 		
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		    <form action="/user/search" method="POST" class="navbar-form navbar-left hidden-sm">
+		    <form sec:authorize="isAuthenticated()" action="/user/search" method="POST" class="navbar-form navbar-left hidden-sm">
 		      	<select class="input-group" style="height:35px;border-radius:5px;" name="queryType" id="queryType">
 		      		<option value="post">Post</option>
 		      		<option value="community">Community</option>
@@ -29,17 +30,39 @@
 					</span>
 				</div>
 		      </form>
+		      
+		      <form sec:authorize="isAnonymous()" action="/search" method="POST" class="navbar-form navbar-left hidden-sm">
+		      	<select class="input-group" style="height:35px;border-radius:5px;" name="queryType" id="queryType">
+		      		<option value="post">Post</option>
+		      		<option value="community">Community</option>
+		      	</select>
+		        <div class="input-group" style="width:350px;">
+		        	<input type="text" name="query" class="form-control" required>
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="submit">Search</button>
+					</span>
+				</div>
+		      </form>
+		      
+		      
 		    	
 		      <ul class="nav navbar-nav navbar-right main-menu">
+		      
 		        <li sec:authorize="isAuthenticated()" class="dropdown" th:classappend="${#httpServletRequest.getRequestURI() == '/user/home' ? 'active':''}">
 		          <a th:href="@{/user/home}" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
 		        </li>
 		        <li sec:authorize="isAnonymous()" class="dropdown" th:classappend="${#httpServletRequest.getRequestURI() == '/home' ? 'active':''}">
 		          <a th:href="@{/home}" role="button" aria-haspopup="true" aria-expanded="false">Home</a>
 		        </li>
-		        <li class="dropdown" th:classappend="${#httpServletRequest.getRequestURI() == '/user/category/all/communities' ? 'active':''}">
+		        
+		        
+		        <li sec:authorize="isAuthenticated()" class="dropdown" th:classappend="${#httpServletRequest.getRequestURI() == '/user/category/all/communities' ? 'active':''}">
 		          <a th:href="@{/user/category/all/communities}" role="button" aria-haspopup="true" aria-expanded="false">Communities</a>
 		        </li>
+		        <li sec:authorize="isAnonymous()" class="dropdown" th:classappend="${#httpServletRequest.getRequestURI() == '/category/all/communities' ? 'active':''}">
+		          <a th:href="@{/category/all/communities}" role="button" aria-haspopup="true" aria-expanded="false">Communities</a>
+		        </li>
+		        
 		        
 		        <li class="dropdown" th:classappend="${#httpServletRequest.getRequestURI() == '/user/contact' ? 'active':''}">
 		          <a th:href="@{/user/contact}" role="button" aria-haspopup="true" aria-expanded="false">Contact Us</a>

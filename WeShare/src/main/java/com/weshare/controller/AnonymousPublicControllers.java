@@ -14,24 +14,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.weshare.model.Category;
 import com.weshare.model.Comment;
 import com.weshare.model.Community;
-import com.weshare.model.Feedback;
 import com.weshare.model.Post;
-import com.weshare.model.User;
 import com.weshare.service.CategoryService;
 import com.weshare.service.CommentService;
 import com.weshare.service.CommunityService;
-import com.weshare.service.FeedbackService;
 import com.weshare.service.PostService;
-import com.weshare.service.UserService;
 
 @Controller
-@RequestMapping("/admin")
-public class AdminController {
+public class AnonymousPublicControllers {
 
 	@Autowired
 	private CategoryService categoryService;
@@ -45,52 +39,20 @@ public class AdminController {
 	@Autowired
 	private CommentService commentService;
 	
-	@Autowired
-	private UserService userService;
-	
-	@Autowired
-	private FeedbackService feedbackService;
-	
-	@GetMapping("/feedbacks")
-	public String feedbackList(Model m,HttpServletRequest request)
-	{
-		List<Feedback> feedbacktList = feedbackService.getAllFeedbacks();
-		m.addAttribute("fdList", feedbacktList);
-		return "admin/getFeedback";
+	@GetMapping("/home")
+	public String visitorHome(Model model) {
+		
+		List<Post> posts = postService.getAllPosts().stream()
+				  .sorted(Comparator.comparing(Post::getCreationDate).reversed())
+				  .collect(Collectors.toList());
+		List<Community> topCommunities = communityService.findTopCommunities(5);
+		
+		model.addAttribute("posts", posts);
+		model.addAttribute("topCommunities", topCommunities);
+		
+		return "home";
 	}
-	
-	@GetMapping("/category/all")
-	public String categoryList(Model m)
-	{
-		List<Category> categoryList = categoryService.getAllCategories();
-		m.addAttribute("catList", categoryList);
-		return "admin/categoryList";
-	}
-	
-	@GetMapping("/category/insert")
-	public String insertCategory(Model m)
-	{
-		Category c=new Category();
-		m.addAttribute("category", c);
-		return "admin/insertCategory";
-	}
-	
-	@PostMapping("/category/save")
-	public String saveCategory(@ModelAttribute("category")Category c)
-	{
-		categoryService.saveCategory(c);
-		return "redirect:/admin/category/all";
-	}
-	
-	
-	@GetMapping("/category/update/{id}")
-	public String updateCategory(@PathVariable("id")int cid, Model m)
-	{
-		Category c=categoryService.getCategoryById(cid);
-		m.addAttribute("category", c);
-		return "admin/updateCategory";
-	}
-	
+
 	@GetMapping("/category/all/communities")
 	public String communityList(Model m)
 	{
@@ -101,8 +63,7 @@ public class AdminController {
 		m.addAttribute("comList", communityList);
 		
 		m.addAttribute("allCom",true);
-//		return "user/FindAllCommunitiesByCategory";
-		return "admin/getAllCommunities";
+		return "getAllCommunities";
 	}
 	
 	
@@ -122,7 +83,7 @@ public class AdminController {
 		m.addAttribute("catList", categoryList);
 		m.addAttribute("categoryName",cname);
 		
-		return "admin/getAllCommunities";
+		return "getAllCommunities";
 	}
 	
 	@GetMapping("/community/{communityName}")
@@ -140,15 +101,13 @@ public class AdminController {
 		}
 		m.addAttribute("comunityPosts", comunityPosts);
 	
-		return "admin/ViewCommunity";
+		return "viewCommunity";
 	}
 	
 	@GetMapping("/community/{communityName}/{postId}")
 	public String viewPost(Model model, HttpServletRequest request,
     						@PathVariable String communityName, @PathVariable int postId)
 	{
-		System.out.println("\n\n\n in ViewPost "+communityName+" "+postId+"\n\n\n");
-		
 		Post post=postService.getPostById(postId);
 		model.addAttribute("post",post);
 		List<Comment> comments=commentService.getCommentsByPost(post).stream()
@@ -159,75 +118,14 @@ public class AdminController {
 			model.addAttribute("noComments", true);
 		}
 		model.addAttribute("comments",comments);
-		return "admin/viewPost";
-	}
-	
-	@GetMapping("/manageUsers")
-	public String manageUsers(Model m)
-	{
-		
-		List<User> userList = userService.getAllUsers();
-		userList=userList.subList(1, userList.size());
-		m.addAttribute("userList", userList);
-		return "admin/manageUsers";
-	}
-
-	@GetMapping("/manageUsers/{userName}/block")
-	public String blockUser(@PathVariable("userName")String userName,
-    								Principal principal, Model m)
-	{
-		User user=userService.findUserByUserName(userName);
-		if(user.getActive()==true)
-		{
-			user.setActive(false);
-			userService.updateUser(user);
-		}
-		return "redirect:/admin/manageUsers";
-	}
-	
-	@GetMapping("/manageUsers/{userName}/unblock")
-	public String unblockUser(@PathVariable("userName")String userName,
-    								Principal principal, Model m)
-	{
-		User user=userService.findUserByUserName(userName);
-		if(user.getActive()==false)
-		{
-			user.setActive(true);
-			userService.updateUser(user);
-		}
-		return "redirect:/admin/manageUsers";
-	}
-	
-	@GetMapping("/community/{communityName}/{postId}/delete")
-	public String deletePost(@PathVariable(value = "postId") int postId) {
-		Post post = postService.getPostById(postId);
-		List<User> users=userService.getAllUsers();
-		for (User user : users) {
-		     user.getSavedPostList().remove(post);
-		     userService.updateUser(user);
-		}
-        
-		this.postService.deletePost(post);
-		return "redirect:/admin/home";
-	}
-	
-	@GetMapping("/community/{communityName}/{postId}/comment/{commentId}/delete")
-	public String deleteComment(@PathVariable(value = "commentId") int commentId) {
-		Comment comment = commentService.findCommentById(commentId);
-		Post post = comment.getPost();
-		commentService.deleteComment(comment);
-		postService.setCommentsNumById(post.getPostId(), post.getCommentsNum()-1);
-		postService.savePost(post);
-		System.out.println("\n\nsuccessfully deleted comment " + ' ' + commentId);
-		return "redirect:/admin/community/{communityName}/{postId}";
+		return "viewPost";
 	}
 	
 	
 	@PostMapping("/search")
-    public String adminSearch(Model model, Principal principal,
+    public String anonymousSearch(Model model, Principal principal,
     		@ModelAttribute("query") String query, @ModelAttribute("queryType") String queryType)
 	{
-		System.out.println("inside admin search: " + queryType + " " + query);
 		if(queryType.equals("post"))
 		{
 			List<Post> posts = postService.blurrySearch(query);
@@ -237,7 +135,7 @@ public class AdminController {
 				model.addAttribute("query", query);
 			}
 			model.addAttribute("posts", posts);
-			return "admin/searchResultPost";
+			return "searchResultPost";
 		}
 		else
 		{
@@ -253,7 +151,7 @@ public class AdminController {
 				model.addAttribute("query", query);
 			}
 			
-			return "admin/searchResultCommunity";
+			return "searchResultCommunity";
 		}
 	}
 	
