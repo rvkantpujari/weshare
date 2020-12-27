@@ -90,7 +90,7 @@
                   
                   <div class="post-detail" style="margin:-10px 0 0 0;">
                     <div class="user-info">
-                      <h2 th:text="${post.title}"></h2>
+                      <h2 th:text="${#strings.abbreviate(post.title, 20)}"></h2>
                       <p class="text-muted" th:utext="'posted by ' + ${post.user.userName} + ' on ' + ${post.creationDate}"></p>
                       <span th:text="'&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments '" class="following icon ion-compose" style="font-size:1.5rem; margin:0px; padding:0px;"></span>
                       <span class=" vertical-line-divider"></span>

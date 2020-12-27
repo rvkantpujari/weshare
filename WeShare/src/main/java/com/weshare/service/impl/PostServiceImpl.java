@@ -3,8 +3,11 @@ package com.weshare.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.weshare.model.Community;
 import com.weshare.model.Post;
 import com.weshare.repository.PostRepository;
 import com.weshare.service.PostService;
@@ -51,5 +54,22 @@ public class PostServiceImpl implements PostService {
 		List<Post> postList = postRepository.findByTitleContaining(query);
 		
 		return postList;
+	}
+	
+	@Override
+    public Page<Post> findByPage(Pageable pageable) {
+        return postRepository.findAll(pageable);
+    }
+	
+	@Override
+	public Page<Post> findAllPostsByPage(Community community, Pageable pageable)
+	{
+		return postRepository.findByCommunity(community, pageable);
+	}
+
+	@Override
+	public Page<Post> findByJoinedCommunitiesByPage(int userId, Pageable pageable)
+	{
+		return postRepository.findByJoinedCommunitiesByPage(userId, pageable);
 	}
 }

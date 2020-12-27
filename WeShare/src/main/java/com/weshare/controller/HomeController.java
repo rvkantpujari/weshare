@@ -1,41 +1,52 @@
 package com.weshare.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.weshare.model.Community;
+import com.weshare.model.Pager;
 import com.weshare.model.Post;
 import com.weshare.model.User;
 import com.weshare.service.CommunityService;
+import com.weshare.service.PostService;
 import com.weshare.service.SavePostService;
 import com.weshare.service.UserService;
 import com.weshare.service.VoteService;
-import com.weshare.service.impl.PostServiceImpl;
+import com.weshare.service.impl.CommunityServiceImpl;
 
 @Controller
 public class HomeController {
+	
+	private static final int NUM_OF_BUTTONS = 5;
+    private static final int INITIAL_PAGE = 0;
+    private static final int INITIAL_PAGE_SIZE = 10;
+    private static final int[] PAGE_SIZES = {5, 10, 15};
 
 	@Autowired
 	private UserService userService;
 
 	@Autowired
-	private PostServiceImpl postService;
+	private PostService postService;
 	
 	@Autowired
 	private SavePostService savePostService;
 	
 	@Autowired
 	private VoteService voteService;
-
+	
 	@Autowired
 	private CommunityService communityService;
 
@@ -62,23 +73,40 @@ public class HomeController {
 	}
 	
 	@GetMapping("/user/home")
-	public String userHome(Model model, Principal principal) {
+	public String userHome(Model model, Principal principal,
+			@RequestParam("pageSize") Optional<Integer> pageSize,
+            @RequestParam("page") Optional<Integer> page)
+	{
 		User user=this.userService.findUserByUserName(principal.getName());
 //	     model.addAttribute("userName", "Welcome " + user.getUserName() + "/" + user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
 //	     model.addAttribute("userMessage","Content Available Only for User Role");
 
-		List<Post> posts = new ArrayList<Post>();
+//		List<Post> posts = new ArrayList<Post>();
 		
-		for (Community community : user.getJoinedCommunityList())
-		{
-			for(Post post: community.getPosts())
-			{
-				posts.add(post);
-			}
-		}
-		posts = posts.stream()
-				  .sorted(Comparator.comparing(Post::getCreationDate).reversed())
-				  .collect(Collectors.toList());
+		int setPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        int setPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+
+//		System.out.println("\nwithout custome query");
+//		for (Community community : user.getJoinedCommunityList())
+//		{
+//			for(Post post: community.getPosts())
+//			{
+//				posts.add(post);
+//				System.out.println("post: " + post.getTitle());
+//			}
+//		}
+		
+		Page<Post> posts = postService.findByJoinedCommunitiesByPage(user.getId(),
+				PageRequest.of(setPage, setPageSize, Sort.by(Sort.Direction.DESC, "creation_date")));
+		
+		Pager postsPager = new Pager(posts.getTotalPages(),
+				posts.getNumber(), NUM_OF_BUTTONS);
+		
+//		System.out.println("\nwith custome query");
+//		for(Post post: posts)
+//		{
+//			System.out.println("post: " + post.getTitle());
+//		}
 		
 		Set<Community> joinedCommunities = user.getJoinedCommunityList();
 		
@@ -95,6 +123,9 @@ public class HomeController {
 		List<Community> topCommunities = communityService.findTopCommunities(5);
 		
 		model.addAttribute("posts", posts);
+		model.addAttribute("postsPager", postsPager);
+		model.addAttribute("pageSizes", PAGE_SIZES);
+		model.addAttribute("selectedPageSize", setPageSize);
 		model.addAttribute("savePostService",savePostService);
 		model.addAttribute("voteService", voteService);
 		model.addAttribute("user", user);

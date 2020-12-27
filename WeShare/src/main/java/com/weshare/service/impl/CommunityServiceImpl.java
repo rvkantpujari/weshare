@@ -5,10 +5,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.weshare.model.Category;
 import com.weshare.model.Community;
+import com.weshare.model.Post;
 import com.weshare.repository.CommunityRepository;
 import com.weshare.service.CommunityService;
 
@@ -58,5 +61,4 @@ public class CommunityServiceImpl implements CommunityService {
 		List<Community> postList = communityRepository.findByCommunityNameContaining(query);
 		return postList;
 	}
-
 }

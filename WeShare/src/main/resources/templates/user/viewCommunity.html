@@ -107,7 +107,7 @@
            	</div>
            	
            	
-           	<div class="post-content" th:each="post: ${comunityPosts}">
+           	<div class="post-content" th:each="post: ${communityPosts}">
               <div class="post-container">
                 <div class="post-detail" style="margin-left:0px;">
                   <div class="user-info">
@@ -185,6 +185,51 @@
                 </div>
               </div>
             </div>
+            
+            <div class="row page">
+                    <div class="form-group col-md-1" style="margin-left: 40px;">
+                        <select class="form-control pagination" id="pageSizeSelect">
+                            
+                            <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}"
+                                    th:selected="${pageSize} == ${selectedPageSize}">
+                                    <span th:text="${pageSize}"></span>
+                                  </option>
+                             
+                        </select>
+                    </div>
+                    <div th:if="${communityPosts.totalPages != 1}" class="form-group col-md-11 pagination-centered">
+                        <ul class="pagination">
+                            <li th:class="${communityPosts.number == 0} ? disabled">
+                                <a th:if="${user == null}" class="pageLink" th:href="@{''(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+                                <a th:if="${user != null}" class="pageLink" th:href="@{''(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+                            </li>
+                            <li th:class="${communityPosts.number == 0} ? disabled">
+                                <a th:if="${user == null}" class="pageLink" th:href="@{''(pageSize=${selectedPageSize}, page=${communityPosts.number})}">&larr;</a>
+                                <a th:if="${user != null}" class="pageLink" th:href="@{''(pageSize=${selectedPageSize}, page=${communityPosts.number})}">&larr;</a>
+                            </li>
+                            <li th:class="${communityPosts.number == (page - 1)} ? 'active pointer-disabled'"
+                                th:each="page : ${#numbers.sequence(communityPostsPager.firstButton, communityPostsPager.finalButton)}">
+                                <a th:if="${user == null}" class="pageLink" th:href="@{'' (pageSize=${selectedPageSize}, page=${page})}"
+                                   th:text="${page}"></a>
+                                <a th:if="${user != null}" class="pageLink" th:href="@{'' (pageSize=${selectedPageSize}, page=${page})}"
+                                   th:text="${page}"></a>
+                            </li>
+                            <li th:class="${communityPosts.number + 1 == communityPosts.totalPages} ? disabled">
+                                <a th:if="${user == null}" class="pageLink"
+                                   th:href="@{'' (pageSize=${selectedPageSize}, page=${communityPosts.number + 2})}">&rarr;</a>
+                                <a th:if="${user != null}" class="pageLink"
+                                   th:href="@{'' (pageSize=${selectedPageSize}, page=${communityPosts.number + 2})}">&rarr;</a>
+                            </li>
+                            <li th:class="${communityPosts.number + 1 == communityPosts.totalPages} ? disabled">
+                                <a th:if="${user == null}" class="pageLink"
+                                   th:href="@{'' (pageSize=${selectedPageSize}, page=${communityPosts.totalPages})}">&raquo;</a>
+                                <a th:if="${user != null}" class="pageLink"
+                                   th:href="@{'' (pageSize=${selectedPageSize}, page=${communityPosts.totalPages})}">&raquo;</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
     	</div>
       </div>
     </div>
@@ -222,6 +267,16 @@
     	function votePostNotSignIn() {
             alert("Please login or register to vote!");
         }
+    	
+		$("#pageSizeSelect").change(function() {
+			var pageSize = $('option:selected', $(this)).text();
+			var curr_url = window.location.href;
+			var beforeQueMark = curr_url.split('?')[0];
+			var afterQueMark = curr_url.split('?')[1];
+			
+			var fina_url = beforeQueMark + '?pageSize=' + pageSize;
+	        window.location = fina_url;
+	    });
 		
 /*     	// Limit Description
 	    function truncateText(element, maxLength) {
