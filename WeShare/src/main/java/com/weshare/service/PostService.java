@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.weshare.model.Community;
 import com.weshare.model.Post;
 @Service
 public interface PostService
@@ -25,4 +26,6 @@ public interface PostService
 	List<Post> blurrySearch(String query);
 	
 	Page<Post> findByPage(Pageable pageable);
+
+	Page<Post> findAllPostsByPage(Community community, Pageable pageable);
 }
