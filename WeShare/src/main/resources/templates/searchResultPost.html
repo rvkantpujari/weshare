@@ -30,7 +30,7 @@
 	<!-- Header
     ================================================= navbar-fixed-top -->
 	<header id="header">
-		<nav th:replace="header::adminNavbar"></nav>
+		<nav th:replace="header::navbar"></nav>
 	</header>
 
 	<!--Header End-->
@@ -46,7 +46,7 @@
 							<h3 style="color: black;">No Post found for <span style="font-style: italic; color: blue;" th:text="${query}"></span>.</h3>
 							<hr />
 							<div>
-								<a th:href="@{'/admin/category/all/communities'}"
+								<a th:href="@{'/category/all/communities'}"
 									class="btn btn-primary">Go to all communities</a>
 							</div><br><br><br><br><br><br><br><br><br><br><br><br><br>
 						</div>
@@ -56,7 +56,7 @@
 									<div class="post-detail" style="margin-left: 0px;">
 										<div class="user-info">
 											<a
-												th:href="@{'/admin/community/'+${post.community.communityName}+'/'+${post.postId}}"
+												th:href="@{'/community/'+${post.community.communityName}+'/'+${post.postId}}"
 												class="profile-link">
 												<h2 th:text="${post.title}"></h2>
 											</a>
@@ -74,7 +74,7 @@
 											<span th:if="${user == null}">
 												<button onclick="votePostNotSignIn()"
 													class="upvoteBtn btn text-muted icon ion-thumbsup"
-													style="font-size: 2.5rem; background-color: white" disabled></button>
+													style="font-size: 2.5rem; background-color: white"></button>
 											</span> 
 											
 											 <span th:id="'score' + ${post.postId}"
@@ -83,7 +83,7 @@
 												th:if="${user == null}">
 												<button onclick="votePostNotSignIn()"
 													class="downvoteBtn btn text-muted fa fa-thumbs-down"
-													style="font-size: 2.5rem; padding: 10px; background-color: white" disabled></button>
+													style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
 											</span>
 
 										</div>
