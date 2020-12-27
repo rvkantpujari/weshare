@@ -161,10 +161,9 @@
                               </div>
                               <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
-                                  <a th:href="@{'/admin/community/'+${post.community.communityName}+'/'+${post.postId}+'/comment/'+${comment.commentId}+'/delete'}"
-													class="float-right btn btn-danger btn-md">
-														<i class="fa fa-trash-o" aria-hidden="true"></i>
-									</a>
+									<a><button type="submit" class="delete-comment" th:value="${comment.commentId}" style="border: none;background-color: transparent;">
+										Delete
+									</button></a>
                                 </li>
                                 
                               </ul>
@@ -209,10 +208,7 @@
     <script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
     <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
     <script th:src="@{/js/script.js}"></script>
-	<script th:src="@{/js/upvote.js}"></script>
-	<script th:src="@{/js/downvote.js}"></script>
-    <script th:src="@{/js/editComment.js}"></script>
-    <script th:src="@{/js/deleteComment.js}"></script>
+    <script th:src="@{/js/deleteCommentAdmin.js}"></script>
 	<script>
 	    
 	    $(document).ready(function(){

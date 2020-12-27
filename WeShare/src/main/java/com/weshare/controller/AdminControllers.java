@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -211,15 +213,17 @@ public class AdminControllers {
 		return "redirect:/admin/home";
 	}
 	
-	@GetMapping("/community/{communityName}/{postId}/comment/{commentId}/delete")
-	public String deleteComment(@PathVariable(value = "commentId") int commentId) {
+	@PostMapping("/comment/delete/{commentId}")
+	public ResponseEntity<String> deleteComment(@PathVariable(value = "commentId") int commentId) {
 		Comment comment = commentService.findCommentById(commentId);
+		System.out.println("\n\nin del comment: " + comment.getContent());
 		Post post = comment.getPost();
 		commentService.deleteComment(comment);
 		postService.setCommentsNumById(post.getPostId(), post.getCommentsNum()-1);
 		postService.savePost(post);
 		System.out.println("\n\nsuccessfully deleted comment " + ' ' + commentId);
-		return "redirect:/admin/community/{communityName}/{postId}";
+		return new ResponseEntity<>("success",
+				   HttpStatus.OK);
 	}
 	
 	
