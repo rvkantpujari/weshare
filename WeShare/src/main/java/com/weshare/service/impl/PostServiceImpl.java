@@ -57,12 +57,12 @@ public class PostServiceImpl implements PostService {
 	}
 	
 	@Override
-    public Page<Post> findByPage(Pageable pageable) {
+    public Page<Post> findAlPostsByPage(Pageable pageable) {
         return postRepository.findAll(pageable);
     }
 	
 	@Override
-	public Page<Post> findAllPostsByPage(Community community, Pageable pageable)
+	public Page<Post> findAllCommunityPostsByPage(Community community, Pageable pageable)
 	{
 		return postRepository.findByCommunity(community, pageable);
 	}

@@ -58,7 +58,7 @@ public class AnonymousPublicControllers {
 		int setPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
         int setPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
         
-        Page<Post> posts = postService.findByPage(
+        Page<Post> posts = postService.findAlPostsByPage(
 				PageRequest.of(setPage, setPageSize, Sort.by(Sort.Direction.DESC, "creationDate")));
 		
 		Pager postsPager = new Pager(posts.getTotalPages(),
@@ -109,21 +109,33 @@ public class AnonymousPublicControllers {
 	}
 	
 	@GetMapping("/community/{communityName}")
-	public String singleCommunity(@PathVariable("communityName")String comName,Model m)
+	public String singleCommunity(@PathVariable("communityName")String comName,Model m,
+			@RequestParam("pageSize") Optional<Integer> pageSize,
+            @RequestParam("page") Optional<Integer> page)
 	{
 		Community c = communityService.getCommunityByName(comName);
 		m.addAttribute("com", c);
 		
-		List<Post> comunityPosts = c.getPosts().stream()
-				  								.sorted(Comparator.comparing(Post::getCreationDate).reversed())
-				  								.collect(Collectors.toList());
-		if(comunityPosts.isEmpty())
+		int setPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        int setPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+
+        Page<Post> communityPosts =  postService.findAllCommunityPostsByPage(c,
+        		PageRequest.of(setPage, setPageSize, Sort.by(Sort.Direction.DESC, "creationDate")));
+        
+        Pager communityPostsPager = new Pager(communityPosts.getTotalPages(),
+        		communityPosts.getNumber(), NUM_OF_BUTTONS);
+        
+		if(communityPosts.isEmpty())
 		{
 			m.addAttribute("noPosts", true);
 		}
-		m.addAttribute("comunityPosts", comunityPosts);
+		
+		m.addAttribute("communityPostsPager", communityPostsPager);
+		m.addAttribute("communityPosts", communityPosts);
+		m.addAttribute("pageSizes", PAGE_SIZES);
+		m.addAttribute("selectedPageSize", setPageSize);
 	
-		return "viewCommunity";
+		return "viewCommunityVisitor";
 	}
 	
 	@GetMapping("/community/{communityName}/{postId}")

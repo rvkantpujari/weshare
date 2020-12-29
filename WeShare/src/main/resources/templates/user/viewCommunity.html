@@ -244,6 +244,7 @@
 						</div>
 					</div>
 
+					<div th:if="${!communityPosts.isEmpty()}">
 					<div class="row page" style="margin-top: 30px;">
 						<div class="form-group col-xs-6 col-md-3"
 							style="margin-left: 40px; display: inline;">
@@ -306,7 +307,8 @@
 							</ul>
 						</div>
 					</div>
-
+					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -354,21 +356,6 @@
 				var fina_url = beforeQueMark + '?pageSize=' + pageSize;
 				window.location = fina_url;
 			});
-
-			/*     	// Limit Description
-			 function truncateText(element, maxLength) {
-			 let truncated = element.innerText;
-			 if (truncated.length > maxLength) {
-			 truncated = truncated.substr(0, maxLength) + '...';
-			 }
-			 //return truncated;
-			 element.innerText = truncated;
-			 }
-			 let countBDesc = document.querySelectorAll('.short-description');
-			 for(let i=0; i<countBDesc.length; i++)
-			 {
-			 truncateText(countBDesc[i], 150);
-			 } */
 		</script>
 </body>
 </html>

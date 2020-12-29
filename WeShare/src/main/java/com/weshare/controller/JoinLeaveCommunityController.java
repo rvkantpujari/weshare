@@ -64,7 +64,7 @@ public class JoinLeaveCommunityController {
 		int setPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
         int setPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
-        Page<Post> communityPosts =  postService.findAllPostsByPage(c,
+        Page<Post> communityPosts =  postService.findAllCommunityPostsByPage(c,
         		PageRequest.of(setPage, setPageSize, Sort.by(Sort.Direction.DESC, "creationDate")));
         
         Pager communityPostsPager = new Pager(communityPosts.getTotalPages(),
