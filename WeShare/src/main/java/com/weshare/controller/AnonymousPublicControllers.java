@@ -180,6 +180,69 @@ public class AnonymousPublicControllers {
 			m.addAttribute("noPosts", true);
 		}
 		
+		m.addAttribute("communityName", comName);
+		m.addAttribute("communityPostsPager", communityPostsPager);
+		m.addAttribute("communityPosts", communityPosts);
+		m.addAttribute("pageSizes", PAGE_SIZES);
+		m.addAttribute("selectedPageSize", setPageSize);
+	
+		return "viewCommunityVisitor";
+	}
+	
+	@GetMapping("/community/{communityName}/top")
+	public String singleCommunityTop(@PathVariable("communityName")String comName,Model m,
+			@RequestParam("pageSize") Optional<Integer> pageSize,
+            @RequestParam("page") Optional<Integer> page)
+	{
+		Community c = communityService.getCommunityByName(comName);
+		m.addAttribute("com", c);
+		
+		int setPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        int setPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+
+        Page<Post> communityPosts =  postService.findAllCommunityPostsByPage(c,
+        		PageRequest.of(setPage, setPageSize, Sort.by(Sort.Direction.DESC, "score")));
+        
+        Pager communityPostsPager = new Pager(communityPosts.getTotalPages(),
+        		communityPosts.getNumber(), NUM_OF_BUTTONS);
+        
+		if(communityPosts.isEmpty())
+		{
+			m.addAttribute("noPosts", true);
+		}
+		
+		m.addAttribute("communityName", comName);
+		m.addAttribute("communityPostsPager", communityPostsPager);
+		m.addAttribute("communityPosts", communityPosts);
+		m.addAttribute("pageSizes", PAGE_SIZES);
+		m.addAttribute("selectedPageSize", setPageSize);
+	
+		return "viewCommunityVisitor";
+	}
+	
+	@GetMapping("/community/{communityName}/popular")
+	public String singleCommunityPopular(@PathVariable("communityName")String comName,Model m,
+			@RequestParam("pageSize") Optional<Integer> pageSize,
+            @RequestParam("page") Optional<Integer> page)
+	{
+		Community c = communityService.getCommunityByName(comName);
+		m.addAttribute("com", c);
+		
+		int setPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        int setPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+
+        Page<Post> communityPosts =  postService.findAllCommunityPostsByPage(c,
+        		PageRequest.of(setPage, setPageSize, Sort.by(Sort.Direction.DESC, "commentsNum")));
+        
+        Pager communityPostsPager = new Pager(communityPosts.getTotalPages(),
+        		communityPosts.getNumber(), NUM_OF_BUTTONS);
+        
+		if(communityPosts.isEmpty())
+		{
+			m.addAttribute("noPosts", true);
+		}
+		
+		m.addAttribute("communityName", comName);
 		m.addAttribute("communityPostsPager", communityPostsPager);
 		m.addAttribute("communityPosts", communityPosts);
 		m.addAttribute("pageSizes", PAGE_SIZES);

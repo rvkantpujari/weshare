@@ -97,9 +97,9 @@
           ================================================= -->
 				<div class="col-md-9">
 					<div>
-						<button class="btn btn-default sort-btn">Most Liked</button>
-						<button class="btn btn-default sort-btn">Most Commented</button>
-						<button class="btn btn-default sort-btn">Newest</button>
+						<a th:href="@{'/community/'+${communityName}+'/top'}"><button id="btn-sort-top" class="btn btn-default sort-btn">Most Liked</button></a>
+						<a th:href="@{'/community/'+${communityName}+'/popular'}"><button id="btn-sort-popular" class="btn btn-default sort-btn">Most Commented</button></a>
+						<a th:href="@{'/community/'+${communityName}}"><button id="btn-sort-new" class="btn btn-default sort-btn">Newest</button></a>
 					</div>
 					<div class="post-content" th:each="post: ${communityPosts}"
 						style="margin-top: 20px;">
@@ -285,8 +285,22 @@
 				var beforeQueMark = curr_url.split('?')[0];
 				var afterQueMark = curr_url.split('?')[1];
 
-				var fina_url = beforeQueMark + '?pageSize=' + pageSize;
-				window.location = fina_url;
+				var final_url = beforeQueMark + '?pageSize=' + pageSize;
+				window.location = final_url;
+			});
+			
+			$("#btn-sort-top").click(function() {
+				var curr_url = window.location.href;
+				var final_url = curr_url + "/top";
+				console.log(final_url);
+				window.location = final_url;
+			});
+			
+			$("#btn-sort-popular").click(function() {
+				var curr_url = window.location.href;
+				var final_url = curr_url + "/popular";
+				console.log(final_url);
+				window.location = final_url;
 			});
 		</script>
 </body>
