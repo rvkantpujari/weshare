@@ -25,9 +25,9 @@ public interface PostService
 
 	List<Post> blurrySearch(String query);
 	
-	Page<Post> findByPage(Pageable pageable);
+	Page<Post> findAlPostsByPage(Pageable pageable);
 
-	Page<Post> findAllPostsByPage(Community community, Pageable pageable);
+	Page<Post> findAllCommunityPostsByPage(Community community, Pageable pageable);
 
 	Page<Post> findByJoinedCommunitiesByPage(int userId, Pageable pageable);
 }

@@ -23,13 +23,23 @@
 
 <!--Favicon-->
 <link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}" />
+<style>
+.sort-btn {
+	margin-right: 5px;
+}
+
+.sort-btn:hover {
+	transform: scale(1.05);
+	transition: transform 300ms;
+}
+</style>
 </head>
 <body>
 
 	<!-- Header
     ================================================= navbar-fixed-top -->
 	<header id="header">
-		<nav th:replace="header::adminNavbar"></nav>
+		<nav th:replace="header::navbar"></nav>
 	</header>
 
 	<!--Header End-->
@@ -77,8 +87,8 @@
 
 					</div>
 				</div>
-				<hr />
 				<div th:if="${noPosts}">
+					<hr />
 					<h3 style="font-style: italic; color: black;">No posts
 						available right now. Visit again later!</h3>
 				</div>
@@ -86,35 +96,42 @@
 				<!-- About Community Side Bar Right
           ================================================= -->
 				<div class="col-md-9">
-
-					<div class="post-content" th:each="post: ${communityPosts}">
+					<div th:if="${!communityPosts.isEmpty()}">
+						<div>
+							<a th:href="@{'/community/'+${communityName}+'/top'}"><button id="btn-sort-top" class="btn btn-default sort-btn">Most Liked</button></a>
+							<a th:href="@{'/community/'+${communityName}+'/popular'}"><button id="btn-sort-popular" class="btn btn-default sort-btn">Most Commented</button></a>
+							<a th:href="@{'/community/'+${communityName}}"><button id="btn-sort-new" class="btn btn-default sort-btn">Newest</button></a>
+						</div>
+					</div>
+					<div class="post-content" th:each="post: ${communityPosts}"
+						style="margin-top: 20px;">
 						<div class="post-container">
 							<div class="post-detail" style="margin-left: 0px;">
 								<div class="user-info">
 									<div class="row">
 										<div class="col-xs-9 text-justify">
 											<a
-												th:href="@{'/admin/community/'+${com.communityName}+'/'+${post.postId}}"
+												th:href="@{'/community/'+${com.communityName}+'/'+${post.postId}}"
 												class="profile-link">
-												<h3 th:text="${post.title}"></h3>
+												<h2 th:text="${post.title}"></h2>
 											</a>
 										</div>
-										<div class="reaction col-xs-3"
-											style="position: relative; right: -20px; top: 2vh;">
-
+										<div class="reaction col-xs-3">
 											<span th:if="${user == null}">
-												<button class="upvoteBtn btn text-muted icon ion-thumbsup"
-													style="font-size: 2.5rem; background-color: white" disabled></button>
+												<button data-toggle="modal" data-target="#myModal"
+													class="upvoteBtn btn text-muted icon ion-thumbsup"
+													style="font-size: 2.5rem; background-color: white"></button>
 											</span> <span th:id="'score' + ${post.postId}"
 												th:text=" ${post.score}"
 												style="font-size: 2.0rem; padding: 15px"></span> <span
 												th:if="${user == null}">
-												<button class="downvoteBtn btn text-muted fa fa-thumbs-down"
-													style="font-size: 2.5rem; padding: 10px; background-color: white"
-													disabled></button>
+												<button data-toggle="modal" data-target="#myModal"
+													class="downvoteBtn btn text-muted fa fa-thumbs-down"
+													style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
 											</span>
 										</div>
 									</div>
+
 									<p class="text-muted"
 										th:text="'posted by ' + ${post.user.userName} + ' on ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></p>
 									<span
@@ -228,6 +245,29 @@
 			<div class="spinner"></div>
 		</div>
 
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" role="dialog"
+			style="margin-top: 20vh;">
+			<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title" style="font-size: 3rem;">Login</h4>
+					</div>
+					<div class="modal-body h4">
+						<p>In order to UpVote or DownVote, you are required to be
+							logged in.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
 		<!-- Scripts
     ================================================= -->
 		<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
@@ -235,21 +275,21 @@
 		<script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
 		<script th:src="@{/js/jquery.scrollbar.min.js}"></script>
 		<script th:src="@{/js/script.js}"></script>
-		<script th:src="@{/js/upvote.js}"></script>
-		<script th:src="@{/js/downvote.js}"></script>
 
 		<script th:inline="javascript">
-		
+			function votePostNotSignIn() {
+				alert("Please login or register to vote!");
+			}
+
 			$("#pageSizeSelect").change(function() {
 				var pageSize = $('option:selected', $(this)).text();
 				var curr_url = window.location.href;
 				var beforeQueMark = curr_url.split('?')[0];
 				var afterQueMark = curr_url.split('?')[1];
 
-				var fina_url = beforeQueMark + '?pageSize=' + pageSize;
-				window.location = fina_url;
+				var final_url = beforeQueMark + '?pageSize=' + pageSize;
+				window.location = final_url;
 			});
-			
 		</script>
 </body>
 </html>
