@@ -1,11 +1,9 @@
 package com.weshare.controller;
 
 import java.security.Principal;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,7 +23,6 @@ import com.weshare.service.PostService;
 import com.weshare.service.SavePostService;
 import com.weshare.service.UserService;
 import com.weshare.service.VoteService;
-import com.weshare.service.impl.CommunityServiceImpl;
 
 @Controller
 public class HomeController {

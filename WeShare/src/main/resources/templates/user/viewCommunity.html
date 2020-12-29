@@ -78,15 +78,11 @@
                     <button th:unless="${joined}==true" class="btn btn-danger" style="padding: 5px 20px; margin: 5px 0px; border-radius:20px;">Leave</button> -->
 
 									<div th:unless="${exist}">
-										<a th:href="@{'/user/community/'+${communityName}+'/join'}">
-											<button type="submit" class="btn btn-success col-3">Join</button>
-										</a>
+											<button th:value="${com.communityName}" type="submit" class="joinCommunityBtn btn btn-success col-3">Join</button>
 									</div>
 
 									<div th:if="${exist}">
-										<a th:href="@{'/user/community/'+${communityName}+'/leave'}">
-											<button type="submit" class="btn btn-danger col-3">Leave</button>
-										</a>
+											<button th:value="${com.communityName}" type="submit" class="leaveCommunityBtn btn btn-danger col-3">Leave</button>
 									</div>
 								</div>
 							</div>
@@ -334,6 +330,8 @@
 		<script th:src="@{/js/downvote.js}"></script>
 		<script th:src="@{/js/savePost.js}"></script>
 		<script th:src="@{/js/unsavePost.js}"></script>
+		<script th:src="@{/js/joinCommunity.js}"></script>
+		<script th:src="@{/js/leaveCommunity.js}"></script>
 		<script th:inline="javascript">
 			/*<![CDATA[*/
 			var communityName = /*[[${com.communityName}]]*/'Sebastian';

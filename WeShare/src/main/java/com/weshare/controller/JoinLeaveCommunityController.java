@@ -3,10 +3,12 @@ package com.weshare.controller;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.weshare.model.Community;
@@ -24,26 +26,26 @@ public class JoinLeaveCommunityController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/{communityName}/join")
-	public String joinCommunity(@PathVariable("communityName") String comName, Principal principal, Model m) {
+	@PostMapping("/{communityName}/join")
+	public ResponseEntity<String> joinCommunity(@PathVariable("communityName") String comName, Principal principal, Model m) {
 
 		User user = userService.findUserByUserName(principal.getName());
 		Community c = communityService.getCommunityByName(comName);
 
 		if (user.getJoinedCommunityList().contains(c)) {
-			m.addAttribute("exist", true);
-			return "redirect:/user/community/{communityName}";
+			return new ResponseEntity<>("success", 
+					   HttpStatus.OK);
 		}
 		c.setMembersCount(c.getMembersCount() + 1);
 
 		user.getJoinedCommunityList().add(c);
 		userService.updateUser(user);
-		m.addAttribute("exist", true);
-		return "redirect:/user/community/{communityName}";
+		return new ResponseEntity<>("success", 
+				   HttpStatus.OK);
 	}
 
-	@GetMapping("/{communityName}/leave")
-	public String leaveCommunity(@PathVariable("communityName") String comName, Principal principal, Model m) {
+	@PostMapping("/{communityName}/leave")
+	public ResponseEntity<String> leaveCommunity(@PathVariable("communityName") String comName, Principal principal, Model m) {
 
 		User user = userService.findUserByUserName(principal.getName());
 
@@ -52,8 +54,8 @@ public class JoinLeaveCommunityController {
 
 		user.getJoinedCommunityList().remove(c);
 		userService.updateUser(user);
-		m.addAttribute("exist", false);
-		return "redirect:/user/community/{communityName}";
+		return new ResponseEntity<>("success", 
+				   HttpStatus.OK);
 	}
 
 }
