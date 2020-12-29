@@ -117,10 +117,12 @@
 				<!-- About Community Side Bar Right
           ================================================= -->
 				<div class="col-md-9">
-					<div>
-						<a th:href="@{'/user/community/'+${communityName}+'/top'}"><button id="btn-sort-top" class="btn btn-default sort-btn">Most Liked</button></a>
-						<a th:href="@{'/user/community/'+${communityName}+'/popular'}"><button id="btn-sort-popular" class="btn btn-default sort-btn">Most Commented</button></a>
-						<a th:href="@{'/user/community/'+${communityName}}"><button id="btn-sort-new" class="btn btn-default sort-btn">Newest</button></a>
+					<div th:if="${!communityPosts.isEmpty()}">
+						<div>
+							<a th:href="@{'/user/community/'+${communityName}+'/top'}"><button id="btn-sort-top" class="btn btn-default sort-btn">Most Liked</button></a>
+							<a th:href="@{'/user/community/'+${communityName}+'/popular'}"><button id="btn-sort-popular" class="btn btn-default sort-btn">Most Commented</button></a>
+							<a th:href="@{'/user/community/'+${communityName}}"><button id="btn-sort-new" class="btn btn-default sort-btn">Newest</button></a>
+						</div>
 					</div>
 					<div class="create-post" style="cursor: pointer;">
 						<div class="col-md-10 col-sm-10">
