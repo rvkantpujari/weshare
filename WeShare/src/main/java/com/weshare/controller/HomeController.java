@@ -59,14 +59,26 @@ public class HomeController {
 	}
 
 	@GetMapping("/admin/home")
-	public String adminHome(Model model) {
+	public String adminHome(Model model,
+			@RequestParam("pageSize") Optional<Integer> pageSize,
+            @RequestParam("page") Optional<Integer> page)
+	{
 		
-		List<Post> posts = postService.getAllPosts().stream()
-				  .sorted(Comparator.comparing(Post::getCreationDate).reversed())
-				  .collect(Collectors.toList());
+		int setPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        int setPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        
+        Page<Post> posts = postService.findAlPostsByPage(
+				PageRequest.of(setPage, setPageSize, Sort.by(Sort.Direction.DESC, "creationDate")));
+		
+		Pager postsPager = new Pager(posts.getTotalPages(),
+				posts.getNumber(), NUM_OF_BUTTONS);
+		
 		List<Community> topCommunities = communityService.findTopCommunities(5);
 		
 		model.addAttribute("posts", posts);
+		model.addAttribute("postsPager", postsPager);
+		model.addAttribute("pageSizes", PAGE_SIZES);
+		model.addAttribute("selectedPageSize", setPageSize);
 		model.addAttribute("topCommunities", topCommunities);
 		
 		return "admin/home";
