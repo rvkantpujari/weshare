@@ -3,21 +3,27 @@ package com.weshare.controller;
 import java.security.Principal;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.weshare.model.Category;
 import com.weshare.model.Comment;
 import com.weshare.model.Community;
+import com.weshare.model.Pager;
 import com.weshare.model.Post;
 import com.weshare.service.CategoryService;
 import com.weshare.service.CommentService;
@@ -26,7 +32,12 @@ import com.weshare.service.PostService;
 
 @Controller
 public class AnonymousPublicControllers {
-
+	
+	private static final int NUM_OF_BUTTONS = 5;
+    private static final int INITIAL_PAGE = 0;
+    private static final int INITIAL_PAGE_SIZE = 10;
+    private static final int[] PAGE_SIZES = {5, 10, 15};
+	
 	@Autowired
 	private CategoryService categoryService;
 	
@@ -40,14 +51,25 @@ public class AnonymousPublicControllers {
 	private CommentService commentService;
 	
 	@GetMapping("/home")
-	public String visitorHome(Model model) {
+	public String visitorHome(Model model,
+			@RequestParam("pageSize") Optional<Integer> pageSize,
+            @RequestParam("page") Optional<Integer> page)
+	{
+		int setPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        int setPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        
+        Page<Post> posts = postService.findByPage(
+				PageRequest.of(setPage, setPageSize, Sort.by(Sort.Direction.DESC, "creationDate")));
 		
-		List<Post> posts = postService.getAllPosts().stream()
-				  .sorted(Comparator.comparing(Post::getCreationDate).reversed())
-				  .collect(Collectors.toList());
+		Pager postsPager = new Pager(posts.getTotalPages(),
+				posts.getNumber(), NUM_OF_BUTTONS);
+		
 		List<Community> topCommunities = communityService.findTopCommunities(5);
 		
 		model.addAttribute("posts", posts);
+		model.addAttribute("postsPager", postsPager);
+		model.addAttribute("pageSizes", PAGE_SIZES);
+		model.addAttribute("selectedPageSize", setPageSize);
 		model.addAttribute("topCommunities", topCommunities);
 		
 		return "home";

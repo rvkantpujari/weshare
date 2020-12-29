@@ -78,35 +78,15 @@ public class HomeController {
             @RequestParam("page") Optional<Integer> page)
 	{
 		User user=this.userService.findUserByUserName(principal.getName());
-//	     model.addAttribute("userName", "Welcome " + user.getUserName() + "/" + user.getFirstName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
-//	     model.addAttribute("userMessage","Content Available Only for User Role");
-
-//		List<Post> posts = new ArrayList<Post>();
 		
 		int setPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
         int setPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
-//		System.out.println("\nwithout custome query");
-//		for (Community community : user.getJoinedCommunityList())
-//		{
-//			for(Post post: community.getPosts())
-//			{
-//				posts.add(post);
-//				System.out.println("post: " + post.getTitle());
-//			}
-//		}
-		
 		Page<Post> posts = postService.findByJoinedCommunitiesByPage(user.getId(),
 				PageRequest.of(setPage, setPageSize, Sort.by(Sort.Direction.DESC, "creation_date")));
 		
 		Pager postsPager = new Pager(posts.getTotalPages(),
 				posts.getNumber(), NUM_OF_BUTTONS);
-		
-//		System.out.println("\nwith custome query");
-//		for(Post post: posts)
-//		{
-//			System.out.println("post: " + post.getTitle());
-//		}
 		
 		Set<Community> joinedCommunities = user.getJoinedCommunityList();
 		
