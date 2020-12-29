@@ -90,23 +90,25 @@
                   
                   <div class="post-detail" style="margin:-10px 0 0 0;">
                     <div class="user-info">
-                      <h2 th:text="${post.title}"></h2>
+                    	<div class="row">
+							<div class="col-xs-9 text-justify">
+								<h3 th:text="${post.title}"></h3>
+							</div>
+							
+							<div class="reaction col-xs-3">
+								<span th:if="${user == null}">
+			                  		<button data-toggle="modal" data-target="#myModal" class="upvoteBtn btn text-muted icon ion-thumbsup" style="font-size:2.5rem; background-color:white"></button>
+			                    </span>
+			                    
+			                    <span th:id="'score' + ${post.postId}" th:text=" ${post.score}" style="font-size:2.0rem; padding:15px"></span>
+			                    	
+			                    <span th:if="${user == null}">
+			                  		<button data-toggle="modal" data-target="#myModal" class="downvoteBtn btn text-muted fa fa-thumbs-down" style="font-size:2.5rem; padding:10px; background-color:white"></button>
+			                    </span>
+							</div>
+						</div>
                       <p class="text-muted" th:utext="'posted by ' + ${post.user.userName} + ' on ' + ${post.creationDate}"></p>
                       <span th:text="'&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments '" class="following icon ion-compose" style="font-size:1.5rem; margin:0px; padding:0px;"></span>
-
-	                  <div class="reaction">
-	
-	                  	<span th:if="${user == null}">
-                  		<button onclick="votePostNotSignIn()" class="upvoteBtn btn text-muted icon ion-thumbsup" style="font-size:2.5rem; background-color:white"></button>
-                    </span>
-                    
-                    	<span th:id="'score' + ${post.postId}" th:text=" ${post.score}" style="font-size:2.0rem; padding:15px"></span>
-                    	
-                    <span th:if="${user == null}">
-                  		<button onclick="votePostNotSignIn()" class="downvoteBtn btn text-muted fa fa-thumbs-down" style="font-size:2.5rem; padding:10px; background-color:white"></button>
-                    </span>
-	                    
-	                  </div>
 
                     </div>
                  
@@ -180,6 +182,27 @@
     <div id="spinner-wrapper">
       <div class="spinner"></div>
     </div>
+    
+    <!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog" style="margin-top:20vh;">
+	  <div class="modal-dialog">
+	  
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title" style="font-size:3rem;">Login</h4>
+	      </div>
+	      <div class="modal-body h4">
+	        <p>In order to UpVote or DownVote, you are required to be logged in.</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	    
+	  </div>
+	</div>
     
     <!-- Scripts
     ================================================= -->

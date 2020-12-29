@@ -51,11 +51,150 @@ html, body {
 
 body{
 	font-family: 'Lato', sans-serif;
-  line-height: 26px;
+  	line-height: 26px;
 	color: #6d6e71;
 	font-size: 13px;
 }
 
+.navbar li a {
+	text-align: center;
+}
+
+/*==================================================
+  Search Bar
+  ==================================================*/
+
+.search-bar {
+	width:27vw;
+}
+
+.search-bar .search-dropdown {
+	width:6vw;
+}
+
+.search-bar .input-box {
+	width:20vw;
+}
+
+@media screen and (max-width: 1024px) {
+	.search-bar {
+		width:32vw;
+	}
+	
+	.search-bar .search-dropdown {
+		width:8vw;
+	}
+	
+	.search-bar .input-box {
+		width:22vw;
+	}	
+}
+
+@media screen and (max-width: 768px) {
+	.search-bar {
+		display:grid;
+		justify-items: center;
+		align-items: center;
+		margin-left:10px;
+	}
+	
+	.search-bar .search-dropdown {
+		width:80vw;
+	}
+	
+	.search-bar .input-box {
+		margin-top: 5px;
+		width:80vw;
+	}	
+}
+
+.admin-search-bar {
+	width:22vw;
+}
+
+.admin-search-bar .admin-search-dropdown {
+	width:5vw;
+}
+
+.admin-search-bar .admin-input-box {
+	width:16vw;
+}
+
+@media screen and (max-width: 1024px) {
+	.admin-search-bar {
+		width:25vw;
+	}
+	
+	.admin-search-bar .admin-search-dropdown {
+		width:6vw;
+	}
+	
+	.admin-search-bar .admin-input-box {
+		width:18vw;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.admin-search-bar {
+		display:grid;
+		justify-items: center;
+		align-items: center;
+		margin-left:10px;
+	}
+	
+	.admin-search-bar .admin-search-dropdown {
+		width:80vw;
+	}
+	
+	.admin-search-bar .admin-input-box {
+		margin-top: 5px;
+		width:80vw;
+	}	
+}
+
+.main-search-bar {
+	width:32vw;
+}
+
+.main-search-bar .main-search-dropdown {
+	width:7vw;
+}
+
+.main-search-bar .main-input-box {
+	width:23vw;
+}
+
+@media screen and (max-width: 1024px) {
+	.main-search-bar {
+		width:40vw;
+	}
+	
+	.main-search-bar .main-search-dropdown {
+		width:10vw;
+	}
+	
+	.main-search-bar .main-input-box {
+		width:28vw;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.main-search-bar {
+		display:grid;
+		justify-items: center;
+		align-items: center;
+		margin-left:10px;
+	}
+	
+	.main-search-bar .main-search-dropdown {
+		width:80vw;
+	}
+	
+	.main-search-bar .main-input-box {
+		margin-top: 5px;
+		width:80vw;
+	}
+}
 
 /*==================================================
   Typography
@@ -1274,9 +1413,9 @@ ul.online-users li span.online-dot{
 }
 
 .post-content .post-container .post-detail .reaction{
-  position: absolute;
+  /*position: absolute;
   right: 0;
-  top: 0;
+  top: 0;*/
 }
 
 .post-content .post-container .post-detail .post-comment{

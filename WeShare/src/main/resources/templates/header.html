@@ -18,29 +18,33 @@
 		
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		    <form sec:authorize="isAuthenticated()" action="/user/search" method="POST" class="navbar-form navbar-left hidden-sm">
-		      	<select class="input-group" style="height:35px;border-radius:5px;" name="queryType" id="queryType">
-		      		<option value="post">Post</option>
-		      		<option value="community">Community</option>
-		      	</select>
-		        <div class="input-group" style="width:350px;">
-		        	<input type="text" name="query" class="form-control" required>
-					<span class="input-group-btn">
-						<button class="btn btn-default" type="submit">Search</button>
+		      <form sec:authorize="isAuthenticated()" action="/user/search" method="POST" class="navbar-form navbar-left hidden-sm">
+		      	<div class="search-bar">
+		      		<select class="input-group search-dropdown" style="height:35px;border-radius:5px;" name="queryType" id="queryType">
+			      		<option value="post">Post</option>
+			      		<option value="community">Community</option>
+			      	</select>
+			        <span class="input-group input-box">
+			        	<input type="text" name="query" class="form-control" required>
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="submit">Search</button>
+						</span>
 					</span>
-				</div>
+		      	</div>
 		      </form>
 		      
 		      <form sec:authorize="isAnonymous()" action="/search" method="POST" class="navbar-form navbar-left hidden-sm">
-		      	<select class="input-group" style="height:35px;border-radius:5px;" name="queryType" id="queryType">
-		      		<option value="post">Post</option>
-		      		<option value="community">Community</option>
-		      	</select>
-		        <div class="input-group" style="width:350px;">
-		        	<input type="text" name="query" class="form-control" required>
-					<span class="input-group-btn">
-						<button class="btn btn-default" type="submit">Search</button>
-					</span>
+		      	<div class="main-search-bar">
+			      	<select class="input-group main-search-dropdown" style="height:35px;border-radius:5px;" name="queryType" id="queryType">
+			      		<option value="post">Post</option>
+			      		<option value="community">Community</option>
+			      	</select>
+			        <div class="input-group main-input-box">
+			        	<input type="text" name="query" class="form-control" required>
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="submit">Search</button>
+						</span>
+					</div>
 				</div>
 		      </form>
 		      
@@ -74,7 +78,7 @@
               	</li> -->
               	
               	<li sec:authorize="isAnonymous()" class="dropdown">
-              		<a th:href="@{/login}" class="btn btn-primary" style="padding: 8px; margin-top: 7px;">
+              		<a th:href="@{/login}" class="btn btn-primary" style="padding:8px 10px; text-align:center; margin: 7px 0 0 30px; width:80%;">
 	              		<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Login/Register</a>
               	</li>
               
@@ -82,8 +86,8 @@
 		          <a th:href="@{/user/manageProfile}" role="button" aria-haspopup="true" aria-expanded="false">Manage Profile</a>
 		        </li>
               	
-              	<li sec:authorize="isAuthenticated()" class="dropdown">
-              		<a th:href="@{/logout}" class="btn btn-primary" style="padding:8px 12px 8px 12px; margin-top: 7px;">Logout</a>
+              	<li sec:authorize="isAuthenticated()" class="dropdown" style="margin-left:10px;">
+              		<a th:href="@{/logout}" class="btn btn-primary" style="padding:8px 20px; text-align:center; margin: 7px 0 0 10px; width:90%;">Logout</a>
               	</li>
               	
 		      </ul>
@@ -111,17 +115,19 @@
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		    
 		    	<form action="/admin/search" method="POST" class="navbar-form navbar-left hidden-sm">
-		      	<select class="input-group" style="height:35px;border-radius:5px;" name="queryType" id="queryType">
-		      		<option value="post">Post</option>
-		      		<option value="community">Community</option>
-		      	</select>
-		        <div class="input-group" style="width:250px;">
-		        	<input type="text" name="query" class="form-control" required>
-					<span class="input-group-btn">
-						<button class="btn btn-default" type="submit">Search</button>
-					</span>
-				</div>
-		      </form>
+			    	<div class="admin-search-bar">
+				      	<select class="input-group admin-search-dropdown" style="height:35px;border-radius:5px;" name="queryType" id="queryType">
+				      		<option value="post">Post</option>
+				      		<option value="community">Community</option>
+				      	</select>
+				        <div class="input-group admin-input-box">
+				        	<input type="text" name="query" class="form-control" required>
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="submit">Search</button>
+							</span>
+						</div>
+					</div>
+		      	</form>
 		    	
 		      <ul class="nav navbar-nav navbar-right main-menu">
 		        <li class="dropdown" th:classappend="${#httpServletRequest.getRequestURI() == '/admin/home' ? 'active':''}">
@@ -142,11 +148,12 @@
 		        
               	<li sec:authorize="isAnonymous()" class="dropdown">
               		<a th:href="@{/login}" class="btn btn-primary" style="padding: 8px; margin-top: 7px;">
-	              		<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Login/Register</a>
+	              		<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;Login/Register
+	              	</a>
               	</li>
               
-              	<li sec:authorize="isAuthenticated()" class="dropdown">
-              		<a th:href="@{/logout}" class="btn btn-primary" style="padding:8px 12px 8px 12px; margin-top: 7px;">Logout</a>
+              	<li sec:authorize="isAuthenticated()" class="dropdown" style="margin-left:10px;">
+              		<a th:href="@{/logout}" class="btn btn-primary" style="padding:8px 20px; text-align:center; margin: 7px 0 0 7px; width:90%;">Logout</a>
               	</li>
               	
 		      </ul>

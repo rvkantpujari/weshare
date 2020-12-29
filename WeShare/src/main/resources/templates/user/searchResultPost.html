@@ -21,6 +21,22 @@
 	href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i"
 	rel="stylesheet">
 <style>
+	.save-unsave-btn {
+		margin: 5px 10px; 
+		font-size: 1.5rem;
+		text-decoration: none; 
+		color: #00ab44; 
+		border: none; 
+		background-color: white; 
+		padding: 10px; 
+		border-radius: 5px;
+	}
+	
+	.save-unsave-btn:hover {
+		background-color:#00ab44;
+		color:white; 
+		cursor: pointer;
+	}
 </style>
 <!--Favicon-->
 <link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}" />
@@ -36,11 +52,12 @@
 	<!--Header End-->
 
 	<div class="container">
-		<div class="container">
+		<div class="container" style="margin:30px 0 60px 0;">
 			<div class="row">
 				<div class="col">
+					<div class="col-md-1"></div>
 					<div class="col-md-10">
-						<div style="padding: 20px;">
+						<div>
 				
 						<div th:if="${noPosts}">
 							<h3 style="color: black;">No Post found for <span style="font-style: italic; color: blue;" th:text="${query}"></span>.</h3>
@@ -55,11 +72,56 @@
 								<div class="post-container">
 									<div class="post-detail" style="margin-left: 0px;">
 										<div class="user-info">
-											<a
-												th:href="@{'/user/community/'+${post.community.communityName}+'/'+${post.postId}}"
-												class="profile-link">
-												<h2 th:text="${post.title}"></h2>
-											</a>
+											<div class="row" style="margin-top:5px;">
+												<div class="col-xs-9 text-justify">
+													<a
+														th:href="@{'/user/community/'+${post.community.communityName}+'/'+${post.postId}}"
+														class="profile-link">
+														<h3 th:text="${post.title}"></h3>
+													</a>
+												</div>
+												<div class="reaction col-xs-3" th:with="vote=${voteService.findByPostAndUser(post, user)}">
+			
+													<span th:if="${user == null}">
+														<button onclick="votePostNotSignIn()"
+															class="upvoteBtn btn text-muted icon ion-thumbsup"
+															style="font-size: 2.5rem; background-color: white"></button>
+													</span> <span th:if="${user != null}"> <span
+														th:if="${vote == null or vote.vote == -1}">
+															<button th:id="'upvote' + ${post.postId}"
+																th:onclick=" 'upvote(' + ${post.postId} + ', this)' "
+																class="upvoteBtn btn text-muted icon ion-thumbsup"
+																style="font-size: 2.5rem; background-color: white"></button>
+													</span> <span th:if="${vote != null and vote.vote == 1}">
+															<button th:id="'upvote' + ${post.postId}"
+																th:onclick=" 'upvote(' + ${post.postId} + ', this)' "
+																class="upvoteBtn btn text-green icon ion-thumbsup"
+																style="font-size: 2.5rem; background-color: white"></button>
+													</span>
+													</span> <span th:id="'score' + ${post.postId}"
+														th:text=" ${post.score}"
+														style="font-size: 2.0rem; padding: 15px"></span> <span
+														th:if="${user == null}">
+														<button onclick="votePostNotSignIn()"
+															class="downvoteBtn btn text-muted fa fa-thumbs-down"
+															style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
+													</span> <span th:if="${user != null}"> <span
+														th:if="${vote == null or vote.vote == 1}">
+															<button th:id="'downvote' + ${post.postId}"
+																th:onclick=" 'downvote(' + ${post.postId} + ', this)' "
+																class="downvoteBtn btn text-muted fa fa-thumbs-down"
+																style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
+													</span> <span th:if="${vote != null and vote.vote == -1}">
+															<button th:id="'downvote' + ${post.postId}"
+																th:onclick=" 'downvote(' + ${post.postId} + ', this)' "
+																class="downvoteBtn btn text-red fa fa-thumbs-down"
+																style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
+													</span>
+													</span>
+			
+												</div>
+											</div>
+											
 											<p class="text-muted"
 												th:text="'posted by ' + ${post.user.userName} + ' on ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></p>
 											<span
@@ -71,57 +133,11 @@
 												th:with="isPostSaved=${savePostService.findByPostAndUser(post,user)}">
 
 												<span th:unless="${isPostSaved}">
-													<button class="fa fa-bookmark-o save-post"
-														style="font-size: 1.5rem; cursor: pointer; text-decoration: none; color: #00ab44; border: none;"
-														th:value="${post.postId}">Save</button>
+													<button class="fa fa-bookmark-o save-post save-unsave-btn" th:value="${post.postId}"> Save</button>
 											</span> <span th:if="${isPostSaved}">
-													<button class="fa fa-bookmark unsave-post"
-														style="font-size: 1.5rem; cursor: pointer; text-decoration: none; color: #00ab44; border: none;"
-														th:value="${post.postId}">Unsave</button>
+													<button class="fa fa-bookmark unsave-post save-unsave-btn" th:value="${post.postId}"> Unsave</button>
 											</span>
 											</span> </span>
-
-										</div>
-
-										<div class="reaction"
-											th:with="vote=${voteService.findByPostAndUser(post, user)}">
-
-											<span th:if="${user == null}">
-												<button onclick="votePostNotSignIn()"
-													class="upvoteBtn btn text-muted icon ion-thumbsup"
-													style="font-size: 2.5rem; background-color: white"></button>
-											</span> <span th:if="${user != null}"> <span
-												th:if="${vote == null or vote.vote == -1}">
-													<button th:id="'upvote' + ${post.postId}"
-														th:onclick=" 'upvote(' + ${post.postId} + ', this)' "
-														class="upvoteBtn btn text-muted icon ion-thumbsup"
-														style="font-size: 2.5rem; background-color: white"></button>
-											</span> <span th:if="${vote != null and vote.vote == 1}">
-													<button th:id="'upvote' + ${post.postId}"
-														th:onclick=" 'upvote(' + ${post.postId} + ', this)' "
-														class="upvoteBtn btn text-green icon ion-thumbsup"
-														style="font-size: 2.5rem; background-color: white"></button>
-											</span>
-											</span> <span th:id="'score' + ${post.postId}"
-												th:text=" ${post.score}"
-												style="font-size: 2.0rem; padding: 15px"></span> <span
-												th:if="${user == null}">
-												<button onclick="votePostNotSignIn()"
-													class="downvoteBtn btn text-muted fa fa-thumbs-down"
-													style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
-											</span> <span th:if="${user != null}"> <span
-												th:if="${vote == null or vote.vote == 1}">
-													<button th:id="'downvote' + ${post.postId}"
-														th:onclick=" 'downvote(' + ${post.postId} + ', this)' "
-														class="downvoteBtn btn text-muted fa fa-thumbs-down"
-														style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
-											</span> <span th:if="${vote != null and vote.vote == -1}">
-													<button th:id="'downvote' + ${post.postId}"
-														th:onclick=" 'downvote(' + ${post.postId} + ', this)' "
-														class="downvoteBtn btn text-red fa fa-thumbs-down"
-														style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
-											</span>
-											</span>
 
 										</div>
 
@@ -142,10 +158,10 @@
 											</div>
 										</div>
 
-										<div class="post_with_media" th:if="${post.imageUrl}">
+										<div class="post_with_media" th:if="${post.imageUrl}" style="display:grid;align-items:center; justify-items:center;">
 											<div class="line-divider"></div>
 											<img th:src="'/postImages/' + ${post.postId} + '.png'"
-												alt="post-image" class="img-responsive post-image" />
+												alt="post-image" class="img-responsive post-image" style="max-height:500px; max-width:700px;" />
 										</div>
 									</div>
 								</div>
@@ -154,6 +170,7 @@
 
 						</div>
 					</div>
+					<div class="col-md-1"></div>
 				</div>
 
 			</div>

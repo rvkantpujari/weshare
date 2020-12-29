@@ -20,6 +20,17 @@
     
     <!--Favicon-->
     <link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}"/>
+    
+    <style>
+    	.contact-us:hover {
+    		transform: scale(1.03);
+        	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        	transition: transform 300ms;
+    	}
+    	.form-control:read-only {
+    		background-color: white;
+    	}
+    </style>
   </head>
   <body>
 
@@ -31,87 +42,70 @@
     
     <!--Header End-->
     
-	<div class="container">
+    <div class="google-maps" style="margin-top:6vh;">
+      	<div class="map contact-map">
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d235014.25791824746!2d72.43965768008586!3d23.020181764579057!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fcedd11614f6516!2sAhmedabad%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1608962406885!5m2!1sen!2sin" height="300" frameborder="0" style="border:0; width:100%; margin: -55px 0 -7px 0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+      	</div>
+    </div>
+    
+	<div id="page-contents">
+    	<div class="container">
+    		<div class="row">
+    			<div class="col-md-10 col-md-offset-1">
+		            <div class="contact-us">
+		            	<div class="row">
+		            		<div class="col-md-8 col-sm-7">
+		                  	<div style="font-size: 3rem; font-weight: bold; font-family:Arial;">
+								<img src="/images/logo.png" alt="WeShare logo" style="width: 70px; height: 70px;"> Feedback
+								<hr>
+							</div>
+		                  <form class="contact-form" name="feedback_form" th:action="@{/user/contact}" th:object="${feedback}" method="POST">
 
-		<div class="container wrapper">
-		
-			<!--FEEDBACK Heading-->
-			<div class="row">
-				<h2 class="col-sm-12" style="margin-top:5vh;">
-					<img src="/images/logo.png" alt="WeShare logo" style="width: 70px; height: 70px;"> Feedback
-					<hr>
-				</h2>
-			</div>
-		
-	        <div class="row">
-			
-				<!--FEEDBACK Form-->
-		        <div class="col-sm-8">
-					<div class="tab-pane active" id="feedback" style="margin-top: 2vh;">
-	
-						<form name="feedback_form" th:action="@{/user/contact}" th:object="${feedback}" method="POST">
-	
-							<h4 style="color:green;" th:if="${success}">Feedback sent successfully!</h4>    	  
-	             
-							<div th:if="${#authorization.expression('isAuthenticated()')}">
-								<div class="row">
-	    							<div class="form-group col-xs-12">
-							     		<label>Email:</label>
-							     		<input th:field="*{email}" class="form-control input-group-lg" type="text"  title="Enter Email" placeholder="Enter email" readonly/>
-							   		</div>
-							 	</div>
+		                  	<!-- Email field Starts -->
+		                  	<div th:if="${#authorization.expression('isAuthenticated()')}">
+			                    <div class="form-group">
+			                      <i class="icon ion-email"></i>
+			                      <input th:field="*{email}" type="text" class="form-control" title="Enter Email" placeholder="Enter email" readonly/>
+			                    </div>
+			                </div>
+
+			                <div th:unless="${#authorization.expression('isAuthenticated()')}">
+			                	<div class="form-group">
+			                      <i class="icon ion-email" style="font-color:#00ab44;"></i>
+			                      <input th:field="*{email}" class="form-control" type="text"  title="Enter Email" placeholder="Enter email" readonly/>
+			                    </div>
+			                </div>
+			                <!-- Email field Ends -->
+
+			                <!-- Feedback field Starts -->
+							<div class="form-group">
+								<label for="feedback-description">Feedback:</label>
+								<textarea class="form-control input-group-lg" name="content" placeholder="Your Feedback" maxlength="3000" rows="7" required></textarea>
 							</div>
-							
-							<div th:unless="${#authorization.expression('isAuthenticated()')}">
-								<div class="row">
-									<div class="form-group col-xs-12">
-										<label>Email:</label>
-										<input name="email" class="form-control input-group-lg" type="text"  title="Enter Email" placeholder="Enter email" required/>
-									</div>
-								</div>
-							</div>
-	                
-	               
-							<div class="row">
-								<div class="form-group col-xs-12">
-									<label for="feedback-description">Comment:</label>
-									<textarea class="form-control input-group-lg" name="content" placeholder="Your Comments" maxlength="3000" rows="7" required></textarea>
-								</div>
-							</div>
-	               
+							<!-- Feedback field Ends -->
 							<input type="submit" style="margin-top: 5px;" class="btn btn-primary" value="SEND" name="feedbackBtn">
-						</form>
-						<br>
-	                  	<!--Feedback Form Ends--> 
-					</div>
-				</div>
-				
-				<div class="col-sm-4" style="margin: 2vh 0 0 0; border:1px solid lightgrey; border-radius:5px; padding:0px 20px 20px 20px;">
-					<h3>Contact</h3>
-					<hr>
-					<div style="font-size:1.2em; margin-top:10px;">
-						<i class="fa fa-envelope"> Email:</i>
-						<a href="mailto:helpcare.weshare@gmail.com" style="margin-left:2px;">helpcare.weshare@gmail.com</a><br>
-					</div>
-					<div style="font-size:1.2em; margin-top:10px;">
-						<i class="fa fa-map-marker"> Address:</i>
-						<span style="margin-left:2px;">Ahmedabad, Gujarat, India</span><br>
-					</div>
-				</div>
-				
-			</div>
-			
-		</div>
-		
-	</div>
+							<br><br>
+							<h4 style="color:green;" th:if="${success}">Thank you so much for your feedback!!!</h4>
+		                  </form>
+						  <br>
+	                  	  <!--Feedback Form Ends-->
+		                </div>
+		            		<div class="col-md-4 col-sm-5">
+		                  <h3 class="grey">Contact Us</h3>
+		                  <div class="reach"><span class="phone-icon"><i class="icon ion-email"></i></span><p><a href="mailto:helpcare.weshare@gmail.com">helpcare.weshare@gmail.com</a></p></div>
+		                  <div class="reach"><span class="phone-icon"><i class="icon ion-ios-location"></i></span><p>Ahmedabad, Gujarat, India</p></div>
+		                </div>
+		            	</div>
+		            </div>
+          		</div>
+    		</div>
+    	</div>
+    </div>
 	
-	<div>
-		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d235014.25791824746!2d72.43965768008586!3d23.020181764579057!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fcedd11614f6516!2sAhmedabad%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1608962406885!5m2!1sen!2sin" height="450" frameborder="0" style="border:0; width:100%; margin: 40px 0 -7px 0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-	</div>
-
-
     <!-- Footer
-    ================================================= -->
+    ================================================= --
+    <footer class="navbar navbar-fixed-bottom" th:include="footer::footer"></footer>
+    -->
     <footer id="footer" th:replace="footer::footer"></footer>
     
     <!--preloader-->
