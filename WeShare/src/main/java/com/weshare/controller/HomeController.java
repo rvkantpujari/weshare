@@ -50,7 +50,7 @@ public class HomeController {
 	@Autowired
 	private CommunityService communityService;
 
-	@GetMapping(value = { "/", "/login" })
+	@GetMapping(value = {"/login" })
 	public String index(Model model) {
 		User user = new User();
 		model.addAttribute("user", user);

@@ -50,7 +50,7 @@ public class AnonymousPublicControllers {
 	@Autowired
 	private CommentService commentService;
 	
-	@GetMapping("/home")
+	@GetMapping(value = {"/", "/home"})
 	public String visitorHome(Model model,
 			@RequestParam("pageSize") Optional<Integer> pageSize,
             @RequestParam("page") Optional<Integer> page)
@@ -60,6 +60,56 @@ public class AnonymousPublicControllers {
         
         Page<Post> posts = postService.findAlPostsByPage(
 				PageRequest.of(setPage, setPageSize, Sort.by(Sort.Direction.DESC, "creationDate")));
+		
+		Pager postsPager = new Pager(posts.getTotalPages(),
+				posts.getNumber(), NUM_OF_BUTTONS);
+		
+		List<Community> topCommunities = communityService.findTopCommunities(5);
+		
+		model.addAttribute("posts", posts);
+		model.addAttribute("postsPager", postsPager);
+		model.addAttribute("pageSizes", PAGE_SIZES);
+		model.addAttribute("selectedPageSize", setPageSize);
+		model.addAttribute("topCommunities", topCommunities);
+		
+		return "home";
+	}
+	
+	@GetMapping("/home/top")
+	public String visitorHomeTop(Model model,
+			@RequestParam("pageSize") Optional<Integer> pageSize,
+            @RequestParam("page") Optional<Integer> page)
+	{
+		int setPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        int setPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        
+        Page<Post> posts = postService.findAlPostsByPage(
+				PageRequest.of(setPage, setPageSize, Sort.by(Sort.Direction.DESC, "score")));
+		
+		Pager postsPager = new Pager(posts.getTotalPages(),
+				posts.getNumber(), NUM_OF_BUTTONS);
+		
+		List<Community> topCommunities = communityService.findTopCommunities(5);
+		
+		model.addAttribute("posts", posts);
+		model.addAttribute("postsPager", postsPager);
+		model.addAttribute("pageSizes", PAGE_SIZES);
+		model.addAttribute("selectedPageSize", setPageSize);
+		model.addAttribute("topCommunities", topCommunities);
+		
+		return "home";
+	}
+	
+	@GetMapping("/home/popular")
+	public String visitorHomePopular(Model model,
+			@RequestParam("pageSize") Optional<Integer> pageSize,
+            @RequestParam("page") Optional<Integer> page)
+	{
+		int setPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        int setPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        
+        Page<Post> posts = postService.findAlPostsByPage(
+				PageRequest.of(setPage, setPageSize, Sort.by(Sort.Direction.DESC, "commentsNum")));
 		
 		Pager postsPager = new Pager(posts.getTotalPages(),
 				posts.getNumber(), NUM_OF_BUTTONS);
