@@ -125,4 +125,88 @@ public class HomeController {
 		model.addAttribute("topCommunities", topCommunities);
 		return "user/home_new";
 	}
+	
+	@GetMapping("/user/home/top")
+	public String userHomeTop(Model model, Principal principal,
+			@RequestParam("pageSize") Optional<Integer> pageSize,
+            @RequestParam("page") Optional<Integer> page)
+	{
+		User user=this.userService.findUserByUserName(principal.getName());
+		
+		int setPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        int setPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+
+		Page<Post> posts = postService.findByJoinedCommunitiesByPage(user.getId(),
+				PageRequest.of(setPage, setPageSize, Sort.by(Sort.Direction.DESC, "score")));
+		
+		Pager postsPager = new Pager(posts.getTotalPages(),
+				posts.getNumber(), NUM_OF_BUTTONS);
+		
+		Set<Community> joinedCommunities = user.getJoinedCommunityList();
+		
+		if(posts.isEmpty() || joinedCommunities.isEmpty())
+		{
+			model.addAttribute("noPosts",true);
+		}
+		
+		if(joinedCommunities.isEmpty())
+		{
+			model.addAttribute("notJoined",true);
+		}		
+		
+		List<Community> topCommunities = communityService.findTopCommunities(5);
+		
+		model.addAttribute("posts", posts);
+		model.addAttribute("postsPager", postsPager);
+		model.addAttribute("pageSizes", PAGE_SIZES);
+		model.addAttribute("selectedPageSize", setPageSize);
+		model.addAttribute("savePostService",savePostService);
+		model.addAttribute("voteService", voteService);
+		model.addAttribute("user", user);
+		model.addAttribute("joinedCommunities", joinedCommunities);
+		model.addAttribute("topCommunities", topCommunities);
+		return "user/home_new";
+	}
+	
+	@GetMapping("/user/home/popular")
+	public String userHomePopular(Model model, Principal principal,
+			@RequestParam("pageSize") Optional<Integer> pageSize,
+            @RequestParam("page") Optional<Integer> page)
+	{
+		User user=this.userService.findUserByUserName(principal.getName());
+		
+		int setPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        int setPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+
+		Page<Post> posts = postService.findByJoinedCommunitiesByPage(user.getId(),
+				PageRequest.of(setPage, setPageSize, Sort.by(Sort.Direction.DESC, "comments_num")));
+		
+		Pager postsPager = new Pager(posts.getTotalPages(),
+				posts.getNumber(), NUM_OF_BUTTONS);
+		
+		Set<Community> joinedCommunities = user.getJoinedCommunityList();
+		
+		if(posts.isEmpty() || joinedCommunities.isEmpty())
+		{
+			model.addAttribute("noPosts",true);
+		}
+		
+		if(joinedCommunities.isEmpty())
+		{
+			model.addAttribute("notJoined",true);
+		}		
+		
+		List<Community> topCommunities = communityService.findTopCommunities(5);
+		
+		model.addAttribute("posts", posts);
+		model.addAttribute("postsPager", postsPager);
+		model.addAttribute("pageSizes", PAGE_SIZES);
+		model.addAttribute("selectedPageSize", setPageSize);
+		model.addAttribute("savePostService",savePostService);
+		model.addAttribute("voteService", voteService);
+		model.addAttribute("user", user);
+		model.addAttribute("joinedCommunities", joinedCommunities);
+		model.addAttribute("topCommunities", topCommunities);
+		return "user/home_new";
+	}
 }
