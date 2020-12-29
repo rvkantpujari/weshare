@@ -68,7 +68,7 @@
 	                    <div class="row" style="word-spacing: 2px;">
 	                    
 	                    	<a th:href="@{'/user/community/'+${post.community.communityName}+'/'+${post.postId}}" class="profile-link">
-	                    		<span class="h3 col-md-*" th:text="${post.title}"></span>
+	                    		<span class="h3 col-md-* text-justify" th:text="${post.title}"></span>
 	                    	</a>
 	                    	<span> in </span>
 	                    	
@@ -83,8 +83,8 @@
 	                    </div>
 	                    
 						<div class="row">
-	                      <span class="col-md-5"><i class="icon ion-android-calendar"> </i> Posted On: <span th:text="${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></span></span>
-	                      <span class="col-md-7"> <i class="icon ion-ios-list"> </i> Comments: <span th:text="${post.commentsNum}"></span></span>
+	                      <span class="col-xs-12 col-md-5"><i class="icon ion-android-calendar"> </i> Posted On: <span th:text="${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></span></span>
+	                      <span class="col-xs-12 col-md-7"> <i class="icon ion-ios-list"> </i> Comments: <span th:text="${post.commentsNum}"></span></span>
 	                    </div>
 	                    
 	                    

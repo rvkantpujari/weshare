@@ -58,7 +58,7 @@
               Description: <span class="text-muted" th:utext=${com.communityDescription}>Description</span>
               <hr>
               Created on: <span th:text="${#dates.format(com.creationDate, 'dd-MMM-yyyy')}">Created On</span><br>
-               Created By: <span th:text=${com.user.userName}>Created By</span><br>
+              Created By: <span th:text=${com.user.userName}>Created By</span><br>
               Category: <span th:text=${com.category.categoryName}>Category</span><br>
               Total Members Joined: <span th:text=${com.membersCount}>Members</span><br>
               Total Posts: <span th:text="${#lists.size(com.posts)}">Total Posts</span>
@@ -78,27 +78,29 @@
               <div class="post-container">
                 <div class="post-detail" style="margin-left:0px;">
                   <div class="user-info">
-                    <a th:href="@{'/admin/community/'+${com.communityName}+'/'+${post.postId}}" class="profile-link">
-                    	<h2 th:text="${post.title}"></h2>
-                    </a>
+                  	<div class="row">
+                  		<div class="col-xs-9 text-justify">
+                  			<a th:href="@{'/admin/community/'+${com.communityName}+'/'+${post.postId}}" class="profile-link">
+		                    	<h3 th:text="${post.title}"></h3>
+		                    </a>
+                  		</div>
+                  		<div class="reaction col-xs-3" style="position:relative; right:-20px; top:2vh;">
+		
+		                  	<span th:if="${user == null}">
+		                  		<button class="upvoteBtn btn text-muted icon ion-thumbsup" style="font-size:2.5rem; background-color:white" disabled></button>
+		                    </span>
+		                    
+		                    	<span th:id="'score' + ${post.postId}" th:text=" ${post.score}" style="font-size:2.0rem; padding:15px"></span>
+		                    	
+		                    <span th:if="${user == null}">
+		                  		<button class="downvoteBtn btn text-muted fa fa-thumbs-down" style="font-size:2.5rem; padding:10px; background-color:white" disabled></button>
+		                    </span>
+		                </div>
+                  	</div>
                     <p class="text-muted" th:text="'posted by ' + ${post.user.userName} + ' on ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}" ></p>
                     <span th:text=" '&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments '" class="following ion-compose" style="font-size:1.5rem; margin:0px; padding:0px;"></span>
                    
                   </div>
-                 
-                  <div class="reaction">
-
-                  	<span th:if="${user == null}">
-                  		<button class="upvoteBtn btn text-muted icon ion-thumbsup" style="font-size:2.5rem; background-color:white" disabled></button>
-                    </span>
-                    
-                    	<span th:id="'score' + ${post.postId}" th:text=" ${post.score}" style="font-size:2.0rem; padding:15px"></span>
-                    	
-                    <span th:if="${user == null}">
-                  		<button class="downvoteBtn btn text-muted fa fa-thumbs-down" style="font-size:2.5rem; padding:10px; background-color:white" disabled></button>
-                    </span>
-                  </div>
-                  
                   
                   <div class="post_with_content" th:if="${post.content}">
                   <div class="line-divider"></div>

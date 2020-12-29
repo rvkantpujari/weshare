@@ -1,297 +1,374 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
+<head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="This is social network platform." />
-	<meta name="keywords" content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
+	<meta name="keywords"
+		content="Social Network, Social Media, Make Friends, Newsfeed, Profile Page" />
 	<meta name="robots" content="index, follow" />
 	<title>View Community | WeShare</title>
-
-    <!-- Stylesheets
-    ================================================= -->
+	
+	<!-- Stylesheets
+	    ================================================= -->
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 	<link rel="stylesheet" th:href="@{/css/style.css}" />
 	<link rel="stylesheet" th:href="@{/css/ionicons.min.css}" />
-   	<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
-    
-    <!--Google Font-->
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i" rel="stylesheet">
-    
-    <!--Favicon-->
-    <link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}"/>
-  </head>
-  <body>
+	<link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
+	
+	<!--Google Font-->
+	<link
+		href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i"
+		rel="stylesheet">
+	
+	<!--Favicon-->
+	<link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}" />
+	
+	<style>
+		.save-unsave-btn {
+			margin: 5px 10px;
+			font-size: 1.5rem;
+			text-decoration: none;
+			color: #00ab44;
+			border: none;
+			background-color: white;
+			padding: 10px;
+			border-radius: 5px;
+		}
+		
+		.save-unsave-btn:hover {
+			background-color: #00ab44;
+			color: white;
+			cursor: pointer;
+		}
+		
+		.sort-btn {
+			margin-right: 5px;
+		}
+		.sort-btn:hover {
+			transform: scale(1.05);
+			transition: transform 300ms;
+		}
+	</style>
+</head>
+<body>
 
-    <!-- Header
+	<!-- Header
     ================================================= navbar-fixed-top -->
 	<header id="header">
-      <nav th:replace="header::navbar"></nav>
-    </header>
-    
-    <!--Header End-->	
-    <div id="page-contents">
-      <div class="container">
-    	<div class="row">
-    	  <div class="col-md-12">
-   			<div class="post-content">
-              <div class="post-container">
-                <img th:src="@{'https://ui-avatars.com/api/?name='+${com.communityName}+'&rounded=true&background=random'}" alt="user" class="profile-photo-md pull-left" />
-                <div class="post-detail">
-                  <div class="user-info">
-                    <h4 th:text=${com.communityName}><a href="#" class="profile-link"></a></h4>
-                    
-           	        <!-- <button th:if="${joined}==true" class="btn btn-success" style="padding: 5px 20px; margin: 5px 0px; border-radius:20px;">Join</button>
+		<nav th:replace="header::navbar"></nav>
+	</header>
+
+	<!--Header End-->
+	<div id="page-contents">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="post-content">
+						<div class="post-container">
+							<img th:src="@{'https://ui-avatars.com/api/?name='+${com.communityName}+'&rounded=true&background=random'}"
+								alt="user" class="profile-photo-md pull-left" />
+							<div class="post-detail">
+								<div class="user-info">
+									<h4 th:text=${com.communityName}>
+										<a href="#" class="profile-link"></a>
+									</h4>
+
+									<!-- <button th:if="${joined}==true" class="btn btn-success" style="padding: 5px 20px; margin: 5px 0px; border-radius:20px;">Join</button>
                     <button th:unless="${joined}==true" class="btn btn-danger" style="padding: 5px 20px; margin: 5px 0px; border-radius:20px;">Leave</button> -->
-                    
-						<div th:unless="${exist}">
-							<a th:href="@{'/user/community/'+${communityName}+'/join'}">
-								<button type="submit" class="btn btn-success col-3">Join</button>
-							</a>
+
+									<div th:unless="${exist}">
+										<a th:href="@{'/user/community/'+${communityName}+'/join'}">
+											<button type="submit" class="btn btn-success col-3">Join</button>
+										</a>
+									</div>
+
+									<div th:if="${exist}">
+										<a th:href="@{'/user/community/'+${communityName}+'/leave'}">
+											<button type="submit" class="btn btn-danger col-3">Leave</button>
+										</a>
+									</div>
+								</div>
+							</div>
 						</div>
-	
-						<div th:if="${exist}">
-							<a th:href="@{'/user/community/'+${communityName}+'/leave'}">
-								<button type="submit" class="btn btn-danger col-3">Leave</button>
-							</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="row" style="margin-top: 10px;">
+
+				<!-- About Community Side Bar Left
+          ================================================= -->
+				<div class="col-md-3 static">
+					<div class="suggestions" id="sticky-sidebar"
+						style="margin-top: 2px; border: 1px solid lightgrey; border-radius: 5px; padding: 20px; min-height: 200px;">
+						<h4 class="grey" style="font-size: 2.2rem;">About Community</h4>
+						<hr style="border: 0.5px solid black;">
+						Description: <span class="text-muted"
+							th:utext=${com.communityDescription}>Description</span>
+						<hr>
+						Created on: <span
+							th:text="${#dates.format(com.creationDate, 'dd-MMM-yyyy')}">Created
+							On</span><br> Created By: <span th:text=${com.user.userName}>Created
+							By</span><br> Category: <span th:text=${com.category.categoryName}>Category</span><br>
+						Total Members Joined: <span th:text=${com.membersCount}>Members</span><br>
+						Total Posts: <span th:text="${#lists.size(com.posts)}">Total
+							Posts</span>
+
+					</div>
+				</div>
+
+				<!-- About Community Side Bar Right
+          ================================================= -->
+				<div class="col-md-9">
+					<div>
+						<button class="btn btn-default sort-btn">Most Liked</button>
+						<button class="btn btn-default sort-btn">Most Commented</button>
+						<button class="btn btn-default sort-btn">Newest</button>
+					</div>
+					<div class="create-post" style="cursor: pointer;">
+						<div class="col-md-10 col-sm-10">
+							<div class="form-group" style="margin-left: 0px;">
+								<textarea onclick="redirectToCreatePost()" name="postContent"
+									id="postContent" cols="80" rows="1" class="form-control"
+									placeholder="Write what you wish"
+									style="resize: none; cursor: pointer; background-color: white;"></textarea>
+							</div>
 						</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-    	  </div>
-    	</div>
-    	
-    	<div class="row" style="margin-top:10px;">
+					</div>
 
-          <!-- About Community Side Bar Left
-          ================================================= -->
-    	  <div class="col-md-3 static">
-            <div class="suggestions" id="sticky-sidebar" style="margin-top:2px;border:1px solid lightgrey; border-radius: 5px; padding: 20px; min-height:200px;">
-              <h4 class="grey" style="font-size:2.2rem;">About Community</h4><hr style="border: 0.5px solid black;">  
-              Description: <span class="text-muted" th:utext=${com.communityDescription}>Description</span>
-              <hr>
-              Created on: <span th:text="${#dates.format(com.creationDate, 'dd-MMM-yyyy')}">Created On</span><br>
-               Created By: <span th:text=${com.user.userName}>Created By</span><br>
-              Category: <span th:text=${com.category.categoryName}>Category</span><br>
-              Total Members Joined: <span th:text=${com.membersCount}>Members</span><br>
-              Total Posts: <span th:text="${#lists.size(com.posts)}">Total Posts</span>
-              
-            </div>
-          </div>
-          
-          <!-- About Community Side Bar Right
-          ================================================= -->
-    	  <div class="col-md-9">
-			<div class="create-post" style="cursor: pointer;">
-              <div class="col-md-10 col-sm-10">
-                <div class="form-group" style="margin-left: 0px;">
-                  <textarea onclick="redirectToCreatePost()" name="postContent" id="postContent" cols="80" rows="1" class="form-control" placeholder="Write what you wish" style="resize:none; cursor:pointer; background-color:white;"></textarea>
-                </div>
-              </div>
-              <!-- 
-           	  <div class="col-md-2 col-sm-2">
-                <div class="tools">
-                  <ul class="publishing-tools list-inline">
-                    <li><a onclick="redirectToCreatePost()" href="#"><i class="ion-compose"></i></a></li>
-                    <li><a onclick="redirectToCreatePost()" href="#"><i class="ion-images"></i></a></li>
-                    <li><a onclick="redirectToCreatePost()" href="#"><i class="ion-ios-videocam"></i></a></li>
-                  </ul>
-                </div>
-               </div>
-                -->
-           	</div>
-           	
-           	<div th:if="${noPosts}">
-           		<h3 style="font-style: italic; color:black;">No posts available right now. Visit again later!</h3>
-           	</div>
-           	
-           	
-           	<div class="post-content" th:each="post: ${communityPosts}">
-              <div class="post-container">
-                <div class="post-detail" style="margin-left:0px;">
-                  <div class="user-info">
-                    <a th:href="@{'/user/community/'+${com.communityName}+'/'+${post.postId}}" class="profile-link">
-                    	<h2 th:text="${post.title}"></h2>
-                    </a>
-                    <p class="text-muted" th:text="'posted by ' + ${post.user.userName} + ' on ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}" ></p>
-                    <span th:text=" '&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments '" class="following ion-compose" style="font-size:1.5rem; margin:0px; padding:0px;"></span>
-                   
-                   <span th:with="isPostSaved=${savePostService.findByPostAndUser(post,user)}"> 
-                    <span th:unless="${isPostSaved}">
-	                    	<button class="fa fa-bookmark-o save-post" style="font-size:1.5rem; cursor:pointer; text-decoration:none; color:#00ab44; border:none;"
-	                    		th:value="${post.postId}"> Save
-	                    	</button>
-						</span>
-		
-						<span th:if="${isPostSaved}">
-							<button class="fa fa-bookmark unsave-post" style="font-size:1.5rem; cursor:pointer; text-decoration:none; color:#00ab44;border:none;"
-	                    		th:value="${post.postId}"> Unsave
-	                    	</button>
-						</span>
-                    </span>
-                    
-                  </div>
-                 
-                  <div class="reaction" th:with="vote=${voteService.findByPostAndUser(post, user)}">
-
-                  	<span th:if="${user == null}">
-                  		<button onclick="votePostNotSignIn()" class="upvoteBtn btn text-muted icon ion-thumbsup" style="font-size:2.5rem; background-color:white"></button>
-                    </span>
-                    <span th:if="${user != null}">
-                    	<span th:if="${vote == null or vote.vote == -1}">
-                    		<button th:id="'upvote' + ${post.postId}" th:onclick=" 'upvote(' + ${post.postId} + ', this)' " class="upvoteBtn btn text-muted icon ion-thumbsup" style="font-size:2.5rem; background-color:white"></button>
- 						</span>
- 						<span th:if="${vote != null and vote.vote == 1}">
-                    		<button th:id="'upvote' + ${post.postId}" th:onclick=" 'upvote(' + ${post.postId} + ', this)' " class="upvoteBtn btn text-green icon ion-thumbsup" style="font-size:2.5rem; background-color:white"></button>
- 						</span>
-                    </span>
-                    
-                    	<span th:id="'score' + ${post.postId}" th:text=" ${post.score}" style="font-size:2.0rem; padding:15px"></span>
-                    	
-                    <span th:if="${user == null}">
-                  		<button onclick="votePostNotSignIn()" class="downvoteBtn btn text-muted fa fa-thumbs-down" style="font-size:2.5rem; padding:10px; background-color:white"></button>
-                    </span>
-                    <span th:if="${user != null}">
-                    	<span th:if="${vote == null or vote.vote == 1}">
-                    		<button th:id="'downvote' + ${post.postId}" th:onclick=" 'downvote(' + ${post.postId} + ', this)' " class="downvoteBtn btn text-muted fa fa-thumbs-down" style="font-size:2.5rem; padding:10px; background-color:white"></button>
- 						</span>
- 						<span th:if="${vote != null and vote.vote == -1}">
-                    		<button th:id="'downvote' + ${post.postId}" th:onclick=" 'downvote(' + ${post.postId} + ', this)' " class="downvoteBtn btn text-red fa fa-thumbs-down" style="font-size:2.5rem; padding:10px; background-color:white"></button>
- 						</span>
-                    </span>
-                    
-                  </div>
-                  
-                  
-                  <div class="post_with_content" th:if="${post.content}">
-                  <div class="line-divider"></div>
-                  <div class="post-text text-justify">
-                    <span th:utext="${#strings.abbreviate(post.content, 1000)}" class="short-description" style="font-size:1.8rem"></span>
-                  </div>
-                  </div>
-                  
-                  <div class="post_with_link" th:if="${post.link}">
-                  <div class="line-divider" ></div>
-                  <div class="post-text text-justify">
-                    <a th:href="${post.link}" th:text="${post.link}" style="font-size:1.8rem" target="_blank"></a>
-                  </div>
-                  </div>
-                  
-                  <div class="post_with_media" th:if="${post.imageUrl}">
-                  <div class="line-divider"></div>
-                  <img th:src="'/postImages/' + ${post.postId} + '.png'" alt="post-image" class="img-responsive post-image" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="row page">
-                    <div class="form-group col-md-1" style="margin-left: 40px;">
-                        <select class="form-control pagination" id="pageSizeSelect">
-                            
-                            <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}"
-                                    th:selected="${pageSize} == ${selectedPageSize}">
-                                    <span th:text="${pageSize}"></span>
-                                  </option>
-                             
-                        </select>
-                    </div>
-                    <div th:if="${communityPosts.totalPages != 1}" class="form-group col-md-11 pagination-centered">
-                        <ul class="pagination">
-                            <li th:class="${communityPosts.number == 0} ? disabled">
-                                <a th:if="${user == null}" class="pageLink" th:href="@{''(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
-                                <a th:if="${user != null}" class="pageLink" th:href="@{''(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
-                            </li>
-                            <li th:class="${communityPosts.number == 0} ? disabled">
-                                <a th:if="${user == null}" class="pageLink" th:href="@{''(pageSize=${selectedPageSize}, page=${communityPosts.number})}">&larr;</a>
-                                <a th:if="${user != null}" class="pageLink" th:href="@{''(pageSize=${selectedPageSize}, page=${communityPosts.number})}">&larr;</a>
-                            </li>
-                            <li th:class="${communityPosts.number == (page - 1)} ? 'active pointer-disabled'"
-                                th:each="page : ${#numbers.sequence(communityPostsPager.firstButton, communityPostsPager.finalButton)}">
-                                <a th:if="${user == null}" class="pageLink" th:href="@{'' (pageSize=${selectedPageSize}, page=${page})}"
-                                   th:text="${page}"></a>
-                                <a th:if="${user != null}" class="pageLink" th:href="@{'' (pageSize=${selectedPageSize}, page=${page})}"
-                                   th:text="${page}"></a>
-                            </li>
-                            <li th:class="${communityPosts.number + 1 == communityPosts.totalPages} ? disabled">
-                                <a th:if="${user == null}" class="pageLink"
-                                   th:href="@{'' (pageSize=${selectedPageSize}, page=${communityPosts.number + 2})}">&rarr;</a>
-                                <a th:if="${user != null}" class="pageLink"
-                                   th:href="@{'' (pageSize=${selectedPageSize}, page=${communityPosts.number + 2})}">&rarr;</a>
-                            </li>
-                            <li th:class="${communityPosts.number + 1 == communityPosts.totalPages} ? disabled">
-                                <a th:if="${user == null}" class="pageLink"
-                                   th:href="@{'' (pageSize=${selectedPageSize}, page=${communityPosts.totalPages})}">&raquo;</a>
-                                <a th:if="${user != null}" class="pageLink"
-                                   th:href="@{'' (pageSize=${selectedPageSize}, page=${communityPosts.totalPages})}">&raquo;</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                
-    	</div>
-      </div>
-    </div>
+					<div th:if="${noPosts}">
+						<h3 style="font-style: italic; color: black;">No posts
+							available right now. Visit again later!</h3>
+					</div>
 
 
-    <!-- Footer
+					<div class="post-content" th:each="post: ${communityPosts}">
+						<div class="post-container">
+							<div class="post-detail" style="margin-left: 0px;">
+								<div class="user-info">
+									<div class="row">
+										<div class="col-xs-9 text-justify">
+											<a
+												th:href="@{'/user/community/'+${com.communityName}+'/'+${post.postId}}"
+												class="profile-link">
+												<h3 th:text="${post.title}"></h3>
+											</a>
+										</div>
+										<div class="reaction col-xs-3"
+											th:with="vote=${voteService.findByPostAndUser(post, user)}"
+											style="position: relative; right: -20px; top: 2vh;">
+
+											<span th:if="${user == null}">
+												<button onclick="votePostNotSignIn()"
+													class="upvoteBtn btn text-muted icon ion-thumbsup"
+													style="font-size: 2.5rem; background-color: white"></button>
+											</span> <span th:if="${user != null}"> <span
+												th:if="${vote == null or vote.vote == -1}">
+													<button th:id="'upvote' + ${post.postId}"
+														th:onclick=" 'upvote(' + ${post.postId} + ', this)' "
+														class="upvoteBtn btn text-muted icon ion-thumbsup"
+														style="font-size: 2.5rem; background-color: white"></button>
+											</span> <span th:if="${vote != null and vote.vote == 1}">
+													<button th:id="'upvote' + ${post.postId}"
+														th:onclick=" 'upvote(' + ${post.postId} + ', this)' "
+														class="upvoteBtn btn text-green icon ion-thumbsup"
+														style="font-size: 2.5rem; background-color: white"></button>
+											</span>
+											</span> <span th:id="'score' + ${post.postId}"
+												th:text=" ${post.score}"
+												style="font-size: 2.0rem; padding: 15px"></span> <span
+												th:if="${user == null}">
+												<button onclick="votePostNotSignIn()"
+													class="downvoteBtn btn text-muted fa fa-thumbs-down"
+													style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
+											</span> <span th:if="${user != null}"> <span
+												th:if="${vote == null or vote.vote == 1}">
+													<button th:id="'downvote' + ${post.postId}"
+														th:onclick=" 'downvote(' + ${post.postId} + ', this)' "
+														class="downvoteBtn btn text-muted fa fa-thumbs-down"
+														style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
+											</span> <span th:if="${vote != null and vote.vote == -1}">
+													<button th:id="'downvote' + ${post.postId}"
+														th:onclick=" 'downvote(' + ${post.postId} + ', this)' "
+														class="downvoteBtn btn text-red fa fa-thumbs-down"
+														style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
+											</span>
+											</span>
+
+										</div>
+									</div>
+									<p class="text-muted"
+										th:text="'posted by ' + ${post.user.userName} + ' on ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></p>
+									<span
+										th:text=" '&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments '"
+										class="following ion-compose"
+										style="font-size: 1.5rem; margin: 0px; padding: 0px;"></span>
+
+									<span
+										th:with="isPostSaved=${savePostService.findByPostAndUser(post,user)}">
+										<span th:unless="${isPostSaved}">
+											<button class="fa fa-bookmark-o save-post save-unsave-btn"
+												th:value="${post.postId}"> Save</button>
+									</span> <span th:if="${isPostSaved}">
+											<button class="fa fa-bookmark unsave-post save-unsave-btn"
+												th:value="${post.postId}"> Unsave</button>
+									</span>
+									</span>
+
+								</div>
+
+								<div class="post_with_content" th:if="${post.content}">
+									<div class="line-divider"></div>
+									<div class="post-text text-justify">
+										<span th:utext="${#strings.abbreviate(post.content, 1000)}"
+											class="short-description" style="font-size: 1.8rem"></span>
+									</div>
+								</div>
+
+								<div class="post_with_link" th:if="${post.link}">
+									<div class="line-divider"></div>
+									<div class="post-text text-justify">
+										<a th:href="${post.link}" th:text="${post.link}"
+											style="font-size: 1.8rem" target="_blank"></a>
+									</div>
+								</div>
+
+								<div class="post_with_media" th:if="${post.imageUrl}" style="display:grid;align-items:center; justify-items:center;">
+									<div class="line-divider"></div>
+									<img th:src="'/postImages/' + ${post.postId} + '.png'"
+										alt="post-image" class="img-responsive post-image"
+										style="max-height: 500px; max-width: 700px;" />
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row page" style="margin-top: 30px;">
+						<div class="form-group col-xs-6 col-md-3"
+							style="margin-left: 40px; display: inline;">
+							<div class="row" style="margin-bottom: 40px;">
+								<div class="col-xs-4 h4">Page:</div>
+								<div class="col-xs-8">
+									<select class="form-control pagination" id="pageSizeSelect"
+										style="margin-top: 0px;">
+
+										<option th:each="pageSize : ${pageSizes}"
+											th:text="${pageSize}" th:value="${pageSize}"
+											th:selected="${pageSize} == ${selectedPageSize}"><span
+												th:text="${pageSize}"></span>
+										</option>
+
+									</select>
+								</div>
+							</div>
+						</div>
+						<div th:if="${communityPosts.totalPages != 1}"
+							class="form-group col-xs-6 col-md-* pagination-centered"
+							style="margin-top: -20px;">
+							<ul class="pagination">
+								<li th:class="${communityPosts.number == 0} ? disabled"><a
+									th:if="${user == null}" class="pageLink"
+									th:href="@{''(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+									<a th:if="${user != null}" class="pageLink"
+									th:href="@{''(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+								</li>
+								<li th:class="${communityPosts.number == 0} ? disabled"><a
+									th:if="${user == null}" class="pageLink"
+									th:href="@{''(pageSize=${selectedPageSize}, page=${communityPosts.number})}">&larr;</a>
+									<a th:if="${user != null}" class="pageLink"
+									th:href="@{''(pageSize=${selectedPageSize}, page=${communityPosts.number})}">&larr;</a>
+								</li>
+								<li
+									th:class="${communityPosts.number == (page - 1)} ? 'active pointer-disabled'"
+									th:each="page : ${#numbers.sequence(communityPostsPager.firstButton, communityPostsPager.finalButton)}">
+									<a th:if="${user == null}" class="pageLink"
+									th:href="@{'' (pageSize=${selectedPageSize}, page=${page})}"
+									th:text="${page}"></a> <a th:if="${user != null}"
+									class="pageLink"
+									th:href="@{'' (pageSize=${selectedPageSize}, page=${page})}"
+									th:text="${page}"></a>
+								</li>
+								<li
+									th:class="${communityPosts.number + 1 == communityPosts.totalPages} ? disabled">
+									<a th:if="${user == null}" class="pageLink"
+									th:href="@{'' (pageSize=${selectedPageSize}, page=${communityPosts.number + 2})}">&rarr;</a>
+									<a th:if="${user != null}" class="pageLink"
+									th:href="@{'' (pageSize=${selectedPageSize}, page=${communityPosts.number + 2})}">&rarr;</a>
+								</li>
+								<li
+									th:class="${communityPosts.number + 1 == communityPosts.totalPages} ? disabled">
+									<a th:if="${user == null}" class="pageLink"
+									th:href="@{'' (pageSize=${selectedPageSize}, page=${communityPosts.totalPages})}">&raquo;</a>
+									<a th:if="${user != null}" class="pageLink"
+									th:href="@{'' (pageSize=${selectedPageSize}, page=${communityPosts.totalPages})}">&raquo;</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+		<!-- Footer
     ================================================= -->
-    <footer class="navbar navbar-fixed-bottom" th:include="footer::footer"></footer>
-    
-    <!--preloader-->
-    <div id="spinner-wrapper">
-      <div class="spinner"></div>
-    </div>
+		<footer class="navbar navbar-fixed-bottom" th:include="footer::footer"></footer>
 
-    <!-- Scripts
+		<!--preloader-->
+		<div id="spinner-wrapper">
+			<div class="spinner"></div>
+		</div>
+
+		<!-- Scripts
     ================================================= -->
-    <script th:src="@{/js/jquery-3.1.1.min.js}"></script>
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-    <script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
-    <script th:src="@{/js/jquery.scrollbar.min.js}"></script>
-    <script th:src="@{/js/script.js}"></script>
-	<script th:src="@{/js/upvote.js}"></script>
-	<script th:src="@{/js/downvote.js}"></script>
-	<script th:src="@{/js/savePost.js}"></script>
-	<script th:src="@{/js/unsavePost.js}"></script>
-    <script th:inline="javascript">
-	    /*<![CDATA[*/	
-		    var communityName = /*[[${com.communityName}]]*/ 'Sebastian';
-		/*]]>*/
-    	function redirectToCreatePost()
-    	{
-    		window.location = "/user/community/"+communityName+"/createPost";
-    	}
-		
-    	function votePostNotSignIn() {
-            alert("Please login or register to vote!");
-        }
-    	
-		$("#pageSizeSelect").change(function() {
-			var pageSize = $('option:selected', $(this)).text();
-			var curr_url = window.location.href;
-			var beforeQueMark = curr_url.split('?')[0];
-			var afterQueMark = curr_url.split('?')[1];
-			
-			var fina_url = beforeQueMark + '?pageSize=' + pageSize;
-	        window.location = fina_url;
-	    });
-		
-/*     	// Limit Description
-	    function truncateText(element, maxLength) {
-	        let truncated = element.innerText;
-	        if (truncated.length > maxLength) {
-	            truncated = truncated.substr(0, maxLength) + '...';
-	        }
-	        //return truncated;
-	        element.innerText = truncated;
-	    }
-	    let countBDesc = document.querySelectorAll('.short-description');
-	    for(let i=0; i<countBDesc.length; i++)
-	    {
-	        truncateText(countBDesc[i], 150);
-	    } */
-    </script>    
-  </body>
+		<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/jquery.sticky-kit.min.js}"></script>
+		<script th:src="@{/js/jquery.scrollbar.min.js}"></script>
+		<script th:src="@{/js/script.js}"></script>
+		<script th:src="@{/js/upvote.js}"></script>
+		<script th:src="@{/js/downvote.js}"></script>
+		<script th:src="@{/js/savePost.js}"></script>
+		<script th:src="@{/js/unsavePost.js}"></script>
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var communityName = /*[[${com.communityName}]]*/'Sebastian';
+			/*]]>*/
+			function redirectToCreatePost() {
+				window.location = "/user/community/" + communityName
+						+ "/createPost";
+			}
+
+			function votePostNotSignIn() {
+				alert("Please login or register to vote!");
+			}
+
+			$("#pageSizeSelect").change(function() {
+				var pageSize = $('option:selected', $(this)).text();
+				var curr_url = window.location.href;
+				var beforeQueMark = curr_url.split('?')[0];
+				var afterQueMark = curr_url.split('?')[1];
+
+				var fina_url = beforeQueMark + '?pageSize=' + pageSize;
+				window.location = fina_url;
+			});
+
+			/*     	// Limit Description
+			 function truncateText(element, maxLength) {
+			 let truncated = element.innerText;
+			 if (truncated.length > maxLength) {
+			 truncated = truncated.substr(0, maxLength) + '...';
+			 }
+			 //return truncated;
+			 element.innerText = truncated;
+			 }
+			 let countBDesc = document.querySelectorAll('.short-description');
+			 for(let i=0; i<countBDesc.length; i++)
+			 {
+			 truncateText(countBDesc[i], 150);
+			 } */
+		</script>
+</body>
 </html>

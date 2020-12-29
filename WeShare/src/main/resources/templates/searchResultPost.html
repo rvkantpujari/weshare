@@ -36,92 +36,93 @@
 	<!--Header End-->
 
 	<div class="container">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="col-md-10">
-						<div style="padding: 20px;">
-				
-						<div th:if="${noPosts}">
-							<h3 style="color: black;">No Post found for <span style="font-style: italic; color: blue;" th:text="${query}"></span>.</h3>
-							<hr />
-							<div>
-								<a th:href="@{'/category/all/communities'}"
-									class="btn btn-primary">Go to all communities</a>
-							</div><br><br><br><br><br><br><br><br><br><br><br><br><br>
-						</div>
+		<div class="row" style='margin:20px 0 50px 0;'>
+			<div class="col">
+				<div class="col-md-1"></div>
+				<div class="col-md-10">
+					<div>
+			
+					<div th:if="${noPosts}">
+						<h3 style="color: black;">No Post found for <span style="font-style: italic; color: blue;" th:text="${query}"></span>.</h3>
+						<hr />
+						<div>
+							<a th:href="@{'/category/all/communities'}"
+								class="btn btn-primary">Go to all communities</a>
+						</div><br><br><br><br><br><br><br><br><br><br><br><br><br>
+					</div>
 
-							<div class="post-content" th:each="post: ${posts}">
-								<div class="post-container">
-									<div class="post-detail" style="margin-left: 0px;">
-										<div class="user-info">
-											<a
-												th:href="@{'/community/'+${post.community.communityName}+'/'+${post.postId}}"
-												class="profile-link">
-												<h2 th:text="${post.title}"></h2>
-											</a>
-											<p class="text-muted"
-												th:text="'posted by ' + ${post.user.userName} + ' on ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></p>
-											<span
-												th:text=" '&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments '"
-												class="following ion-compose"
-												style="font-size: 1.5rem; margin: 0px; padding: 0px;"></span>
-
-										</div>
-
-										<div class="reaction">
-
-											<span th:if="${user == null}">
-												<button onclick="votePostNotSignIn()"
-													class="upvoteBtn btn text-muted icon ion-thumbsup"
-													style="font-size: 2.5rem; background-color: white"></button>
-											</span> 
+						<div class="post-content" th:each="post: ${posts}">
+							<div class="post-container">
+								<div class="post-detail" style="margin-left: 0px;">
+									<div class="user-info">
+										<div class="row">
+											<div class="col-xs-9 text-justify">
+												<a th:href="@{'/community/'+${post.community.communityName}+'/'+${post.postId}}" class="profile-link">
+													<h3 th:text="${post.title}"></h3>
+												</a>
+											</div>
 											
-											 <span th:id="'score' + ${post.postId}"
-												th:text=" ${post.score}"
-												style="font-size: 2.0rem; padding: 15px"></span> <span
-												th:if="${user == null}">
-												<button onclick="votePostNotSignIn()"
-													class="downvoteBtn btn text-muted fa fa-thumbs-down"
-													style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
-											</span>
+											<div class="reaction col-xs-3">
 
-										</div>
-
-
-										<div class="post_with_content" th:if="${post.content}">
-											<div class="line-divider"></div>
-											<div class="post-text text-justify">
-												<span th:utext="${#strings.abbreviate(post.content, 1000)}"
-													class="short-description" style="font-size: 1.8rem"></span>
+												<span th:if="${user == null}">
+													<button data-toggle="modal" data-target="#myModal" class="upvoteBtn btn text-muted icon ion-thumbsup" style="font-size: 2.5rem; background-color: white"></button>
+												</span> 
+												
+												 <span th:id="'score' + ${post.postId}"
+													th:text=" ${post.score}"
+													style="font-size: 2.0rem; padding: 15px"></span> <span
+													th:if="${user == null}">
+													<button data-toggle="modal" data-target="#myModal" class="downvoteBtn btn text-muted fa fa-thumbs-down" style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
+												</span>
+	
 											</div>
 										</div>
+										<p class="text-muted"
+											th:text="'posted by ' + ${post.user.userName} + ' on ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></p>
+										<span
+											th:text=" '&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments '"
+											class="following ion-compose"
+											style="font-size: 1.5rem; margin: 0px; padding: 0px;"></span>
 
-										<div class="post_with_link" th:if="${post.link}">
-											<div class="line-divider"></div>
-											<div class="post-text text-justify">
-												<a th:href="${post.link}" th:text="${post.link}"
-													style="font-size: 1.8rem" target="_blank"></a>
-											</div>
-										</div>
+									</div>
 
-										<div class="post_with_media" th:if="${post.imageUrl}">
-											<div class="line-divider"></div>
-											<img th:src="'/postImages/' + ${post.postId} + '.png'"
-												alt="post-image" class="img-responsive post-image" />
+									
+
+
+									<div class="post_with_content" th:if="${post.content}">
+										<div class="line-divider"></div>
+										<div class="post-text text-justify">
+											<span th:utext="${#strings.abbreviate(post.content, 1000)}"
+												class="short-description" style="font-size: 1.8rem"></span>
 										</div>
+									</div>
+
+									<div class="post_with_link" th:if="${post.link}">
+										<div class="line-divider"></div>
+										<div class="post-text text-justify">
+											<a th:href="${post.link}" th:text="${post.link}"
+												style="font-size: 1.8rem" target="_blank"></a>
+										</div>
+									</div>
+
+									<div class="post_with_media" th:if="${post.imageUrl}">
+										<div class="line-divider"></div>
+										<img th:src="'/postImages/' + ${post.postId} + '.png'"
+											alt="post-image" class="img-responsive post-image" />
 									</div>
 								</div>
 							</div>
-
-
 						</div>
+
+
 					</div>
 				</div>
-
+				<div class="col-md-1"></div>
 			</div>
+
 		</div>
 	</div>
+	
 
 
 	<!-- Footer
@@ -132,6 +133,27 @@
 	<!--preloader-->
 	<div id="spinner-wrapper">
 		<div class="spinner"></div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" role="dialog" style="margin-top:20vh;">
+	  <div class="modal-dialog">
+	  
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title" style="font-size:3rem;">Login</h4>
+	      </div>
+	      <div class="modal-body h4">
+	        <p>In order to UpVote or DownVote, you are required to be logged in.</p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	    
+	  </div>
 	</div>
 
 	<!-- Scripts

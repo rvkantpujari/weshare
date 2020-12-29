@@ -54,11 +54,11 @@
 							<div class="post-content" th:each="post: ${posts}">
 								<div class="post-container">
 									<div class="post-detail" style="margin-left: 0px;">
-										<div class="user-info">
+										<div class="user-info text-justify">
 											<a
 												th:href="@{'/admin/community/'+${post.community.communityName}+'/'+${post.postId}}"
 												class="profile-link">
-												<h2 th:text="${post.title}"></h2>
+												<h3 th:text="${post.title}"></h3>
 											</a>
 											<p class="text-muted"
 												th:text="'posted by ' + ${post.user.userName} + ' on ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></p>
