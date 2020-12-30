@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.weshare.model.PasswordResetToken;
 import com.weshare.model.User;
 @Service
 public interface UserService {
@@ -17,4 +18,8 @@ public interface UserService {
 	  public User updateUser(User user);
 	 
 	  public List<User> getAllUsers();
+	  
+	  PasswordResetToken getPasswordResetToken(final String token);
+	  
+	  void createPasswordResetTokenForUser(final User user, final String token);
 }
