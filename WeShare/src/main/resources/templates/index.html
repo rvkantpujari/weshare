@@ -69,6 +69,15 @@
 						<h4 th:text="${successMessage}"></h4>	
 					</div>
 					
+					<div class="alert alert-success" th:if="${verified}">
+						<h4 th:text="${verified}"></h4>	
+					</div>
+					
+					<div class="alert alert-danger" th:if="${alreadyVerified}">
+						<h4 th:text="${alreadyVerified}"></h4>	
+					</div>
+					
+					
                   <h3>Register</h3>
                   <p class="text-muted">Join hands for community contribution</p>
                   
