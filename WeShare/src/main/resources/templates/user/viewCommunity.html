@@ -107,7 +107,7 @@
 							th:text="${#dates.format(com.creationDate, 'dd-MMM-yyyy')}">Created
 							On</span><br> Created By: <span th:text=${com.user.userName}>Created
 							By</span><br> Category: <span th:text=${com.category.categoryName}>Category</span><br>
-						Total Members Joined: <span th:text=${com.membersCount}>Members</span><br>
+						Total Members Joined: <span id="communityMembersCount" th:text=${com.membersCount}>Members</span><br>
 						Total Posts: <span th:text="${#lists.size(com.posts)}">Total
 							Posts</span>
 

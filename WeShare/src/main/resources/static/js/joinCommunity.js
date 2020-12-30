@@ -1,6 +1,8 @@
 $(document).on('click', '.joinCommunityBtn', function(event) {
 	event.preventDefault();
 	const communityName = event.target.value;
+	var communityMembersCount = document.getElementById("communityMembersCount");
+	var currentCommunityMembersCount = parseInt(communityMembersCount.textContent);
 	console.log("in join  community: " + communityName);
 	$.ajax({
 		type: "POST",
@@ -16,6 +18,7 @@ $(document).on('click', '.joinCommunityBtn', function(event) {
 				event.target.classList.remove("joinCommunityBtn");
 				event.target.classList.add("leaveCommunityBtn");
 				event.target.innerHTML = "Leave";
+				communityMembersCount.textContent = currentCommunityMembersCount + 1;
 			} else
 			{
 				console.log("something went wrong!!!");
