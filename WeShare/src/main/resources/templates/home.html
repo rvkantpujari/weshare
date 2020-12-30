@@ -97,8 +97,9 @@
 		
 												</div>
 											</div>
-											<p class="text-muted"
-												th:text="'posted by ' + ${post.user.userName} + ' on ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></p>
+											<span>posted in </span><a th:href="@{'/community/'+${post.community.communityName}}" th:text="'c/'+${post.community.communityName}"></a>
+											<span class="text-muted"
+												th:text="'&nbsp;by ' + ${post.user.userName} + ' on ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></span>
 											<span
 												th:text=" '&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments&nbsp;&nbsp; '"
 												class="following ion-compose"
