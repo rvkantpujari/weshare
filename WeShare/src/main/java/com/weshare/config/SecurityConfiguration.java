@@ -36,6 +36,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     		"/error",
     		"/search",
     		"/home",
+    		"/home/top",
+    		"/home/popular",
     		"/",
     		"/registration",
     		"/confirmRegistration",

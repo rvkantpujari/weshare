@@ -20,38 +20,38 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,700i"
 	rel="stylesheet">
-	<style>
-		ul > li {
-			font-size: 1.3em;
-		}
-		
-		.vertical-line-divider {
-    		display:inline;
-    		border: 1px solid lightgrey; margin:0 10px 0 10px;
-    	}
-		
-		.btn-danger {
-			margin:10px;
-		}
-		
-		.communities {
-			text-indent: 5px;
-		}
-		
-		i.fa.fa-trash-o {
-			color:white;
-			background-color:#d9534f;
-			padding:10px 15px;
-			border-radius:5px;
-			font-size: 1.5rem;;
-		}
-		
-		i.fa.fa-trash-o:hover {
-			color:red;
-			background-color:white;
-		}
-		
-	</style>
+<style>
+ul>li {
+	font-size: 1.3em;
+}
+
+.vertical-line-divider {
+	display: inline;
+	border: 1px solid lightgrey;
+	margin: 0 10px 0 10px;
+}
+
+.btn-danger {
+	margin: 10px;
+}
+
+.communities {
+	text-indent: 5px;
+}
+
+i.fa.fa-trash-o {
+	color: white;
+	background-color: #d9534f;
+	padding: 10px 15px;
+	border-radius: 5px;
+	font-size: 1.5rem;;
+}
+
+i.fa.fa-trash-o:hover {
+	color: red;
+	background-color: white;
+}
+</style>
 <!--Favicon-->
 <link rel="shortcut icon" type="image/png" th:href="@{/images/fav.png}" />
 </head>
@@ -80,36 +80,41 @@
 										<div class="user-info">
 											<div class="row">
 												<div class="col-xs-9 text-justify">
-													<a th:href="@{'/admin/community/'+${post.community.communityName}+'/'+${post.postId}}" class="profile-link">
+													<a
+														th:href="@{'/admin/community/'+${post.community.communityName}+'/'+${post.postId}}"
+														class="profile-link">
 														<h3 th:text="${post.title}"></h3>
 													</a>
 												</div>
-												<div class="reaction col-xs-3" style="position:relative; right:-20px;">
+												<div class="reaction col-xs-3"
+													style="position: relative; right: -20px;">
 													<span th:if="${user == null}">
 														<button onclick="votePostNotSignIn()"
 															class="upvoteBtn btn text-muted icon ion-thumbsup"
-															style="font-size: 2.5rem; background-color: white" disabled></button>
-													</span> 
-													
-													<span th:id="'score' + ${post.postId}"
+															style="font-size: 2.5rem; background-color: white"
+															disabled></button>
+													</span> <span th:id="'score' + ${post.postId}"
 														th:text=" ${post.score}"
 														style="font-size: 2.0rem; padding: 15px"></span> <span
 														th:if="${user == null}">
 														<button onclick="votePostNotSignIn()"
 															class="downvoteBtn btn text-muted fa fa-thumbs-down"
-															style="font-size: 2.5rem; padding: 10px; background-color: white" disabled></button>
+															style="font-size: 2.5rem; padding: 10px; background-color: white"
+															disabled></button>
 													</span>
 												</div>
 											</div>
 											<p class="text-muted"
 												th:text="'posted by ' + ${post.user.userName} + ' on ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></p>
-											<span th:text=" '&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments&nbsp;&nbsp; '" class="following ion-compose" style="font-size: 1.5rem; margin: 0px; padding: 0px;"></span>
-											
-											<span class=" vertical-line-divider"></span>
+											<span
+												th:text=" '&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments&nbsp;&nbsp; '"
+												class="following ion-compose"
+												style="font-size: 1.5rem; margin: 0px; padding: 0px;"></span>
 
-											<a th:href="@{'/admin/community/'+${post.community.communityName}+'/'+${post.postId}+'/delete'}"
-												class="float-right btn btn-md">
-													<i class="fa fa-trash-o" aria-hidden="true"> Delete</i>
+											<span class=" vertical-line-divider"></span> <a
+												th:href="@{'/admin/community/'+${post.community.communityName}+'/'+${post.postId}+'/delete'}"
+												class="float-right btn btn-md"> <i class="fa fa-trash-o"
+												aria-hidden="true"> Delete</i>
 											</a>
 
 										</div>
@@ -138,15 +143,83 @@
 									</div>
 								</div>
 							</div>
-						<br>
+							<br>
 
 						</div>
+
+						<div th:if="${!posts.isEmpty()}">
+							<div class="row page">
+								<div class="form-group  col-xs-12 col-md-3">
+									<div class="row" style="margin-bottom: 40px;">
+										<div class="col-xs-3 h4">Page:</div>
+										<div class="col-xs-9">
+											<select class="form-control pagination" id="pageSizeSelect"
+												style="margin-top: 0px;">
+
+												<option th:each="pageSize : ${pageSizes}"
+													th:text="${pageSize}" th:value="${pageSize}"
+													th:selected="${pageSize} == ${selectedPageSize}">
+													<span th:text="${pageSize}"></span>
+												</option>
+
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-1"></div>
+								<div th:if="${posts.totalPages != 1}"
+									class="form-group col-xs-10 col-md-9 pagination-centered paginator">
+									<ul class="pagination">
+										<li th:class="${posts.number == 0} ? disabled"><a
+											th:if="${user == null}" class="pageLink"
+											th:href="@{''(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+											<a th:if="${user != null}" class="pageLink"
+											th:href="@{''(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+										</li>
+										<li th:class="${posts.number == 0} ? disabled"><a
+											th:if="${user == null}" class="pageLink"
+											th:href="@{''(pageSize=${selectedPageSize}, page=${posts.number})}">&larr;</a>
+											<a th:if="${user != null}" class="pageLink"
+											th:href="@{''(pageSize=${selectedPageSize}, page=${posts.number})}">&larr;</a>
+										</li>
+										<li
+											th:class="${posts.number == (page - 1)} ? 'active pointer-disabled'"
+											th:each="page : ${#numbers.sequence(postsPager.firstButton, postsPager.finalButton)}">
+											<a th:if="${user == null}" class="pageLink"
+											th:href="@{'' (pageSize=${selectedPageSize}, page=${page})}"
+											th:text="${page}"></a> <a th:if="${user != null}"
+											class="pageLink"
+											th:href="@{'' (pageSize=${selectedPageSize}, page=${page})}"
+											th:text="${page}"></a>
+										</li>
+										<li
+											th:class="${posts.number + 1 == posts.totalPages} ? disabled">
+											<a th:if="${user == null}" class="pageLink"
+											th:href="@{'' (pageSize=${selectedPageSize}, page=${posts.number + 2})}">&rarr;</a>
+											<a th:if="${user != null}" class="pageLink"
+											th:href="@{'' (pageSize=${selectedPageSize}, page=${posts.number + 2})}">&rarr;</a>
+										</li>
+										<li
+											th:class="${posts.number + 1 == posts.totalPages} ? disabled">
+											<a th:if="${user == null}" class="pageLink"
+											th:href="@{'' (pageSize=${selectedPageSize}, page=${posts.totalPages})}">&raquo;</a>
+											<a th:if="${user != null}" class="pageLink"
+											th:href="@{'' (pageSize=${selectedPageSize}, page=${posts.totalPages})}">&raquo;</a>
+										</li>
+									</ul>
+								</div>
+								<div class="col-xs-1"></div>
+							</div>
+						</div>
+
 					</div>
 					<aside>
 
 						<div class="md-3 col-md-offset-9">
-							<div style="margin-top: 40px; border: 2px solid lightgrey; border-radius: 5px; padding: 20px; position:fixed;">
-								<h3 style="text-align: center;" class="grey">Popular Communities</h3>
+							<div
+								style="margin-top: 40px; border: 2px solid lightgrey; border-radius: 5px; padding: 20px; position: fixed;">
+								<h3 style="text-align: center;" class="grey">Popular
+									Communities</h3>
 								<hr style="border: 0.5px solid black;">
 								<ul th:each="community: ${topCommunities}" class="communities">
 									<li><a
@@ -167,7 +240,7 @@
 	<!-- Footer
     ================================================= --
 		<footer class="navbar navbar-fixed-bottom" th:include="footer::footer"></footer>-->
-		<footer id="footer" th:include="footer::footer"></footer>
+	<footer id="footer" th:include="footer::footer"></footer>
 
 	<!--preloader-->
 	<div id="spinner-wrapper">
@@ -184,6 +257,18 @@
 	<script th:src="@{/js/script.js}"></script>
 	<script th:src="@{/js/upvote.js}"></script>
 	<script th:src="@{/js/downvote.js}"></script>
+
+	<script>
+		$("#pageSizeSelect").change(function() {
+			var pageSize = $('option:selected', $(this)).text();
+			var curr_url = window.location.href;
+			var beforeQueMark = curr_url.split('?')[0];
+			var afterQueMark = curr_url.split('?')[1];
+
+			var fina_url = beforeQueMark + '?pageSize=' + pageSize;
+			window.location = fina_url;
+		});
+	</script>
 
 </body>
 </html>

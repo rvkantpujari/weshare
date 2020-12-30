@@ -78,15 +78,11 @@
                     <button th:unless="${joined}==true" class="btn btn-danger" style="padding: 5px 20px; margin: 5px 0px; border-radius:20px;">Leave</button> -->
 
 									<div th:unless="${exist}">
-										<a th:href="@{'/user/community/'+${communityName}+'/join'}">
-											<button type="submit" class="btn btn-success col-3">Join</button>
-										</a>
+											<button th:value="${com.communityName}" type="submit" class="joinCommunityBtn btn btn-success col-3">Join</button>
 									</div>
 
 									<div th:if="${exist}">
-										<a th:href="@{'/user/community/'+${communityName}+'/leave'}">
-											<button type="submit" class="btn btn-danger col-3">Leave</button>
-										</a>
+											<button th:value="${com.communityName}" type="submit" class="leaveCommunityBtn btn btn-danger col-3">Leave</button>
 									</div>
 								</div>
 							</div>
@@ -121,10 +117,12 @@
 				<!-- About Community Side Bar Right
           ================================================= -->
 				<div class="col-md-9">
-					<div>
-						<button class="btn btn-default sort-btn">Most Liked</button>
-						<button class="btn btn-default sort-btn">Most Commented</button>
-						<button class="btn btn-default sort-btn">Newest</button>
+					<div th:if="${!communityPosts.isEmpty()}">
+						<div>
+							<a th:href="@{'/user/community/'+${communityName}+'/top'}"><button id="btn-sort-top" class="btn btn-default sort-btn">Most Liked</button></a>
+							<a th:href="@{'/user/community/'+${communityName}+'/popular'}"><button id="btn-sort-popular" class="btn btn-default sort-btn">Most Commented</button></a>
+							<a th:href="@{'/user/community/'+${communityName}}"><button id="btn-sort-new" class="btn btn-default sort-btn">Newest</button></a>
+						</div>
 					</div>
 					<div class="create-post" style="cursor: pointer;">
 						<div class="col-md-10 col-sm-10">
@@ -244,6 +242,7 @@
 						</div>
 					</div>
 
+					<div th:if="${!communityPosts.isEmpty()}">
 					<div class="row page" style="margin-top: 30px;">
 						<div class="form-group col-xs-6 col-md-3"
 							style="margin-left: 40px; display: inline;">
@@ -306,7 +305,8 @@
 							</ul>
 						</div>
 					</div>
-
+					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -332,6 +332,8 @@
 		<script th:src="@{/js/downvote.js}"></script>
 		<script th:src="@{/js/savePost.js}"></script>
 		<script th:src="@{/js/unsavePost.js}"></script>
+		<script th:src="@{/js/joinCommunity.js}"></script>
+		<script th:src="@{/js/leaveCommunity.js}"></script>
 		<script th:inline="javascript">
 			/*<![CDATA[*/
 			var communityName = /*[[${com.communityName}]]*/'Sebastian';
@@ -354,21 +356,6 @@
 				var fina_url = beforeQueMark + '?pageSize=' + pageSize;
 				window.location = fina_url;
 			});
-
-			/*     	// Limit Description
-			 function truncateText(element, maxLength) {
-			 let truncated = element.innerText;
-			 if (truncated.length > maxLength) {
-			 truncated = truncated.substr(0, maxLength) + '...';
-			 }
-			 //return truncated;
-			 element.innerText = truncated;
-			 }
-			 let countBDesc = document.querySelectorAll('.short-description');
-			 for(let i=0; i<countBDesc.length; i++)
-			 {
-			 truncateText(countBDesc[i], 150);
-			 } */
 		</script>
 </body>
 </html>
