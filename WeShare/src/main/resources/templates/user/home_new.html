@@ -177,13 +177,13 @@
 	
 											</div>
 										</div>	
-										
-										<p class="text-muted"
-											th:text="'posted by ' + ${post.user.userName} + ' on ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></p>
-										<span
-											th:text=" '&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments '"
-											class="following ion-compose"
-											style="font-size: 1.5rem; margin: 0px; padding: 0px;"></span>
+										<span>posted in </span><a th:href="@{'/user/community/'+${post.community.communityName}}" th:text="'c/'+${post.community.communityName}"></a>
+											<span class="text-muted"
+												th:text="'&nbsp;by ' + ${post.user.userName} + ' on ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></span>
+											<span
+												th:text=" '&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments&nbsp;&nbsp; '"
+												class="following ion-compose"
+												style="font-size: 1.5rem; margin: 0px; padding: 0px;"></span>
 
 										<span
 											th:with="isPostSaved=${savePostService.findByPostAndUser(post,user)}">
