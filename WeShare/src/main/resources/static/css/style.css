@@ -196,6 +196,12 @@ body{
 	}
 }
 
+#error404 {
+	background: url(../images/error-404.webp);
+  	background-position: center;
+	background-size: cover;
+}
+
 /*==================================================
   Typography
   ==================================================*/

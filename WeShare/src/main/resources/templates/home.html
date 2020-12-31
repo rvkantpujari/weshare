@@ -24,6 +24,9 @@
 		ul > li {
 			font-size: 1.3em;
 		}
+		.paginator {
+			margin-top:-20px;
+		}
 		
 		.communities {
 			text-indent: 5px;
@@ -79,17 +82,15 @@
 												<div class="reaction col-xs-3">
 
 													<span th:if="${user == null}">
+													
 														<button data-toggle="modal" data-target="#myModal"
 															class="upvoteBtn btn text-muted icon ion-thumbsup"
 															style="font-size: 2.5rem; background-color: white"></button>
-														
 														 
 													</span> 
 													
-													 <span th:id="'score' + ${post.postId}"
-														th:text=" ${post.score}"
-														style="font-size: 2.0rem; padding: 15px"></span> <span
-														th:if="${user == null}">
+													<span th:id="'score' + ${post.postId}" th:text=" ${post.score}" class="post-score" style="font-size: 1.8rem; padding: 8px;"></span> 
+													<span th:if="${user == null}">
 														<button data-toggle="modal" data-target="#myModal"
 															class="downvoteBtn btn text-muted fa fa-thumbs-down"
 															style="font-size: 2.5rem; padding: 10px; background-color: white"></button>
@@ -97,13 +98,13 @@
 		
 												</div>
 											</div>
-											<span>posted in </span><a th:href="@{'/community/'+${post.community.communityName}}" th:text="'c/'+${post.community.communityName}"></a>
+											<span>posted in </span><a th:href="@{'/community/'+${post.community.communityName}}" th:text="${post.community.communityName}"></a>
 											<span class="text-muted"
 												th:text="'&nbsp;by ' + ${post.user.userName} + ' on ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></span>
 											<span
 												th:text=" '&nbsp;&nbsp;' + ${post.commentsNum} + '&nbsp;&nbsp;comments&nbsp;&nbsp; '"
 												class="following ion-compose"
-												style="font-size: 1.5rem; margin: 0px; padding: 0px;"></span>
+												style="font-size: 1.5rem; margin:  0 0 0 10px; padding: 0px;"></span>
 
 										</div>
 
@@ -138,21 +139,26 @@
 						
 						<div th:if="${!posts.isEmpty()}">
 						<div class="row page">
-							<div class="form-group col-md-1" style="margin-left: 40px;">
-								<select class="form-control pagination" id="pageSizeSelect">
-
-									<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
-										th:value="${pageSize}"
-										th:id="${pageSize}"
-										th:selected="${pageSize} == ${selectedPageSize}">
-										<span
-											th:text="${pageSize}"></span>
-									</option>
-
-								</select>
+							
+							<div class="form-group  col-xs-12 col-md-3">
+								<div class="row" style="margin-bottom: 40px;">
+		                        	<div class="col-xs-3 h4">
+				                        Page: 
+				                    </div>
+				                    <div class="col-xs-9">
+										<select class="form-control pagination" id="pageSizeSelect" style="margin-top:0px;">
+		
+											<option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}" th:id="${pageSize}" th:selected="${pageSize} == ${selectedPageSize}">
+												<span th:text="${pageSize}"></span>
+											</option>
+		
+										</select>
+				                    </div>
+		                        </div>
 							</div>
-							<div th:if="${posts.totalPages != 1}"
-								class="form-group col-md-11 pagination-centered">
+							
+							<div class="col-xs-1"></div>
+							<div th:if="${posts.totalPages != 1}" class="form-group col-xs-10 col-md-9 pagination-centered paginator">
 								<ul class="pagination">
 									<li th:class="${posts.number == 0} ? disabled"><a
 										th:if="${user == null}" class="pageLink"
@@ -192,6 +198,7 @@
 									</li>
 								</ul>
 							</div>
+							<div class="col-xs-1"></div>
 						</div>
 						</div>
 						
@@ -219,8 +226,9 @@
 
 
 	<!-- Footer
-    ================================================= -->
-		<footer class="navbar navbar-fixed-bottom" th:include="footer::footer"></footer>
+    ================================================= --
+	<footer class="navbar navbar-fixed-bottom" th:include="footer::footer"></footer>-->
+	<footer id="footer" th:include="footer::footer"></footer>	
 
 	<!--preloader-->
 	<div id="spinner-wrapper">
@@ -270,6 +278,19 @@
 			var fina_url = beforeQueMark + '?pageSize=' + pageSize;
 	        window.location = fina_url;
 	    });
+		
+		/*
+		var postScores = document.getElementsByClassName('post-score');
+		for(let p of postScores)
+		{
+			var formatter = new Intl.NumberFormat('en', { notation : 'compact' });
+			let postScore = p.textContent;
+			
+			let ele = document.getElementById(p.id);
+			console.log(formatter.format(postScore));
+			
+		}
+		*/
     </script>    
 
 </body>

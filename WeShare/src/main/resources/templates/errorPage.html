@@ -23,15 +23,27 @@
 	
 	<style>
 		.center {
-			  display: block;
-			  margin-left: auto;
-			  margin-right: auto;
-			  margin-top:10%;
-			  width: 50%;
-			}
+		  display: block;
+		  margin-left: auto;
+		  margin-right: auto;
+		  margin-top:10%;
+		  width: 50%;
+		}
+		
+		.btn.btn-default {
+			font-size:1.5rem;
+			border:none;
+		}
+		
+		.btn.btn-default:hover {
+			transform: scale(1.05);
+        	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        	background-color: white;
+        	transition: transform 300ms;
+		}
 	</style>
   </head>
-  <body>
+  <body id="error404">
 
     <!-- Header
     ================================================= navbar-fixed-top -->
@@ -55,20 +67,21 @@
     		<div class="row">
 		  
 				<div class="col-lg-12 col-md-12 col-sm-12">
-					<div class="text-center" style="font-size:xx-large;">
-						<p th:text="${errorMsg}"></p><br/>
-							<div th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
-								<u><a th:href="@{/admin/home}">BACK TO HOME PAGE</a></u>
-							</div>
-							
-							<div th:if="${#authorization.expression('hasAuthority(''USER'')')}">
-								<u><a th:href="@{/user/home}">BACK TO HOME PAGE</a></u>
-							</div>
+					<div class="text-center" style="font-size:xx-large; margin-top:60vh;">
+						<p th:text="${errorMsg}" style="font-size:2.5rem;margin-left:2vw;"></p>
+						<br/>
+						<div th:if="${#authorization.expression('hasAuthority(''ADMIN'')')}">
+							<u><a th:href="@{/admin/home}" class="btn btn-default">BACK TO HOME PAGE</a></u>
+						</div>
+						
+						<div th:if="${#authorization.expression('hasAuthority(''USER'')')}">
+							<u><a th:href="@{/user/home}" class="btn btn-default">BACK TO HOME PAGE</a></u>
+						</div>
 						
 					</div>
 				</div>
 				
-				<img class="center"  alt="" th:src="@{/images/error.jpg}">          		
+				<!-- <img class="center"  alt="" th:src="@{/images/error-404.gif}"> -->
           		
     		</div>
     	</div>

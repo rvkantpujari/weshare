@@ -104,7 +104,7 @@ i.fa.fa-trash-o:hover {
 													</span>
 												</div>
 											</div>
-											<span>posted in </span><a th:href="@{'/admin/community/'+${post.community.communityName}}" th:text="'c/'+${post.community.communityName}"></a>
+											<span>posted in </span><a th:href="@{'/admin/community/'+${post.community.communityName}}" th:text="${post.community.communityName}"></a>
 											<span class="text-muted"
 												th:text="'&nbsp;by ' + ${post.user.userName} + ' on ' + ${#dates.format(post.creationDate, 'dd-MMM-yyyy HH:mm:ss')}"></span>
 											<span
