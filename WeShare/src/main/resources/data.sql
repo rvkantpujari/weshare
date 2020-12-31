@@ -301,6 +301,13 @@ INSERT INTO `COMMUNITY_MEMBERS` (user_id, community_id) VALUES (3, 4);
 INSERT INTO `COMMUNITY_MEMBERS` (user_id, community_id) VALUES (6, 1);
 INSERT INTO `COMMUNITY_MEMBERS` (user_id, community_id) VALUES (5, 10);
 
+
+UPDATE community INNER JOIN (select community_id, count(*) as total_members
+   from `community_members`
+  group by community_id) as temp
+    ON community.community_id = temp.community_id
+SET community.members_count = temp.total_members;
+
 insert into feedback (id, content, email, feedback_given_on) values (1, 'installation', 'kkissock0@unc.edu', '2016-01-14');
 insert into feedback (id, content, email, feedback_given_on) values (2, 'Managed', 'acarwithan1@ed.gov', '2015-12-26');
 insert into feedback (id, content, email, feedback_given_on) values (3, 'Cross-platform', 'tcorde2@imgur.com', '2020-03-28');
@@ -470,7 +477,11 @@ insert into vote (user_id, post_id, vote_id, vote) values (2, 30, 98, 0);
 insert into vote (user_id, post_id, vote_id, vote) values (4, 11, 99, 1);
 insert into vote (user_id, post_id, vote_id, vote) values (6, 29, 100, 0);
 
-
+UPDATE post INNER JOIN (select post_id, count(vote) as total_score
+   from `vote`
+  group by post_id) as temp
+    ON post.post_id = temp.post_id
+SET post.score = temp.total_score;
 
 
 INSERT IGNORE INTO `community_members` (user_id, community_id)
